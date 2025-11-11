@@ -8,392 +8,240 @@
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>🌾 Porteira Preta — Sistema Rural</h1>
-            <nav>
-                <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">🏠 Dashboard</button>
-                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
-                <button onclick="logout()" class="btn btn-danger">Logout</button>
-            </nav>
+        <div class="header-container">
+            <div class="header-left">
+                <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+                <h1 class="logo-header">🌾 Porteira Preta</h1>
+            </div>
+            <div class="header-right">
+                <button onclick="window.location.href='dashboard.html'" class="btn-header">Dashboard</button>
+                <button onclick="logout()" class="btn-header btn-danger">Sair</button>
+            </div>
         </div>
     </header>
     
-    <!-- Menu Lateral -->
-    <div id="sideMenu" class="side-menu">
+    <aside id="sideMenu" class="side-menu">
         <div class="menu-header">
             <h3>📋 Menu Principal</h3>
-            <button onclick="toggleMenu()" class="btn-close">✕</button>
+            <button onclick="toggleMenu()" class="btn-close">×</button>
         </div>
-        <ul class="menu-list">
-            <li><a href="dashboard.html">🏠 Dashboard</a></li>
-            <li><a href="animais.html">🐄 Animais</a></li>
-            <li><a href="genealogia.html">🧬 Genealogia</a></li>
-            <li><a href="inseminacao.html">🐮 Inseminação</a></li>
-            <li><a href="sanitario.html">💉 Controle Sanitário</a></li>
-            <li><a href="alimentacao.html">🌾 Alimentação</a></li>
-            <li><a href="pastagens.html">🌱 Pastagens</a></li>
-            <li><a href="leite.html">🥛 Produção de Leite</a></li>
-            <li><a href="adubacao.html" class="active">🧪 Adubação</a></li>
-            <li><a href="contas.html">💰 Finanças</a></li>
-            <li><a href="lavouras.html">🌱 Lavouras</a></li>
-            <li><a href="maquinas.html">🚜 Máquinas</a></li>
-            <li><a href="funcionarios.html">👨‍🌾 Funcionários</a></li>
-            <li><a href="agenda.html">📅 Agenda</a></li>
-            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
-        </ul>
-    </div>
+        <nav class="menu-nav">
+            <div class="menu-section">
+                <div class="menu-section-title">🏠 PAINEL</div>
+                <a href="dashboard.html" class="menu-item"><span class="menu-icon">📊</span><span>Dashboard</span></a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">🐄 ZOOTECNIA</div>
+                <a href="animais.html" class="menu-item"><span class="menu-icon">🐄</span><span>Gestão de Animais</span></a>
+                <a href="genealogia.html" class="menu-item"><span class="menu-icon">🧬</span><span>Genealogia e Crias</span></a>
+                <a href="inseminacao.html" class="menu-item"><span class="menu-icon">🐮</span><span>Inseminação</span></a>
+                <a href="sanitario.html" class="menu-item"><span class="menu-icon">💉</span><span>Controle Sanitário</span></a>
+                <a href="alimentacao.html" class="menu-item"><span class="menu-icon">🌾</span><span>Alimentação</span></a>
+                <a href="leite.html" class="menu-item"><span class="menu-icon">🥛</span><span>Produção de Leite</span></a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">🌱 AGRICULTURA</div>
+                <a href="pastagens.html" class="menu-item"><span class="menu-icon">🌱</span><span>Gestão de Pastagens</span></a>
+                <a href="adubacao.html" class="menu-item active"><span class="menu-icon">🧪</span><span>Adubação</span></a>
+                <a href="lavouras.html" class="menu-item"><span class="menu-icon">🌾</span><span>Lavouras</span></a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">💼 GESTÃO</div>
+                <a href="contas.html" class="menu-item"><span class="menu-icon">💰</span><span>Financeiro</span></a>
+                <a href="maquinas.html" class="menu-item"><span class="menu-icon">🚜</span><span>Máquinas</span></a>
+                <a href="funcionarios.html" class="menu-item"><span class="menu-icon">👨‍🌾</span><span>Funcionários</span></a>
+                <a href="agenda.html" class="menu-item"><span class="menu-icon">📅</span><span>Agenda</span></a>
+                <a href="ferramentas.html" class="menu-item"><span class="menu-icon">🧮</span><span>Ferramentas</span></a>
+            </div>
+        </nav>
+    </aside>
     
-    <main class="container">
-        <!-- Planejamento de Adubação -->
-        <section class="card">
-            <h2>🧪 Planejar Adubação</h2>
+    <div id="menuOverlay" class="menu-overlay" onclick="toggleMenu()"></div>
+    
+    <main class="main-content">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="dashboard.html">Dashboard</a>
+                <span>/</span>
+                <span>Controle de Adubação</span>
+            </nav>
             
-            <form id="adubacaoForm">
-                <div class="form-row">
-                    <div class="form-group flex-2">
-                        <label for="areaAdubacao">Área/Talhão</label>
-                        <select id="areaAdubacao" required>
-                            <option value="">Selecione a área</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="dataAdubacao">Data da Aplicação</label>
-                        <input type="date" id="dataAdubacao" required>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="tipoAdubo">Tipo de Adubo</label>
-                        <select id="tipoAdubo" required>
-                            <option value="">Selecione</option>
-                            <option value="NPK 04-14-08">NPK 04-14-08</option>
-                            <option value="NPK 10-10-10">NPK 10-10-10</option>
-                            <option value="NPK 20-05-20">NPK 20-05-20</option>
-                            <option value="Uréia">Uréia (45% N)</option>
-                            <option value="Sulfato de Amônio">Sulfato de Amônio</option>
-                            <option value="Superfosfato Simples">Superfosfato Simples</option>
-                            <option value="Cloreto de Potássio">Cloreto de Potássio</option>
-                            <option value="Calcário">Calcário</option>
-                            <option value="Gesso Agrícola">Gesso Agrícola</option>
-                            <option value="Esterco Bovino">Esterco Bovino</option>
-                            <option value="Cama de Frango">Cama de Frango</option>
-                            <option value="Composto Orgânico">Composto Orgânico</option>
-                            <option value="Outro">Outro</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="formulacaoAdubo">Formulação/Composição</label>
-                        <input type="text" id="formulacaoAdubo" placeholder="Ex: 20-05-20">
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="dosagem">Dosagem (kg/ha)</label>
-                        <input type="number" id="dosagem" step="0.1" min="0" placeholder="Ex: 350" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="areaHectares">Área Aplicada (ha)</label>
-                        <input type="number" id="areaHectares" step="0.01" min="0" placeholder="Ex: 5.5" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="quantidadeTotal">Quantidade Total (kg)</label>
-                        <input type="number" id="quantidadeTotal" step="0.1" min="0" readonly>
-                        <small>Calculado automaticamente</small>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="custoAdubo">Custo do Adubo (R$/kg ou R$/ton)</label>
-                        <input type="number" id="custoAdubo" step="0.01" min="0" placeholder="Ex: 2.50">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="custoAplicacao">Custo de Aplicação (R$)</label>
-                        <input type="number" id="custoAplicacao" step="0.01" min="0" placeholder="Ex: 150.00">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="custoTotal">Custo Total (R$)</label>
-                        <input type="number" id="custoTotal" step="0.01" min="0" readonly>
-                        <small>Calculado automaticamente</small>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="metodoAplicacao">Método de Aplicação</label>
-                        <select id="metodoAplicacao">
-                            <option value="A Lanço">A Lanço</option>
-                            <option value="Localizado">Localizado (sulco/cova)</option>
-                            <option value="Foliar">Foliar</option>
-                            <option value="Fertirrigação">Fertirrigação</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="finalidadeAdubo">Finalidade</label>
-                        <select id="finalidadeAdubo">
-                            <option value="Plantio">Adubação de Plantio</option>
-                            <option value="Cobertura">Adubação de Cobertura</option>
-                            <option value="Correção">Correção de Solo</option>
-                            <option value="Manutenção">Manutenção</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="obsAdubacao">Observações</label>
-                    <textarea id="obsAdubacao" rows="3" placeholder="Condições climáticas, equipamentos utilizados, etc."></textarea>
-                </div>
-                
-                <button type="submit" class="btn btn-primary">Registrar Adubação</button>
-            </form>
+            <div class="page-header">
+                <h1>🧪 Controle de Adubação</h1>
+                <p>Gerencie adubações, análises de solo e fertilização</p>
+            </div>
             
-            <div id="messageAdubacao" class="message" style="display: none;"></div>
-        </section>
-        
-        <!-- Calculadora de Adubação -->
-        <section class="card">
-            <h2>🧮 Calculadora de Quantidade de Adubo</h2>
-            
-            <div class="calculator-adubacao">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="calcArea">Área (hectares)</label>
-                        <input type="number" id="calcArea" step="0.01" min="0" placeholder="Ex: 10" onchange="calcularAdubo()">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="calcDosagem">Dosagem Recomendada (kg/ha)</label>
-                        <input type="number" id="calcDosagem" step="1" min="0" placeholder="Ex: 400" onchange="calcularAdubo()">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="calcPreco">Preço do Adubo (R$/kg)</label>
-                        <input type="number" id="calcPreco" step="0.01" min="0" placeholder="Ex: 2.30" onchange="calcularAdubo()">
-                    </div>
+            <!-- PLANEJAR ADUBAÇÃO -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>🧪 Planejar Adubação</h2>
                 </div>
-                
-                <div class="calc-result-adubacao">
-                    <h3>📊 Resultado:</h3>
-                    <div class="result-grid">
-                        <div class="result-item highlight">
-                            <span class="result-label">Quantidade Necessária:</span>
-                            <span class="result-value" id="resultQuantidade">0 kg (0 sacas de 50kg)</span>
+                <div class="card-body">
+                    <form id="adubacaoForm">
+                        <div class="form-row">
+                            <div class="form-group flex-2">
+                                <label for="areaAdubacao">Área/Talhão *</label>
+                                <input type="text" id="areaAdubacao" placeholder="Nome da área" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="dataAdubacao">Data da Aplicação *</label>
+                                <input type="date" id="dataAdubacao" required>
+                            </div>
                         </div>
-                        <div class="result-item highlight">
-                            <span class="result-label">Custo Total Estimado:</span>
-                            <span class="result-value" id="resultCusto">R$ 0,00</span>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tipoAdubo">Tipo de Adubo *</label>
+                                <select id="tipoAdubo" required>
+                                    <option value="">Selecione</option>
+                                    <option value="NPK 04-14-08">NPK 04-14-08</option>
+                                    <option value="NPK 10-10-10">NPK 10-10-10</option>
+                                    <option value="NPK 20-05-20">NPK 20-05-20</option>
+                                    <option value="Uréia">Uréia (45% N)</option>
+                                    <option value="Sulfato de Amônio">Sulfato de Amônio</option>
+                                    <option value="Superfosfato Simples">Superfosfato Simples</option>
+                                    <option value="Cloreto de Potássio">Cloreto de Potássio</option>
+                                    <option value="Calcário">Calcário</option>
+                                    <option value="Gesso Agrícola">Gesso Agrícola</option>
+                                    <option value="Esterco Bovino">Esterco Bovino</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="formulacaoAdubo">Formulação</label>
+                                <input type="text" id="formulacaoAdubo" placeholder="Ex: 20-05-20">
+                            </div>
                         </div>
-                        <div class="result-item highlight">
-                            <span class="result-label">Custo por Hectare:</span>
-                            <span class="result-value" id="resultCustoHa">R$ 0,00/ha</span>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="dosagem">Dosagem (kg/ha) *</label>
+                                <input type="number" id="dosagem" step="0.1" min="0" placeholder="Ex: 350" required onchange="calcularQuantidadeAdubo()">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="areaHectares">Área Aplicada (ha) *</label>
+                                <input type="number" id="areaHectares" step="0.01" min="0" placeholder="Ex: 5.5" required onchange="calcularQuantidadeAdubo()">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="quantidadeTotal">Quantidade Total (kg)</label>
+                                <input type="number" id="quantidadeTotal" step="0.1" readonly>
+                                <small>Calculado automaticamente</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="custoAdubo">Custo (R$/kg)</label>
+                                <input type="number" id="custoAdubo" step="0.01" min="0" placeholder="Ex: 2.50" onchange="calcularQuantidadeAdubo()">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="obsAdubacao">Observações</label>
+                            <textarea id="obsAdubacao" rows="2" placeholder="Condições climáticas, equipamentos..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Registrar Adubação</button>
+                    </form>
+                    
+                    <div id="messageAdubacao" class="message" style="display: none;"></div>
+                </div>
+            </section>
+            
+            <!-- CALCULADORA -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>🧮 Calculadora de Adubação</h2>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="calcArea">Área (hectares)</label>
+                            <input type="number" id="calcArea" step="0.01" min="0" onchange="calcularAdubo()">
+                        </div>
+                        <div class="form-group">
+                            <label for="calcDosagem">Dosagem (kg/ha)</label>
+                            <input type="number" id="calcDosagem" step="1" min="0" onchange="calcularAdubo()">
+                        </div>
+                        <div class="form-group">
+                            <label for="calcPreco">Preço (R$/kg)</label>
+                            <input type="number" id="calcPreco" step="0.01" min="0" onchange="calcularAdubo()">
                         </div>
                     </div>
+                    <div class="calc-result">
+                        <h4>Resultado:</h4>
+                        <p><strong>Quantidade:</strong> <span id="resultQuantidade">0 kg (0 sacas)</span></p>
+                        <p><strong>Custo Total:</strong> <span id="resultCusto">R$ 0,00</span></p>
+                    </div>
                 </div>
-            </div>
-        </section>
-        
-        <!-- Histórico de Adubações -->
-        <section class="card">
-            <div class="section-header">
-                <h2>📋 Histórico de Adubações</h2>
-                <div class="counter">Total: <span id="adubacaoCount">0</span> aplicações</div>
-            </div>
+            </section>
             
-            <div class="filter-bar">
-                <select id="filterAreaAdubacao" onchange="filterAdubacoes()">
-                    <option value="all">Todas as Áreas</option>
-                </select>
-                
-                <select id="filterTipoAdubo" onchange="filterAdubacoes()">
-                    <option value="all">Todos os Tipos</option>
-                </select>
-                
-                <input type="month" id="filterMesAdubacao" onchange="filterAdubacoes()">
-            </div>
+            <!-- ESTATÍSTICAS -->
+            <section class="stats-mini">
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="totalAdubacoes">0</div>
+                    <div class="stat-mini-label">Aplicações Este Ano</div>
+                </div>
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="areaAdubada">0 ha</div>
+                    <div class="stat-mini-label">Área Adubada</div>
+                </div>
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="totalAduboUsado">0 kg</div>
+                    <div class="stat-mini-label">Total Adubo</div>
+                </div>
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="gastoAdubacao">R$ 0,00</div>
+                    <div class="stat-mini-label">Investimento</div>
+                </div>
+            </section>
             
-            <div class="table-actions">
-                <button onclick="exportAdubacoesCSV()" class="btn btn-info">📥 Exportar CSV</button>
-                <button onclick="clearAllAdubacoes()" class="btn btn-danger-outline">🗑️ Limpar Tudo</button>
-            </div>
-            
-            <div class="table-responsive">
-                <table id="adubacaoTable">
-                    <thead>
-                        <tr>
-                            <th>Data</th>
-                            <th>Área/Talhão</th>
-                            <th>Tipo de Adubo</th>
-                            <th>Dosagem</th>
-                            <th>Área (ha)</th>
-                            <th>Quantidade (kg)</th>
-                            <th>Custo Total</th>
-                            <th>Método</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="adubacaoTableBody">
-                        <tr class="empty-state">
-                            <td colspan="9">Nenhuma adubação registrada</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-        
-        <!-- Análise de Solo -->
-        <section class="card">
-            <h2>🔬 Análise de Solo</h2>
-            
-            <form id="analiseSoloForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="areaAnalise">Área/Talhão</label>
-                        <select id="areaAnalise" required>
-                            <option value="">Selecione</option>
-                        </select>
+            <!-- HISTÓRICO -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>📋 Histórico de Adubações</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-actions">
+                        <button onclick="exportAdubacoesCSV()" class="btn btn-info">📥 Exportar CSV</button>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="dataAnalise">Data da Análise</label>
-                        <input type="date" id="dataAnalise" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="laboratorio">Laboratório</label>
-                        <input type="text" id="laboratorio" placeholder="Nome do laboratório">
-                    </div>
-                </div>
-                
-                <h4 style="margin: 20px 0 10px 0; color: #6b8e23;">Resultados da Análise:</h4>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="ph">pH</label>
-                        <input type="number" id="ph" step="0.1" min="0" max="14" placeholder="Ex: 6.5">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="nitrogenio">Nitrogênio (N) mg/dm³</label>
-                        <input type="number" id="nitrogenio" step="0.1" min="0">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="fosforo">Fósforo (P) mg/dm³</label>
-                        <input type="number" id="fosforo" step="0.1" min="0">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="potassio">Potássio (K) mg/dm³</label>
-                        <input type="number" id="potassio" step="0.1" min="0">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Área</th>
+                                    <th>Tipo</th>
+                                    <th>Dosagem</th>
+                                    <th>Área (ha)</th>
+                                    <th>Quantidade</th>
+                                    <th>Custo</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adubacaoTableBody">
+                                <tr class="empty-state">
+                                    <td colspan="8">
+                                        <div class="empty-state-content">
+                                            <h3>Nenhuma adubação registrada</h3>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="calcio">Cálcio (Ca) cmolc/dm³</label>
-                        <input type="number" id="calcio" step="0.01" min="0">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="magnesio">Magnésio (Mg) cmolc/dm³</label>
-                        <input type="number" id="magnesio" step="0.01" min="0">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="materiaOrganica">Matéria Orgânica (%)</label>
-                        <input type="number" id="materiaOrganica" step="0.1" min="0">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="ctc">CTC (cmolc/dm³)</label>
-                        <input type="number" id="ctc" step="0.1" min="0">
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="recomendacao">Recomendação do Laboratório</label>
-                    <textarea id="recomendacao" rows="3" placeholder="Recomendações de correção e adubação..."></textarea>
-                </div>
-                
-                <button type="submit" class="btn btn-primary">Salvar Análise de Solo</button>
-            </form>
-            
-            <div id="messageAnalise" class="message" style="display: none;"></div>
-            
-            <div class="table-responsive" style="margin-top: 20px;">
-                <h3>Análises Anteriores</h3>
-                <table id="analiseTable">
-                    <thead>
-                        <tr>
-                            <th>Data</th>
-                            <th>Área</th>
-                            <th>pH</th>
-                            <th>N</th>
-                            <th>P</th>
-                            <th>K</th>
-                            <th>M.O. (%)</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="analiseTableBody">
-                        <tr class="empty-state">
-                            <td colspan="8">Nenhuma análise de solo registrada</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-        
-        <!-- Estatísticas de Adubação -->
-        <section class="card">
-            <h2>📊 Estatísticas de Adubação</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">🧪</div>
-                    <div class="stat-content">
-                        <h3 id="totalAdubacoes">0</h3>
-                        <p>Aplicações Este Ano</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">📏</div>
-                    <div class="stat-content">
-                        <h3 id="areaAdubada">0 ha</h3>
-                        <p>Área Total Adubada</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">⚖️</div>
-                    <div class="stat-content">
-                        <h3 id="totalAduboUsado">0 kg</h3>
-                        <p>Total de Adubo Aplicado</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">💰</div>
-                    <div class="stat-content">
-                        <h3 id="gastoAdubacao">R$ 0,00</h3>
-                        <p>Investimento em Adubação</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
     
     <footer>
-        <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
+        <div class="footer-content">
+            <p>© 2025 Porteira Preta - Sistema Profissional de Gestão Rural</p>
+        </div>
     </footer>
     
     <script src="script.js"></script>

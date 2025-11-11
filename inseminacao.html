@@ -7,133 +7,305 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- HEADER -->
     <header>
-        <div class="container">
-            <h1>🌾 Porteira Preta — Sistema Rural</h1>
-            <nav>
-                <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">🏠 Dashboard</button>
-                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
-                <button onclick="logout()" class="btn btn-danger">Logout</button>
-            </nav>
+        <div class="header-container">
+            <div class="header-left">
+                <button class="menu-toggle" onclick="toggleMenu()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <h1 class="logo-header">🌾 Porteira Preta</h1>
+            </div>
+            <div class="header-right">
+                <button onclick="window.location.href='dashboard.html'" class="btn-header">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    </svg>
+                    Dashboard
+                </button>
+                <button onclick="logout()" class="btn-header btn-danger">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    Sair
+                </button>
+            </div>
         </div>
     </header>
     
-    <!-- Menu Lateral -->
-    <div id="sideMenu" class="side-menu">
+    <!-- MENU LATERAL (igual aos anteriores) -->
+    <aside id="sideMenu" class="side-menu">
         <div class="menu-header">
             <h3>📋 Menu Principal</h3>
-            <button onclick="toggleMenu()" class="btn-close">✕</button>
+            <button onclick="toggleMenu()" class="btn-close">×</button>
         </div>
-        <ul class="menu-list">
-            <li><a href="dashboard.html">🏠 Dashboard</a></li>
-            <li><a href="animais.html">🐄 Animais</a></li>
-            <li><a href="inseminacao.html" class="active">🐮 Inseminação</a></li>
-            <li><a href="leite.html">🥛 Produção de Leite</a></li>
-            <li><a href="contas.html">💰 Finanças</a></li>
-            <li><a href="lavouras.html">🌱 Lavouras</a></li>
-            <li><a href="maquinas.html">🚜 Máquinas</a></li>
-            <li><a href="funcionarios.html">👨‍🌾 Funcionários</a></li>
-            <li><a href="agenda.html">📅 Agenda</a></li>
-            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
-        </ul>
-    </div>
+        <nav class="menu-nav">
+            <div class="menu-section">
+                <div class="menu-section-title">🏠 PAINEL</div>
+                <a href="dashboard.html" class="menu-item">
+                    <span class="menu-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+            
+            <div class="menu-section">
+                <div class="menu-section-title">🐄 ZOOTECNIA</div>
+                <a href="animais.html" class="menu-item">
+                    <span class="menu-icon">🐄</span>
+                    <span>Gestão de Animais</span>
+                </a>
+                <a href="genealogia.html" class="menu-item">
+                    <span class="menu-icon">🧬</span>
+                    <span>Genealogia e Crias</span>
+                </a>
+                <a href="inseminacao.html" class="menu-item active">
+                    <span class="menu-icon">🐮</span>
+                    <span>Inseminação</span>
+                </a>
+                <a href="sanitario.html" class="menu-item">
+                    <span class="menu-icon">💉</span>
+                    <span>Controle Sanitário</span>
+                </a>
+                <a href="alimentacao.html" class="menu-item">
+                    <span class="menu-icon">🌾</span>
+                    <span>Alimentação</span>
+                </a>
+                <a href="leite.html" class="menu-item">
+                    <span class="menu-icon">🥛</span>
+                    <span>Produção de Leite</span>
+                </a>
+            </div>
+            
+            <div class="menu-section">
+                <div class="menu-section-title">🌱 AGRICULTURA</div>
+                <a href="pastagens.html" class="menu-item">
+                    <span class="menu-icon">🌱</span>
+                    <span>Gestão de Pastagens</span>
+                </a>
+                <a href="adubacao.html" class="menu-item">
+                    <span class="menu-icon">🧪</span>
+                    <span>Adubação</span>
+                </a>
+                <a href="lavouras.html" class="menu-item">
+                    <span class="menu-icon">🌾</span>
+                    <span>Lavouras</span>
+                </a>
+            </div>
+            
+            <div class="menu-section">
+                <div class="menu-section-title">💼 GESTÃO</div>
+                <a href="contas.html" class="menu-item">
+                    <span class="menu-icon">💰</span>
+                    <span>Financeiro</span>
+                </a>
+                <a href="maquinas.html" class="menu-item">
+                    <span class="menu-icon">🚜</span>
+                    <span>Máquinas</span>
+                </a>
+                <a href="funcionarios.html" class="menu-item">
+                    <span class="menu-icon">👨‍🌾</span>
+                    <span>Funcionários</span>
+                </a>
+                <a href="agenda.html" class="menu-item">
+                    <span class="menu-icon">📅</span>
+                    <span>Agenda</span>
+                </a>
+                <a href="ferramentas.html" class="menu-item">
+                    <span class="menu-icon">🧮</span>
+                    <span>Ferramentas</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
     
-    <main class="container">
-        <section class="card">
-            <h2>🐮 Registro de Inseminação</h2>
+    <div id="menuOverlay" class="menu-overlay" onclick="toggleMenu()"></div>
+    
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="dashboard.html">Dashboard</a>
+                <span>/</span>
+                <span>Controle de Inseminação</span>
+            </nav>
             
-            <form id="inseminacaoForm">
-                <div class="form-row">
-                    <div class="form-group flex-2">
-                        <label for="vacaInseminacao">Vaca</label>
-                        <select id="vacaInseminacao" required>
-                            <option value="">Selecione uma vaca</option>
-                        </select>
-                        <small style="color: #999; font-size: 0.85rem;">Apenas vacas cadastradas aparecem aqui</small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="dataInseminacao">Data da Inseminação</label>
-                        <input type="date" id="dataInseminacao" required>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="boiInseminacao">Boi/Touro Utilizado</label>
-                        <input type="text" id="boiInseminacao" placeholder="Ex: Touro Nelore" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="racaBoi">Raça</label>
-                        <input type="text" id="racaBoi" placeholder="Ex: Nelore, Angus">
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="tipoInseminacao">Tipo de Inseminação</label>
-                        <select id="tipoInseminacao" required>
-                            <option value="Artificial">Inseminação Artificial</option>
-                            <option value="Natural">Monta Natural</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="previsaoParto">Previsão de Parto</label>
-                        <input type="date" id="previsaoParto">
-                        <small style="color: #999; font-size: 0.85rem;">Aprox. 285 dias após inseminação</small>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="obsInseminacao">Observações</label>
-                    <textarea id="obsInseminacao" placeholder="Informações adicionais sobre a inseminação..." rows="3"></textarea>
-                </div>
-                
-                <button type="submit" class="btn btn-primary">Registrar Inseminação</button>
-            </form>
-            
-            <div id="messageInseminacao" class="message" style="display: none;"></div>
-        </section>
-        
-        <section class="card">
-            <div class="section-header">
-                <h2>📊 Inseminações Registradas</h2>
-                <div class="counter">Total: <span id="inseminacaoCount">0</span> registros</div>
+            <div class="page-header">
+                <h1>🐮 Controle de Inseminação e Reprodução</h1>
+                <p>Gerencie inseminações e acompanhe gestações</p>
             </div>
             
-            <div class="table-actions">
-                <button onclick="exportInseminacoesCSV()" class="btn btn-info">📥 Exportar CSV</button>
-                <button onclick="clearAllInseminacoes()" class="btn btn-danger-outline">🗑️ Limpar Tudo</button>
-            </div>
+            <!-- FORMULÁRIO DE INSEMINAÇÃO -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>➕ Registrar Nova Inseminação</h2>
+                </div>
+                <div class="card-body">
+                    <form id="inseminacaoForm">
+                        <div class="form-row">
+                            <div class="form-group flex-2">
+                                <label for="vacaInseminacao">Vaca *</label>
+                                <select id="vacaInseminacao" required>
+                                    <option value="">Selecione a vaca</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="dataInseminacao">Data da Inseminação *</label>
+                                <input type="date" id="dataInseminacao" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="boiInseminacao">Boi/Touro (Sêmen) *</label>
+                                <input type="text" id="boiInseminacao" placeholder="Nome do touro" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="racaBoi">Raça do Touro</label>
+                                <input type="text" id="racaBoi" placeholder="Ex: Angus">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="tipoInseminacao">Tipo</label>
+                                <select id="tipoInseminacao">
+                                    <option value="Inseminação Artificial">Inseminação Artificial</option>
+                                    <option value="Monta Natural">Monta Natural</option>
+                                    <option value="IATF">IATF</option>
+                                    <option value="TE">Transferência de Embrião</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="previsaoParto">Previsão de Parto (285 dias)</label>
+                                <input type="date" id="previsaoParto" readonly>
+                                <small>Calculado automaticamente</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="numeroIA">Número da IA</label>
+                                <input type="number" id="numeroIA" min="1" placeholder="Ex: 1, 2, 3...">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="obsInseminacao">Observações</label>
+                            <textarea id="obsInseminacao" rows="3" placeholder="Detalhes adicionais..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Registrar Inseminação
+                        </button>
+                    </form>
+                    
+                    <div id="messageInseminacao" class="message" style="display: none;"></div>
+                </div>
+            </section>
             
-            <div class="table-responsive">
-                <table id="inseminacaoTable">
-                    <thead>
-                        <tr>
-                            <th>Data</th>
-                            <th>Vaca</th>
-                            <th>Boi/Touro</th>
-                            <th>Raça</th>
-                            <th>Tipo</th>
-                            <th>Previsão Parto</th>
-                            <th>Status</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="inseminacaoTableBody">
-                        <tr class="empty-state">
-                            <td colspan="8">Nenhuma inseminação registrada ainda</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+            <!-- ALERTAS DE PARTOS PRÓXIMOS -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>⚠️ Alertas de Partos Próximos (30 dias)</h2>
+                </div>
+                <div class="card-body">
+                    <div id="alertasPartos" class="alertas-list"></div>
+                </div>
+            </section>
+            
+            <!-- ESTATÍSTICAS -->
+            <section class="stats-mini">
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="totalInseminacoes">0</div>
+                    <div class="stat-mini-label">Total de Inseminações</div>
+                </div>
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="gestacoesAtivas">0</div>
+                    <div class="stat-mini-label">Gestações Ativas</div>
+                </div>
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="partosProximos">0</div>
+                    <div class="stat-mini-label">Partos em 30 dias</div>
+                </div>
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="taxaPrenhez">0%</div>
+                    <div class="stat-mini-label">Taxa de Prenhez</div>
+                </div>
+            </section>
+            
+            <!-- HISTÓRICO -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>📋 Histórico de Inseminações</h2>
+                    <div class="card-header-actions">
+                        <span class="badge badge-primary" id="inseminacaoCount">0 registros</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-actions">
+                        <button onclick="exportInseminacoesCSV()" class="btn btn-info">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Exportar CSV
+                        </button>
+                        <button onclick="clearAllInseminacoes()" class="btn btn-danger">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                            Limpar Tudo
+                        </button>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Data IA</th>
+                                    <th>Vaca</th>
+                                    <th>Boi/Touro</th>
+                                    <th>Raça</th>
+                                    <th>Tipo</th>
+                                    <th>Previsão Parto</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inseminacaoTableBody">
+                                <tr class="empty-state">
+                                    <td colspan="8">
+                                        <div class="empty-state-content">
+                                            <h3>Nenhuma inseminação registrada</h3>
+                                            <p>Comece registrando a primeira inseminação</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
     
     <footer>
-        <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
+        <div class="footer-content">
+            <p>© 2025 Porteira Preta - Sistema Profissional de Gestão Rural</p>
+        </div>
     </footer>
     
     <script src="script.js"></script>

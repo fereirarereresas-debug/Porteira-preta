@@ -9,26 +9,50 @@
 <body class="login-page">
     <div class="login-container">
         <div class="login-box">
-            <h1>🌾 Porteira Preta</h1>
-            <p class="subtitle">Sistema Completo de Gestão Rural</p>
+            <div class="logo-login">🌾</div>
+            <h1>Porteira Preta</h1>
+            <p class="subtitle">Sistema Profissional de Gestão Rural</p>
             
             <form id="loginForm">
                 <div class="form-group">
-                    <label for="username">Usuário</label>
-                    <input type="text" id="username" placeholder="Digite o usuário" required>
+                    <label for="username">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Usuário
+                    </label>
+                    <input type="text" id="username" placeholder="Digite seu usuário" required autofocus>
                 </div>
                 
                 <div class="form-group">
-                    <label for="password">Senha</label>
-                    <input type="password" id="password" placeholder="Digite a senha" required>
+                    <label for="password">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        Senha
+                    </label>
+                    <input type="password" id="password" placeholder="Digite sua senha" required>
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Entrar</button>
+                <button type="submit" class="btn btn-primary btn-block">
+                    Entrar no Sistema
+                </button>
                 
                 <div id="errorMessage" class="error-message" style="display: none;"></div>
                 
-                <p class="warning-text">⚠️ Este login é apenas para demonstração. Não use em ambiente real.</p>
+                <div class="login-info">
+                    <p><strong>💡 Credenciais Padrão:</strong></p>
+                    <p>Usuário: <code>Porteira Preta</code></p>
+                    <p>Senha: <code>26122008</code></p>
+                </div>
             </form>
+            
+            <div class="login-footer">
+                <p>© 2025 Porteira Preta - Sistema de Gestão Rural</p>
+                <p><small>Desenvolvido com ❤️ para o agronegócio brasileiro</small></p>
+            </div>
         </div>
     </div>
     

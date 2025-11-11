@@ -3,250 +3,414 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genealogia - Porteira Preta</title>
+    <title>Genealogia e Crias - Porteira Preta</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- HEADER -->
     <header>
-        <div class="container">
-            <h1>🌾 Porteira Preta — Sistema Rural</h1>
-            <nav>
-                <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">🏠 Dashboard</button>
-                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
-                <button onclick="logout()" class="btn btn-danger">Logout</button>
-            </nav>
+        <div class="header-container">
+            <div class="header-left">
+                <button class="menu-toggle" onclick="toggleMenu()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <h1 class="logo-header">🌾 Porteira Preta</h1>
+            </div>
+            <div class="header-right">
+                <button onclick="window.location.href='dashboard.html'" class="btn-header">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    </svg>
+                    Dashboard
+                </button>
+                <button onclick="logout()" class="btn-header btn-danger">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    Sair
+                </button>
+            </div>
         </div>
     </header>
     
-    <!-- Menu Lateral -->
-    <div id="sideMenu" class="side-menu">
+    <!-- MENU LATERAL -->
+    <aside id="sideMenu" class="side-menu">
         <div class="menu-header">
             <h3>📋 Menu Principal</h3>
-            <button onclick="toggleMenu()" class="btn-close">✕</button>
+            <button onclick="toggleMenu()" class="btn-close">×</button>
         </div>
-        <ul class="menu-list">
-            <li><a href="dashboard.html">🏠 Dashboard</a></li>
-            <li><a href="animais.html">🐄 Animais</a></li>
-            <li><a href="genealogia.html" class="active">🧬 Genealogia</a></li>
-            <li><a href="inseminacao.html">🐮 Inseminação</a></li>
-            <li><a href="sanitario.html">💉 Controle Sanitário</a></li>
-            <li><a href="alimentacao.html">🌾 Alimentação</a></li>
-            <li><a href="pastagens.html">🌱 Pastagens</a></li>
-            <li><a href="leite.html">🥛 Produção de Leite</a></li>
-            <li><a href="adubacao.html">🧪 Adubação</a></li>
-            <li><a href="contas.html">💰 Finanças</a></li>
-            <li><a href="lavouras.html">🌱 Lavouras</a></li>
-            <li><a href="maquinas.html">🚜 Máquinas</a></li>
-            <li><a href="funcionarios.html">👨‍🌾 Funcionários</a></li>
-            <li><a href="agenda.html">📅 Agenda</a></li>
-            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
-        </ul>
-    </div>
+        <nav class="menu-nav">
+            <div class="menu-section">
+                <div class="menu-section-title">🏠 PAINEL</div>
+                <a href="dashboard.html" class="menu-item">
+                    <span class="menu-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+            
+            <div class="menu-section">
+                <div class="menu-section-title">🐄 ZOOTECNIA</div>
+                <a href="animais.html" class="menu-item">
+                    <span class="menu-icon">🐄</span>
+                    <span>Gestão de Animais</span>
+                </a>
+                <a href="genealogia.html" class="menu-item active">
+                    <span class="menu-icon">🧬</span>
+                    <span>Genealogia e Crias</span>
+                </a>
+                <a href="inseminacao.html" class="menu-item">
+                    <span class="menu-icon">🐮</span>
+                    <span>Inseminação</span>
+                </a>
+                <a href="sanitario.html" class="menu-item">
+                    <span class="menu-icon">💉</span>
+                    <span>Controle Sanitário</span>
+                </a>
+                <a href="alimentacao.html" class="menu-item">
+                    <span class="menu-icon">🌾</span>
+                    <span>Alimentação</span>
+                </a>
+                <a href="leite.html" class="menu-item">
+                    <span class="menu-icon">🥛</span>
+                    <span>Produção de Leite</span>
+                </a>
+            </div>
+            
+            <div class="menu-section">
+                <div class="menu-section-title">🌱 AGRICULTURA</div>
+                <a href="pastagens.html" class="menu-item">
+                    <span class="menu-icon">🌱</span>
+                    <span>Gestão de Pastagens</span>
+                </a>
+                <a href="adubacao.html" class="menu-item">
+                    <span class="menu-icon">🧪</span>
+                    <span>Adubação</span>
+                </a>
+                <a href="lavouras.html" class="menu-item">
+                    <span class="menu-icon">🌾</span>
+                    <span>Lavouras</span>
+                </a>
+            </div>
+            
+            <div class="menu-section">
+                <div class="menu-section-title">💼 GESTÃO</div>
+                <a href="contas.html" class="menu-item">
+                    <span class="menu-icon">💰</span>
+                    <span>Financeiro</span>
+                </a>
+                <a href="maquinas.html" class="menu-item">
+                    <span class="menu-icon">🚜</span>
+                    <span>Máquinas</span>
+                </a>
+                <a href="funcionarios.html" class="menu-item">
+                    <span class="menu-icon">👨‍🌾</span>
+                    <span>Funcionários</span>
+                </a>
+                <a href="agenda.html" class="menu-item">
+                    <span class="menu-icon">📅</span>
+                    <span>Agenda</span>
+                </a>
+                <a href="ferramentas.html" class="menu-item">
+                    <span class="menu-icon">🧮</span>
+                    <span>Ferramentas</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
     
-    <main class="container">
-        <!-- Registrar Nascimento/Cria -->
-        <section class="card">
-            <h2>🐮 Registrar Nascimento de Cria</h2>
+    <!-- OVERLAY DO MENU -->
+    <div id="menuOverlay" class="menu-overlay" onclick="toggleMenu()"></div>
+    
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+        <div class="container">
+            <!-- BREADCRUMB -->
+            <nav class="breadcrumb">
+                <a href="dashboard.html">Dashboard</a>
+                <span>/</span>
+                <span>Genealogia e Crias</span>
+            </nav>
             
-            <form id="nascimentoForm">
-                <div class="form-row">
-                    <div class="form-group flex-2">
-                        <label for="mae">Mãe (Vaca)</label>
-                        <select id="mae" required>
-                            <option value="">Selecione a mãe</option>
-                        </select>
+            <!-- TÍTULO DA PÁGINA -->
+            <div class="page-header">
+                <h1>🧬 Genealogia e Controle de Crias</h1>
+                <p>Registre nascimentos e acompanhe a árvore genealógica do rebanho</p>
+            </div>
+            
+            <!-- FORMULÁRIO DE NASCIMENTO -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>🐮 Registrar Nascimento de Cria</h2>
+                </div>
+                <div class="card-body">
+                    <form id="nascimentoForm">
+                        <div class="form-row">
+                            <div class="form-group flex-2">
+                                <label for="mae">Mãe (Vaca) *</label>
+                                <select id="mae" required>
+                                    <option value="">Selecione a mãe</option>
+                                </select>
+                                <small>Apenas fêmeas cadastradas aparecem aqui</small>
+                            </div>
+                            
+                            <div class="form-group flex-2">
+                                <label for="pai">Pai (Touro/Inseminação)</label>
+                                <select id="pai">
+                                    <option value="">Selecione o pai (opcional)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nomeCria">Nome da Cria *</label>
+                                <input type="text" id="nomeCria" placeholder="Ex: Bezerro 001" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="sexoCria">Sexo *</label>
+                                <select id="sexoCria" required>
+                                    <option value="Macho">♂️ Macho</option>
+                                    <option value="Fêmea">♀️ Fêmea</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="dataNascimento">Data de Nascimento *</label>
+                                <input type="date" id="dataNascimento" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="pesoNascimento">Peso ao Nascer (kg)</label>
+                                <input type="number" id="pesoNascimento" step="0.1" min="0" placeholder="Ex: 35">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tipoParto">Tipo de Parto</label>
+                                <select id="tipoParto">
+                                    <option value="Normal">Normal</option>
+                                    <option value="Assistido">Assistido</option>
+                                    <option value="Cesárea">Cesárea</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="condicaoCria">Condição da Cria</label>
+                                <select id="condicaoCria">
+                                    <option value="Saudável">✅ Saudável</option>
+                                    <option value="Fraco">⚠️ Fraco</option>
+                                    <option value="Doente">🔴 Doente</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="numeroParto">Nº do Parto da Mãe</label>
+                                <input type="number" id="numeroParto" min="1" placeholder="Ex: 3">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="obsNascimento">Observações</label>
+                            <textarea id="obsNascimento" rows="3" placeholder="Detalhes do nascimento, complicações, etc..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Registrar Nascimento
+                        </button>
+                    </form>
+                    
+                    <div id="messageNascimento" class="message" style="display: none;"></div>
+                </div>
+            </section>
+            
+            <!-- ÁRVORE GENEALÓGICA -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>🌳 Árvore Genealógica</h2>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group flex-2">
+                            <label for="filtroAnimal">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="m21 21-4.35-4.35"></path>
+                                </svg>
+                                Selecione um Animal
+                            </label>
+                            <select id="filtroAnimal" onchange="loadGenealogy()">
+                                <option value="">Escolha um animal para ver sua genealogia</option>
+                            </select>
+                        </div>
                     </div>
                     
-                    <div class="form-group flex-2">
-                        <label for="pai">Pai (Touro/Inseminação)</label>
-                        <select id="pai">
-                            <option value="">Selecione o pai (opcional)</option>
-                        </select>
+                    <div id="genealogyTree" class="genealogy-tree">
+                        <div class="empty-state-content">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                                <circle cx="12" cy="8" r="7"></circle>
+                                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                            </svg>
+                            <h3>Selecione um animal</h3>
+                            <p>Escolha um animal acima para visualizar sua árvore genealógica completa</p>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="nomeCria">Nome da Cria</label>
-                        <input type="text" id="nomeCria" placeholder="Ex: Bezerro 001" required>
+            </section>
+            
+            <!-- ESTATÍSTICAS DE REPRODUÇÃO -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>📊 Estatísticas de Reprodução</h2>
+                </div>
+                <div class="card-body">
+                    <div class="stats-grid-reproduction">
+                        <div class="stat-reproduction">
+                            <div class="stat-icon">🐮</div>
+                            <div class="stat-value" id="totalCrias">0</div>
+                            <div class="stat-label">Total de Crias</div>
+                        </div>
+                        
+                        <div class="stat-reproduction">
+                            <div class="stat-icon">📅</div>
+                            <div class="stat-value" id="criasAno">0</div>
+                            <div class="stat-label">Nascimentos Este Ano</div>
+                        </div>
+                        
+                        <div class="stat-reproduction">
+                            <div class="stat-icon">♀️</div>
+                            <div class="stat-value" id="femeas">0</div>
+                            <div class="stat-label">Fêmeas</div>
+                        </div>
+                        
+                        <div class="stat-reproduction">
+                            <div class="stat-icon">♂️</div>
+                            <div class="stat-value" id="machos">0</div>
+                            <div class="stat-label">Machos</div>
+                        </div>
+                        
+                        <div class="stat-reproduction">
+                            <div class="stat-icon">⚖️</div>
+                            <div class="stat-value" id="pesoMedio">0 kg</div>
+                            <div class="stat-label">Peso Médio ao Nascer</div>
+                        </div>
+                        
+                        <div class="stat-reproduction">
+                            <div class="stat-icon">📈</div>
+                            <div class="stat-value" id="taxaNatalidade">0%</div>
+                            <div class="stat-label">Taxa de Natalidade</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- HISTÓRICO DE NASCIMENTOS -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>📋 Histórico de Nascimentos</h2>
+                    <div class="card-header-actions">
+                        <span class="badge badge-primary" id="nascimentoCount">0 nascimentos</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- FILTROS -->
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label for="filterAno">Ano:</label>
+                            <select id="filterAno" onchange="filterNascimentos()">
+                                <option value="all">Todos os Anos</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="filterMae">Mãe:</label>
+                            <select id="filterMae" onchange="filterNascimentos()">
+                                <option value="all">Todas as Mães</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="filterSexo">Sexo:</label>
+                            <select id="filterSexo" onchange="filterNascimentos()">
+                                <option value="all">Todos</option>
+                                <option value="Macho">Machos</option>
+                                <option value="Fêmea">Fêmeas</option>
+                            </select>
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="sexoCria">Sexo</label>
-                        <select id="sexoCria" required>
-                            <option value="Macho">Macho</option>
-                            <option value="Fêmea">Fêmea</option>
-                        </select>
+                    <!-- AÇÕES -->
+                    <div class="table-actions">
+                        <button onclick="exportNascimentosCSV()" class="btn btn-info">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Exportar CSV
+                        </button>
+                        <button onclick="clearAllNascimentos()" class="btn btn-danger">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                            Limpar Tudo
+                        </button>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="dataNascimento">Data de Nascimento</label>
-                        <input type="date" id="dataNascimento" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="pesoNascimento">Peso ao Nascer (kg)</label>
-                        <input type="number" id="pesoNascimento" step="0.1" min="0" placeholder="Ex: 35">
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="tipoParto">Tipo de Parto</label>
-                        <select id="tipoParto">
-                            <option value="Normal">Normal</option>
-                            <option value="Assistido">Assistido</option>
-                            <option value="Cesárea">Cesárea</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="condicaoCria">Condição da Cria</label>
-                        <select id="condicaoCria">
-                            <option value="Saudável">Saudável</option>
-                            <option value="Fraco">Fraco</option>
-                            <option value="Doente">Doente</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="numeroParto">Nº do Parto da Mãe</label>
-                        <input type="number" id="numeroParto" min="1" placeholder="Ex: 3">
+                    <!-- TABELA -->
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Cria</th>
+                                    <th>Sexo</th>
+                                    <th>Mãe</th>
+                                    <th>Pai</th>
+                                    <th>Peso Nasc.</th>
+                                    <th>Tipo Parto</th>
+                                    <th>Condição</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="nascimentoTableBody">
+                                <tr class="empty-state">
+                                    <td colspan="9">
+                                        <div class="empty-state-content">
+                                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <path d="M12 6v6l4 2"></path>
+                                            </svg>
+                                            <h3>Nenhum nascimento registrado</h3>
+                                            <p>Registre o primeiro nascimento usando o formulário acima</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="obsNascimento">Observações</label>
-                    <textarea id="obsNascimento" rows="3" placeholder="Detalhes do nascimento..."></textarea>
-                </div>
-                
-                <button type="submit" class="btn btn-primary">Registrar Nascimento</button>
-            </form>
-            
-            <div id="messageNascimento" class="message" style="display: none;"></div>
-        </section>
-        
-        <!-- Árvore Genealógica -->
-        <section class="card">
-            <h2>🌳 Árvore Genealógica</h2>
-            
-            <div class="form-row">
-                <div class="form-group flex-2">
-                    <label for="filtroAnimal">Selecione um Animal</label>
-                    <select id="filtroAnimal" onchange="loadGenealogy()">
-                        <option value="">Escolha um animal</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div id="genealogyTree" class="genealogy-tree">
-                <p class="empty-state">Selecione um animal para ver sua genealogia</p>
-            </div>
-        </section>
-        
-        <!-- Lista de Nascimentos -->
-        <section class="card">
-            <div class="section-header">
-                <h2>📋 Histórico de Nascimentos</h2>
-                <div class="counter">Total: <span id="nascimentoCount">0</span> crias</div>
-            </div>
-            
-            <div class="filter-bar">
-                <select id="filterAno" onchange="filterNascimentos()">
-                    <option value="all">Todos os Anos</option>
-                </select>
-                
-                <select id="filterMae" onchange="filterNascimentos()">
-                    <option value="all">Todas as Mães</option>
-                </select>
-            </div>
-            
-            <div class="table-actions">
-                <button onclick="exportNascimentosCSV()" class="btn btn-info">📥 Exportar CSV</button>
-                <button onclick="clearAllNascimentos()" class="btn btn-danger-outline">🗑️ Limpar Tudo</button>
-            </div>
-            
-            <div class="table-responsive">
-                <table id="nascimentoTable">
-                    <thead>
-                        <tr>
-                            <th>Data</th>
-                            <th>Cria</th>
-                            <th>Sexo</th>
-                            <th>Mãe</th>
-                            <th>Pai</th>
-                            <th>Peso Nasc.</th>
-                            <th>Tipo Parto</th>
-                            <th>Condição</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="nascimentoTableBody">
-                        <tr class="empty-state">
-                            <td colspan="9">Nenhum nascimento registrado</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-        
-        <!-- Estatísticas de Reprodução -->
-        <section class="card">
-            <h2>📊 Estatísticas de Reprodução</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">🐮</div>
-                    <div class="stat-content">
-                        <h3 id="totalCrias">0</h3>
-                        <p>Total de Crias</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">📅</div>
-                    <div class="stat-content">
-                        <h3 id="criasAno">0</h3>
-                        <p>Nascimentos Este Ano</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">♀️</div>
-                    <div class="stat-content">
-                        <h3 id="femeas">0</h3>
-                        <p>Fêmeas</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">♂️</div>
-                    <div class="stat-content">
-                        <h3 id="machos">0</h3>
-                        <p>Machos</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">⚖️</div>
-                    <div class="stat-content">
-                        <h3 id="pesoMedio">0 kg</h3>
-                        <p>Peso Médio ao Nascer</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">📈</div>
-                    <div class="stat-content">
-                        <h3 id="taxaNatalidade">0%</h3>
-                        <p>Taxa de Natalidade</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
     
+    <!-- FOOTER -->
     <footer>
-        <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
+        <div class="footer-content">
+            <p>© 2025 Porteira Preta - Sistema Profissional de Gestão Rural</p>
+        </div>
     </footer>
     
     <script src="script.js"></script>

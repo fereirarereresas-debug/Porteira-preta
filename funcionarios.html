@@ -8,201 +8,227 @@
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>🌾 Porteira Preta — Sistema Rural</h1>
-            <nav>
-                <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">🏠 Dashboard</button>
-                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
-                <button onclick="logout()" class="btn btn-danger">Logout</button>
-            </nav>
+        <div class="header-container">
+            <div class="header-left">
+                <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+                <h1 class="logo-header">🌾 Porteira Preta</h1>
+            </div>
+            <div class="header-right">
+                <button onclick="window.location.href='dashboard.html'" class="btn-header">Dashboard</button>
+                <button onclick="logout()" class="btn-header btn-danger">Sair</button>
+            </div>
         </div>
     </header>
     
-    <!-- Menu Lateral -->
-    <div id="sideMenu" class="side-menu">
+    <aside id="sideMenu" class="side-menu">
         <div class="menu-header">
             <h3>📋 Menu Principal</h3>
-            <button onclick="toggleMenu()" class="btn-close">✕</button>
+            <button onclick="toggleMenu()" class="btn-close">×</button>
         </div>
-        <ul class="menu-list">
-            <li><a href="dashboard.html">🏠 Dashboard</a></li>
-            <li><a href="animais.html">🐄 Animais</a></li>
-            <li><a href="inseminacao.html">🐮 Inseminação</a></li>
-            <li><a href="leite.html">🥛 Produção de Leite</a></li>
-            <li><a href="contas.html">💰 Finanças</a></li>
-            <li><a href="lavouras.html">🌱 Lavouras</a></li>
-            <li><a href="maquinas.html">🚜 Máquinas</a></li>
-            <li><a href="funcionarios.html" class="active">👨‍🌾 Funcionários</a></li>
-            <li><a href="agenda.html">📅 Agenda</a></li>
-            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
-        </ul>
-    </div>
+        <nav class="menu-nav">
+            <div class="menu-section">
+                <div class="menu-section-title">🏠 PAINEL</div>
+                <a href="dashboard.html" class="menu-item"><span class="menu-icon">📊</span><span>Dashboard</span></a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">🐄 ZOOTECNIA</div>
+                <a href="animais.html" class="menu-item"><span class="menu-icon">🐄</span><span>Gestão de Animais</span></a>
+                <a href="genealogia.html" class="menu-item"><span class="menu-icon">🧬</span><span>Genealogia e Crias</span></a>
+                <a href="inseminacao.html" class="menu-item"><span class="menu-icon">🐮</span><span>Inseminação</span></a>
+                <a href="sanitario.html" class="menu-item"><span class="menu-icon">💉</span><span>Controle Sanitário</span></a>
+                <a href="alimentacao.html" class="menu-item"><span class="menu-icon">🌾</span><span>Alimentação</span></a>
+                <a href="leite.html" class="menu-item"><span class="menu-icon">🥛</span><span>Produção de Leite</span></a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">🌱 AGRICULTURA</div>
+                <a href="pastagens.html" class="menu-item"><span class="menu-icon">🌱</span><span>Gestão de Pastagens</span></a>
+                <a href="adubacao.html" class="menu-item"><span class="menu-icon">🧪</span><span>Adubação</span></a>
+                <a href="lavouras.html" class="menu-item"><span class="menu-icon">🌾</span><span>Lavouras</span></a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">💼 GESTÃO</div>
+                <a href="contas.html" class="menu-item"><span class="menu-icon">💰</span><span>Financeiro</span></a>
+                <a href="maquinas.html" class="menu-item"><span class="menu-icon">🚜</span><span>Máquinas</span></a>
+                <a href="funcionarios.html" class="menu-item active"><span class="menu-icon">👨‍🌾</span><span>Funcionários</span></a>
+                <a href="agenda.html" class="menu-item"><span class="menu-icon">📅</span><span>Agenda</span></a>
+                <a href="ferramentas.html" class="menu-item"><span class="menu-icon">🧮</span><span>Ferramentas</span></a>
+            </div>
+        </nav>
+    </aside>
     
-    <main class="container">
-        <section class="card">
-            <h2>👨‍🌾 Cadastro de Funcionários</h2>
+    <div id="menuOverlay" class="menu-overlay" onclick="toggleMenu()"></div>
+    
+    <main class="main-content">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="dashboard.html">Dashboard</a>
+                <span>/</span>
+                <span>Gestão de Funcionários</span>
+            </nav>
             
-            <form id="funcionarioForm">
-                <div class="form-row">
-                    <div class="form-group flex-2">
-                        <label for="funcNome">Nome Completo</label>
-                        <input type="text" id="funcNome" placeholder="Ex: João da Silva" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="funcFuncao">Função</label>
-                        <select id="funcFuncao" required>
-                            <option value="">Selecione</option>
-                            <option value="Vaqueiro">Vaqueiro</option>
-                            <option value="Ordenhador">Ordenhador</option>
-                            <option value="Tratorista">Tratorista</option>
-                            <option value="Caseiro">Caseiro</option>
-                            <option value="Agricultor">Agricultor</option>
-                            <option value="Gerente">Gerente</option>
-                            <option value="Braçal">Braçal/Diarista</option>
-                            <option value="Outro">Outro</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="funcTelefone">Telefone</label>
-                        <input type="tel" id="funcTelefone" placeholder="(00) 00000-0000">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="funcTipoPagamento">Tipo de Pagamento</label>
-                        <select id="funcTipoPagamento" required>
-                            <option value="Diária">Por Diária</option>
-                            <option value="Semanal">Semanal</option>
-                            <option value="Quinzenal">Quinzenal</option>
-                            <option value="Mensal">Mensal</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="funcValor">Valor (R$)</label>
-                        <input type="number" id="funcValor" placeholder="0.00" step="0.01" min="0" required>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="funcDataAdmissao">Data de Admissão</label>
-                        <input type="date" id="funcDataAdmissao">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="funcStatus">Status</label>
-                        <select id="funcStatus">
-                            <option value="Ativo">✅ Ativo</option>
-                            <option value="Afastado">⏸️ Afastado</option>
-                            <option value="Demitido">❌ Demitido</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="funcObs">Observações</label>
-                    <textarea id="funcObs" placeholder="Informações adicionais..." rows="2"></textarea>
-                </div>
-                
-                <button type="submit" class="btn btn-primary">Cadastrar Funcionário</button>
-            </form>
-            
-            <div id="messageFuncionario" class="message" style="display: none;"></div>
-        </section>
-        
-        <section class="card">
-            <div class="section-header">
-                <h2>📋 Funcionários Cadastrados</h2>
-                <div class="counter">Total: <span id="funcionarioCount">0</span> funcionários</div>
+            <div class="page-header">
+                <h1>👨‍🌾 Gestão de Funcionários</h1>
+                <p>Cadastre funcionários e controle ponto de trabalho</p>
             </div>
             
-            <div class="table-actions">
-                <button onclick="exportFuncionariosCSV()" class="btn btn-info">📥 Exportar CSV</button>
-                <button onclick="clearAllFuncionarios()" class="btn btn-danger-outline">🗑️ Apagar Tudo</button>
-            </div>
-            
-            <div class="table-responsive">
-                <table id="funcionarioTable">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Função</th>
-                            <th>Telefone</th>
-                            <th>Pagamento</th>
-                            <th>Valor</th>
-                            <th>Status</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="funcionarioTableBody">
-                        <tr class="empty-state">
-                            <td colspan="7">Nenhum funcionário cadastrado ainda</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-        
-        <!-- Registro de Presença -->
-        <section class="card">
-            <h2>📅 Registro de Presença/Dias Trabalhados</h2>
-            
-            <form id="presencaForm">
-                <div class="form-row">
-                    <div class="form-group flex-2">
-                        <label for="presencaFuncionario">Funcionário</label>
-                        <select id="presencaFuncionario" required>
-                            <option value="">Selecione um funcionário</option>
-                        </select>
-                    </div>
+            <section class="card">
+                <div class="card-header">
+                    <h2>➕ Cadastrar Funcionário</h2>
+                </div>
+                <div class="card-body">
+                    <form id="funcionarioForm">
+                        <div class="form-row">
+                            <div class="form-group flex-2">
+                                <label for="nomeFuncionario">Nome Completo *</label>
+                                <input type="text" id="nomeFuncionario" placeholder="Nome do funcionário" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cargoFuncionario">Cargo *</label>
+                                <select id="cargoFuncionario" required>
+                                    <option value="">Selecione</option>
+                                    <option value="Tratador">Tratador</option>
+                                    <option value="Ordenhador">Ordenhador</option>
+                                    <option value="Tratorista">Tratorista</option>
+                                    <option value="Vaqueiro">Vaqueiro</option>
+                                    <option value="Campeiro">Campeiro</option>
+                                    <option value="Auxiliar Geral">Auxiliar Geral</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cpfFuncionario">CPF</label>
+                                <input type="text" id="cpfFuncionario" placeholder="000.000.000-00">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="telefoneFuncionario">Telefone</label>
+                                <input type="tel" id="telefoneFuncionario" placeholder="(00) 00000-0000">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="dataAdmissao">Data de Admissão</label>
+                                <input type="date" id="dataAdmissao">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="salarioFuncionario">Salário (R$)</label>
+                                <input type="number" id="salarioFuncionario" step="0.01" min="0" placeholder="0,00">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="obsFuncionario">Observações</label>
+                            <textarea id="obsFuncionario" rows="2"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Cadastrar Funcionário</button>
+                    </form>
                     
-                    <div class="form-group">
-                        <label for="presencaData">Data</label>
-                        <input type="date" id="presencaData" required>
-                    </div>
+                    <div id="messageFuncionario" class="message" style="display: none;"></div>
+                </div>
+            </section>
+            
+            <section class="card">
+                <div class="card-header">
+                    <h2>⏰ Marcar Ponto de Trabalho</h2>
+                </div>
+                <div class="card-body">
+                    <form id="pontoForm">
+                        <div class="form-row">
+                            <div class="form-group flex-2">
+                                <label for="funcionarioPonto">Funcionário *</label>
+                                <select id="funcionarioPonto" required>
+                                    <option value="">Selecione o funcionário</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="dataPonto">Data *</label>
+                                <input type="date" id="dataPonto" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="horaPonto">Hora *</label>
+                                <input type="time" id="horaPonto" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="tipoPonto">Tipo *</label>
+                                <select id="tipoPonto" required>
+                                    <option value="Entrada">🟢 Entrada</option>
+                                    <option value="Saída">🔴 Saída</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Registrar Ponto</button>
+                    </form>
                     
-                    <div class="form-group">
-                        <label for="presencaTipo">Tipo</label>
-                        <select id="presencaTipo" required>
-                            <option value="Presente">✅ Presente</option>
-                            <option value="Falta">❌ Falta</option>
-                            <option value="Folga">🏖️ Folga</option>
-                        </select>
+                    <div id="messagePonto" class="message" style="display: none;"></div>
+                </div>
+            </section>
+            
+            <section class="stats-mini">
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="totalFuncionarios">0</div>
+                    <div class="stat-mini-label">Total Funcionários</div>
+                </div>
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="funcionariosAtivos">0</div>
+                    <div class="stat-mini-label">Ativos</div>
+                </div>
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="folhaPagamento">R$ 0,00</div>
+                    <div class="stat-mini-label">Folha de Pagamento</div>
+                </div>
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="pontosHoje">0</div>
+                    <div class="stat-mini-label">Pontos Hoje</div>
+                </div>
+            </section>
+            
+            <section class="card">
+                <div class="card-header">
+                    <h2>📋 Funcionários Cadastrados</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Cargo</th>
+                                    <th>Telefone</th>
+                                    <th>Admissão</th>
+                                    <th>Salário</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="funcionarioTableBody">
+                                <tr class="empty-state">
+                                    <td colspan="7">
+                                        <div class="empty-state-content">
+                                            <h3>Nenhum funcionário cadastrado</h3>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                
-                <button type="submit" class="btn btn-primary">Registrar Presença</button>
-            </form>
-            
-            <div id="messagePresenca" class="message" style="display: none;"></div>
-            
-            <div class="table-responsive" style="margin-top: 20px;">
-                <h3>Últimos Registros</h3>
-                <table id="presencaTable">
-                    <thead>
-                        <tr>
-                            <th>Data</th>
-                            <th>Funcionário</th>
-                            <th>Status</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="presencaTableBody">
-                        <tr class="empty-state">
-                            <td colspan="4">Nenhum registro de presença</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
     
     <footer>
-        <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
+        <div class="footer-content">
+            <p>© 2025 Porteira Preta - Sistema Profissional de Gestão Rural</p>
+        </div>
     </footer>
     
     <script src="script.js"></script>

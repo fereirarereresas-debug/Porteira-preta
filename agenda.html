@@ -8,155 +8,183 @@
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>🌾 Porteira Preta — Sistema Rural</h1>
-            <nav>
-                <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">🏠 Dashboard</button>
-                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
-                <button onclick="logout()" class="btn btn-danger">Logout</button>
-            </nav>
+        <div class="header-container">
+            <div class="header-left">
+                <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+                <h1 class="logo-header">🌾 Porteira Preta</h1>
+            </div>
+            <div class="header-right">
+                <button onclick="window.location.href='dashboard.html'" class="btn-header">Dashboard</button>
+                <button onclick="logout()" class="btn-header btn-danger">Sair</button>
+            </div>
         </div>
     </header>
     
-    <!-- Menu Lateral -->
-    <div id="sideMenu" class="side-menu">
+    <aside id="sideMenu" class="side-menu">
         <div class="menu-header">
             <h3>📋 Menu Principal</h3>
-            <button onclick="toggleMenu()" class="btn-close">✕</button>
+            <button onclick="toggleMenu()" class="btn-close">×</button>
         </div>
-        <ul class="menu-list">
-            <li><a href="dashboard.html">🏠 Dashboard</a></li>
-            <li><a href="animais.html">🐄 Animais</a></li>
-            <li><a href="inseminacao.html">🐮 Inseminação</a></li>
-            <li><a href="leite.html">🥛 Produção de Leite</a></li>
-            <li><a href="contas.html">💰 Finanças</a></li>
-            <li><a href="lavouras.html">🌱 Lavouras</a></li>
-            <li><a href="maquinas.html">🚜 Máquinas</a></li>
-            <li><a href="funcionarios.html">👨‍🌾 Funcionários</a></li>
-            <li><a href="agenda.html" class="active">📅 Agenda</a></li>
-            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
-        </ul>
-    </div>
+        <nav class="menu-nav">
+            <div class="menu-section">
+                <div class="menu-section-title">🏠 PAINEL</div>
+                <a href="dashboard.html" class="menu-item"><span class="menu-icon">📊</span><span>Dashboard</span></a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">🐄 ZOOTECNIA</div>
+                <a href="animais.html" class="menu-item"><span class="menu-icon">🐄</span><span>Gestão de Animais</span></a>
+                <a href="genealogia.html" class="menu-item"><span class="menu-icon">🧬</span><span>Genealogia e Crias</span></a>
+                <a href="inseminacao.html" class="menu-item"><span class="menu-icon">🐮</span><span>Inseminação</span></a>
+                <a href="sanitario.html" class="menu-item"><span class="menu-icon">💉</span><span>Controle Sanitário</span></a>
+                <a href="alimentacao.html" class="menu-item"><span class="menu-icon">🌾</span><span>Alimentação</span></a>
+                <a href="leite.html" class="menu-item"><span class="menu-icon">🥛</span><span>Produção de Leite</span></a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">🌱 AGRICULTURA</div>
+                <a href="pastagens.html" class="menu-item"><span class="menu-icon">🌱</span><span>Gestão de Pastagens</span></a>
+                <a href="adubacao.html" class="menu-item"><span class="menu-icon">🧪</span><span>Adubação</span></a>
+                <a href="lavouras.html" class="menu-item"><span class="menu-icon">🌾</span><span>Lavouras</span></a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">💼 GESTÃO</div>
+                <a href="contas.html" class="menu-item"><span class="menu-icon">💰</span><span>Financeiro</span></a>
+                <a href="maquinas.html" class="menu-item"><span class="menu-icon">🚜</span><span>Máquinas</span></a>
+                <a href="funcionarios.html" class="menu-item"><span class="menu-icon">👨‍🌾</span><span>Funcionários</span></a>
+                <a href="agenda.html" class="menu-item active"><span class="menu-icon">📅</span><span>Agenda</span></a>
+                <a href="ferramentas.html" class="menu-item"><span class="menu-icon">🧮</span><span>Ferramentas</span></a>
+            </div>
+        </nav>
+    </aside>
     
-    <main class="container">
-        <!-- Tarefas do Dia -->
-        <section class="card">
-            <h2>📅 Agenda de Tarefas Rurais</h2>
+    <div id="menuOverlay" class="menu-overlay" onclick="toggleMenu()"></div>
+    
+    <main class="main-content">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="dashboard.html">Dashboard</a>
+                <span>/</span>
+                <span>Agenda e Lembretes</span>
+            </nav>
             
-            <form id="tarefaForm">
-                <div class="form-row">
-                    <div class="form-group flex-2">
-                        <label for="tarefaTitulo">Título da Tarefa</label>
-                        <input type="text" id="tarefaTitulo" placeholder="Ex: Vacinar bezerros" required>
-                    </div>
+            <div class="page-header">
+                <h1>📅 Agenda e Lembretes</h1>
+                <p>Organize tarefas e compromissos da propriedade</p>
+            </div>
+            
+            <section class="card">
+                <div class="card-header">
+                    <h2>➕ Nova Tarefa</h2>
+                </div>
+                <div class="card-body">
+                    <form id="tarefaForm">
+                        <div class="form-row">
+                            <div class="form-group flex-2">
+                                <label for="tituloTarefa">Título *</label>
+                                <input type="text" id="tituloTarefa" placeholder="Ex: Vacinar rebanho" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="dataTarefa">Data *</label>
+                                <input type="date" id="dataTarefa" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="horaTarefa">Hora</label>
+                                <input type="time" id="horaTarefa">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="prioridadeTarefa">Prioridade</label>
+                                <select id="prioridadeTarefa">
+                                    <option value="Baixa">🟢 Baixa</option>
+                                    <option value="Média">🟡 Média</option>
+                                    <option value="Alta">🔴 Alta</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="categoriaTarefa">Categoria</label>
+                                <select id="categoriaTarefa">
+                                    <option value="Geral">Geral</option>
+                                    <option value="Animais">Animais</option>
+                                    <option value="Agricultura">Agricultura</option>
+                                    <option value="Manutenção">Manutenção</option>
+                                    <option value="Financeiro">Financeiro</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="descricaoTarefa">Descrição</label>
+                            <textarea id="descricaoTarefa" rows="3" placeholder="Detalhes da tarefa..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Criar Tarefa</button>
+                    </form>
                     
-                    <div class="form-group">
-                        <label for="tarefaData">Data</label>
-                        <input type="date" id="tarefaData" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="tarefaPrioridade">Prioridade</label>
-                        <select id="tarefaPrioridade">
-                            <option value="Baixa">🟢 Baixa</option>
-                            <option value="Média">🟡 Média</option>
-                            <option value="Alta">🔴 Alta</option>
-                        </select>
+                    <div id="messageTarefa" class="message" style="display: none;"></div>
+                </div>
+            </section>
+            
+            <section class="stats-mini">
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="totalTarefas">0</div>
+                    <div class="stat-mini-label">Total de Tarefas</div>
+                </div>
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="tarefasPendentes">0</div>
+                    <div class="stat-mini-label">Pendentes</div>
+                </div>
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="tarefasConcluidas">0</div>
+                    <div class="stat-mini-label">Concluídas</div>
+                </div>
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="tarefasAtrasadas">0</div>
+                    <div class="stat-mini-label">Atrasadas</div>
+                </div>
+            </section>
+            
+            <section class="card">
+                <div class="card-header">
+                    <h2>📋 Todas as Tarefas</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Data</th>
+                                    <th>Título</th>
+                                    <th>Prioridade</th>
+                                    <th>Categoria</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tarefaTableBody">
+                                <tr class="empty-state">
+                                    <td colspan="6">
+                                        <div class="empty-state-content">
+                                            <h3>Nenhuma tarefa criada</h3>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="tarefaDescricao">Descrição</label>
-                    <textarea id="tarefaDescricao" placeholder="Detalhes da tarefa..." rows="3"></textarea>
-                </div>
-                
-                <button type="submit" class="btn btn-primary">Adicionar Tarefa</button>
-            </form>
-            
-            <div id="messageTarefa" class="message" style="display: none;"></div>
-        </section>
-        
-        <!-- Lista de Tarefas -->
-        <section class="card">
-            <div class="section-header">
-                <h2>📋 Tarefas Pendentes</h2>
-                <div class="counter">Total: <span id="tarefaCount">0</span> tarefas</div>
-            </div>
-            
-            <div class="filter-bar">
-                <select id="filterTarefaStatus" onchange="filterTarefas()">
-                    <option value="all">Todas</option>
-                    <option value="Pendente">Pendentes</option>
-                    <option value="Concluída">Concluídas</option>
-                </select>
-                
-                <select id="filterTarefaPrioridade" onchange="filterTarefas()">
-                    <option value="all">Todas Prioridades</option>
-                    <option value="Alta">🔴 Alta</option>
-                    <option value="Média">🟡 Média</option>
-                    <option value="Baixa">🟢 Baixa</option>
-                </select>
-                
-                <button onclick="clearAllTarefas()" class="btn btn-danger-outline">🗑️ Limpar Tudo</button>
-            </div>
-            
-            <div class="tasks-container" id="tasksContainer">
-                <p class="empty-state">Nenhuma tarefa cadastrada</p>
-            </div>
-        </section>
-        
-        <!-- Lembretes -->
-        <section class="card">
-            <h2>🔔 Lembretes Rápidos</h2>
-            
-            <form id="lembreteForm">
-                <div class="form-row">
-                    <div class="form-group flex-2">
-                        <label for="lembreteTexto">Lembrete</label>
-                        <input type="text" id="lembreteTexto" placeholder="Ex: Comprar ração para frangos" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="lembreteCategoria">Categoria</label>
-                        <select id="lembreteCategoria">
-                            <option value="Compra">🛒 Compra</option>
-                            <option value="Vacina">💉 Vacina</option>
-                            <option value="Manutenção">🔧 Manutenção</option>
-                            <option value="Plantio">🌱 Plantio</option>
-                            <option value="Colheita">🌾 Colheita</option>
-                            <option value="Outro">📌 Outro</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <button type="submit" class="btn btn-primary">Adicionar Lembrete</button>
-            </form>
-            
-            <div id="messageLembrete" class="message" style="display: none;"></div>
-            
-            <div class="lembretes-list" id="lembretesList" style="margin-top: 20px;">
-                <p class="empty-state">Nenhum lembrete cadastrado</p>
-            </div>
-        </section>
-        
-        <!-- Bloco de Anotações -->
-        <section class="card">
-            <h2>📝 Bloco de Anotações</h2>
-            <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">
-                Use este espaço para anotações gerais. Suas anotações são salvas automaticamente.
-            </p>
-            
-            <textarea id="blocoNotas" placeholder="Escreva suas anotações aqui..." rows="10" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 0.95rem;"></textarea>
-            
-            <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
-                <small id="autoSaveIndicator" style="color: #999;">Salvamento automático ativo</small>
-                <button onclick="clearNotas()" class="btn btn-danger-outline">🗑️ Limpar Anotações</button>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
     
     <footer>
-        <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
+        <div class="footer-content">
+            <p>© 2025 Porteira Preta - Sistema Profissional de Gestão Rural</p>
+        </div>
     </footer>
     
     <script src="script.js"></script>

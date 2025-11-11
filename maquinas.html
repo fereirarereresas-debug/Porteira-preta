@@ -8,202 +8,202 @@
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>🌾 Porteira Preta — Sistema Rural</h1>
-            <nav>
-                <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">🏠 Dashboard</button>
-                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
-                <button onclick="logout()" class="btn btn-danger">Logout</button>
-            </nav>
+        <div class="header-container">
+            <div class="header-left">
+                <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+                <h1 class="logo-header">🌾 Porteira Preta</h1>
+            </div>
+            <div class="header-right">
+                <button onclick="window.location.href='dashboard.html'" class="btn-header">Dashboard</button>
+                <button onclick="logout()" class="btn-header btn-danger">Sair</button>
+            </div>
         </div>
     </header>
     
-    <!-- Menu Lateral -->
-    <div id="sideMenu" class="side-menu">
+    <aside id="sideMenu" class="side-menu">
         <div class="menu-header">
             <h3>📋 Menu Principal</h3>
-            <button onclick="toggleMenu()" class="btn-close">✕</button>
+            <button onclick="toggleMenu()" class="btn-close">×</button>
         </div>
-        <ul class="menu-list">
-            <li><a href="dashboard.html">🏠 Dashboard</a></li>
-            <li><a href="animais.html">🐄 Animais</a></li>
-            <li><a href="inseminacao.html">🐮 Inseminação</a></li>
-            <li><a href="leite.html">🥛 Produção de Leite</a></li>
-            <li><a href="contas.html">💰 Finanças</a></li>
-            <li><a href="lavouras.html">🌱 Lavouras</a></li>
-            <li><a href="maquinas.html" class="active">🚜 Máquinas</a></li>
-            <li><a href="funcionarios.html">👨‍🌾 Funcionários</a></li>
-            <li><a href="agenda.html">📅 Agenda</a></li>
-            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
-        </ul>
-    </div>
+        <nav class="menu-nav">
+            <div class="menu-section">
+                <div class="menu-section-title">🏠 PAINEL</div>
+                <a href="dashboard.html" class="menu-item"><span class="menu-icon">📊</span><span>Dashboard</span></a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">🐄 ZOOTECNIA</div>
+                <a href="animais.html" class="menu-item"><span class="menu-icon">🐄</span><span>Gestão de Animais</span></a>
+                <a href="genealogia.html" class="menu-item"><span class="menu-icon">🧬</span><span>Genealogia e Crias</span></a>
+                <a href="inseminacao.html" class="menu-item"><span class="menu-icon">🐮</span><span>Inseminação</span></a>
+                <a href="sanitario.html" class="menu-item"><span class="menu-icon">💉</span><span>Controle Sanitário</span></a>
+                <a href="alimentacao.html" class="menu-item"><span class="menu-icon">🌾</span><span>Alimentação</span></a>
+                <a href="leite.html" class="menu-item"><span class="menu-icon">🥛</span><span>Produção de Leite</span></a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">🌱 AGRICULTURA</div>
+                <a href="pastagens.html" class="menu-item"><span class="menu-icon">🌱</span><span>Gestão de Pastagens</span></a>
+                <a href="adubacao.html" class="menu-item"><span class="menu-icon">🧪</span><span>Adubação</span></a>
+                <a href="lavouras.html" class="menu-item"><span class="menu-icon">🌾</span><span>Lavouras</span></a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">💼 GESTÃO</div>
+                <a href="contas.html" class="menu-item"><span class="menu-icon">💰</span><span>Financeiro</span></a>
+                <a href="maquinas.html" class="menu-item active"><span class="menu-icon">🚜</span><span>Máquinas</span></a>
+                <a href="funcionarios.html" class="menu-item"><span class="menu-icon">👨‍🌾</span><span>Funcionários</span></a>
+                <a href="agenda.html" class="menu-item"><span class="menu-icon">📅</span><span>Agenda</span></a>
+                <a href="ferramentas.html" class="menu-item"><span class="menu-icon">🧮</span><span>Ferramentas</span></a>
+            </div>
+        </nav>
+    </aside>
     
-    <main class="container">
-        <section class="card">
-            <h2>🚜 Cadastro de Máquinas e Equipamentos</h2>
+    <div id="menuOverlay" class="menu-overlay" onclick="toggleMenu()"></div>
+    
+    <main class="main-content">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="dashboard.html">Dashboard</a>
+                <span>/</span>
+                <span>Máquinas e Equipamentos</span>
+            </nav>
             
-            <form id="maquinaForm">
-                <div class="form-row">
-                    <div class="form-group flex-2">
-                        <label for="maquinaNome">Nome/Identificação</label>
-                        <input type="text" id="maquinaNome" placeholder="Ex: Trator John Deere, Moto Honda" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="maquinaTipo">Tipo</label>
-                        <select id="maquinaTipo" required>
-                            <option value="">Selecione</option>
-                            <option value="Trator">Trator</option>
-                            <option value="Colheitadeira">Colheitadeira</option>
-                            <option value="Plantadeira">Plantadeira</option>
-                            <option value="Pulverizador">Pulverizador</option>
-                            <option value="Moto">Moto</option>
-                            <option value="Caminhão">Caminhão</option>
-                            <option value="Implemento">Implemento Agrícola</option>
-                            <option value="Outro">Outro</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="maquinaAno">Ano</label>
-                        <input type="number" id="maquinaAno" placeholder="2020" min="1900" max="2030">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="maquinaPlaca">Placa (se aplicável)</label>
-                        <input type="text" id="maquinaPlaca" placeholder="ABC-1234">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="maquinaHoras">Horas Trabalhadas</label>
-                        <input type="number" id="maquinaHoras" placeholder="0" min="0" step="0.1">
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="maquinaUltimaManutencao">Última Manutenção</label>
-                        <input type="date" id="maquinaUltimaManutencao">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="maquinaProximaManutencao">Próxima Manutenção</label>
-                        <input type="date" id="maquinaProximaManutencao">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="maquinaStatus">Status Atual</label>
-                        <select id="maquinaStatus">
-                            <option value="Operacional">✅ Operacional</option>
-                            <option value="Manutenção">🔧 Em Manutenção</option>
-                            <option value="Parado">⛔ Parado</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="maquinaObs">Observações (peças trocadas, defeitos, etc.)</label>
-                    <textarea id="maquinaObs" placeholder="Anotações sobre a máquina..." rows="3"></textarea>
-                </div>
-                
-                <button type="submit" class="btn btn-primary">Cadastrar Máquina</button>
-            </form>
-            
-            <div id="messageMaquina" class="message" style="display: none;"></div>
-        </section>
-        
-        <section class="card">
-            <div class="section-header">
-                <h2>📋 Máquinas Cadastradas</h2>
-                <div class="counter">Total: <span id="maquinaCount">0</span> máquinas</div>
+            <div class="page-header">
+                <h1>🚜 Máquinas e Equipamentos</h1>
+                <p>Gerencie máquinas, manutenções e custos operacionais</p>
             </div>
             
-            <div class="table-actions">
-                <button onclick="exportMaquinasCSV()" class="btn btn-info">📥 Exportar CSV</button>
-                <button onclick="clearAllMaquinas()" class="btn btn-danger-outline">🗑️ Apagar Tudo</button>
-            </div>
-            
-            <div class="table-responsive">
-                <table id="maquinaTable">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Tipo</th>
-                            <th>Ano</th>
-                            <th>Horas Trabalhadas</th>
-                            <th>Status</th>
-                            <th>Próxima Manutenção</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="maquinaTableBody">
-                        <tr class="empty-state">
-                            <td colspan="7">Nenhuma máquina cadastrada ainda</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-        
-        <!-- Registro de Manutenções -->
-        <section class="card">
-            <h2>🔧 Registro de Manutenções</h2>
-            
-            <form id="manutencaoForm">
-                <div class="form-row">
-                    <div class="form-group flex-2">
-                        <label for="manutencaoMaquina">Máquina</label>
-                        <select id="manutencaoMaquina" required>
-                            <option value="">Selecione uma máquina</option>
-                        </select>
-                    </div>
+            <section class="card">
+                <div class="card-header">
+                    <h2>➕ Cadastrar Máquina/Equipamento</h2>
+                </div>
+                <div class="card-body">
+                    <form id="maquinaForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nomeMaquina">Nome/Identificação *</label>
+                                <input type="text" id="nomeMaquina" placeholder="Ex: Trator Valtra" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="tipoMaquina">Tipo *</label>
+                                <select id="tipoMaquina" required>
+                                    <option value="">Selecione</option>
+                                    <option value="Trator">Trator</option>
+                                    <option value="Colheitadeira">Colheitadeira</option>
+                                    <option value="Plantadeira">Plantadeira</option>
+                                    <option value="Pulverizador">Pulverizador</option>
+                                    <option value="Carreta">Carreta</option>
+                                    <option value="Roçadeira">Roçadeira</option>
+                                    <option value="Ordenhadeira">Ordenhadeira</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="marcaMaquina">Marca</label>
+                                <input type="text" id="marcaMaquina" placeholder="Ex: Valtra, John Deere">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="modeloMaquina">Modelo</label>
+                                <input type="text" id="modeloMaquina" placeholder="Ex: BM 125">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="anoMaquina">Ano</label>
+                                <input type="number" id="anoMaquina" min="1900" max="2100" placeholder="2020">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="placaMaquina">Placa</label>
+                                <input type="text" id="placaMaquina" placeholder="ABC-1234">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="horimetroMaquina">Horímetro Atual</label>
+                                <input type="number" id="horimetroMaquina" step="0.1" min="0" placeholder="1500">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="statusMaquina">Status</label>
+                                <select id="statusMaquina">
+                                    <option value="Operacional">🟢 Operacional</option>
+                                    <option value="Manutenção">🟡 Em Manutenção</option>
+                                    <option value="Parado">🔴 Parado</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="obsMaquina">Observações</label>
+                            <textarea id="obsMaquina" rows="2"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Cadastrar Máquina</button>
+                    </form>
                     
-                    <div class="form-group">
-                        <label for="manutencaoData">Data</label>
-                        <input type="date" id="manutencaoData" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="manutencaoCusto">Custo (R$)</label>
-                        <input type="number" id="manutencaoCusto" placeholder="0.00" step="0.01" min="0">
+                    <div id="messageMaquina" class="message" style="display: none;"></div>
+                </div>
+            </section>
+            
+            <section class="stats-mini">
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="totalMaquinas">0</div>
+                    <div class="stat-mini-label">Total de Máquinas</div>
+                </div>
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="maquinasOperacionais">0</div>
+                    <div class="stat-mini-label">Operacionais</div>
+                </div>
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="maquinasManutencao">0</div>
+                    <div class="stat-mini-label">Em Manutenção</div>
+                </div>
+                <div class="stat-mini-card">
+                    <div class="stat-mini-value" id="custoManutencao">R$ 0,00</div>
+                    <div class="stat-mini-label">Custo Manutenção</div>
+                </div>
+            </section>
+            
+            <section class="card">
+                <div class="card-header">
+                    <h2>📋 Máquinas Cadastradas</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Tipo</th>
+                                    <th>Marca/Modelo</th>
+                                    <th>Ano</th>
+                                    <th>Horímetro</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="maquinaTableBody">
+                                <tr class="empty-state">
+                                    <td colspan="7">
+                                        <div class="empty-state-content">
+                                            <h3>Nenhuma máquina cadastrada</h3>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="manutencaoDescricao">Descrição do Serviço</label>
-                    <textarea id="manutencaoDescricao" placeholder="Ex: Troca de óleo, filtros..." rows="2" required></textarea>
-                </div>
-                
-                <button type="submit" class="btn btn-primary">Registrar Manutenção</button>
-            </form>
-            
-            <div id="messageManutencao" class="message" style="display: none;"></div>
-            
-            <div class="table-responsive" style="margin-top: 20px;">
-                <table id="manutencaoTable">
-                    <thead>
-                        <tr>
-                            <th>Data</th>
-                            <th>Máquina</th>
-                            <th>Serviço</th>
-                            <th>Custo</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="manutencaoTableBody">
-                        <tr class="empty-state">
-                            <td colspan="5">Nenhuma manutenção registrada</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
     
     <footer>
-        <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
+        <div class="footer-content">
+            <p>© 2025 Porteira Preta - Sistema Profissional de Gestão Rural</p>
+        </div>
     </footer>
     
     <script src="script.js"></script>

@@ -7,339 +7,388 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- HEADER -->
     <header>
-        <div class="container">
-            <h1>🌾 Porteira Preta — Sistema Rural Profissional</h1>
-            <nav>
-                <button onclick="window.location.href='dashboard.html'" class="btn btn-active">🏠 Dashboard</button>
-                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
-                <button onclick="logout()" class="btn btn-danger">Logout</button>
-            </nav>
+        <div class="header-container">
+            <div class="header-left">
+                <button class="menu-toggle" onclick="toggleMenu()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <h1 class="logo-header">🌾 Porteira Preta</h1>
+            </div>
+            <div class="header-right">
+                <button onclick="window.location.href='dashboard.html'" class="btn-header active">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    Dashboard
+                </button>
+                <button onclick="logout()" class="btn-header btn-danger">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    Sair
+                </button>
+            </div>
         </div>
     </header>
     
-    <!-- Menu Lateral -->
-    <div id="sideMenu" class="side-menu">
+    <!-- MENU LATERAL -->
+    <aside id="sideMenu" class="side-menu">
         <div class="menu-header">
             <h3>📋 Menu Principal</h3>
-            <button onclick="toggleMenu()" class="btn-close">✕</button>
+            <button onclick="toggleMenu()" class="btn-close">×</button>
         </div>
-        <ul class="menu-list">
-            <li><a href="dashboard.html" class="active">🏠 Dashboard</a></li>
-            <li class="menu-section">ZOOTECNIA</li>
-            <li><a href="animais.html">🐄 Animais</a></li>
-            <li><a href="genealogia.html">🧬 Genealogia</a></li>
-            <li><a href="inseminacao.html">🐮 Inseminação</a></li>
-            <li><a href="sanitario.html">💉 Controle Sanitário</a></li>
-            <li><a href="alimentacao.html">🌾 Alimentação</a></li>
-            <li><a href="leite.html">🥛 Produção de Leite</a></li>
-            <li class="menu-section">AGRICULTURA</li>
-            <li><a href="pastagens.html">🌱 Pastagens</a></li>
-            <li><a href="adubacao.html">🧪 Adubação</a></li>
-            <li><a href="lavouras.html">🌾 Lavouras</a></li>
-            <li class="menu-section">GESTÃO</li>
-            <li><a href="contas.html">💰 Finanças</a></li>
-            <li><a href="maquinas.html">🚜 Máquinas</a></li>
-            <li><a href="funcionarios.html">👨‍🌾 Funcionários</a></li>
-            <li><a href="agenda.html">📅 Agenda</a></li>
-            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
-        </ul>
-    </div>
+        <nav class="menu-nav">
+            <div class="menu-section">
+                <div class="menu-section-title">🏠 PAINEL</div>
+                <a href="dashboard.html" class="menu-item active">
+                    <span class="menu-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+            
+            <div class="menu-section">
+                <div class="menu-section-title">🐄 ZOOTECNIA</div>
+                <a href="animais.html" class="menu-item">
+                    <span class="menu-icon">🐄</span>
+                    <span>Gestão de Animais</span>
+                </a>
+                <a href="genealogia.html" class="menu-item">
+                    <span class="menu-icon">🧬</span>
+                    <span>Genealogia e Crias</span>
+                </a>
+                <a href="inseminacao.html" class="menu-item">
+                    <span class="menu-icon">🐮</span>
+                    <span>Inseminação</span>
+                </a>
+                <a href="sanitario.html" class="menu-item">
+                    <span class="menu-icon">💉</span>
+                    <span>Controle Sanitário</span>
+                </a>
+                <a href="alimentacao.html" class="menu-item">
+                    <span class="menu-icon">🌾</span>
+                    <span>Alimentação</span>
+                </a>
+                <a href="leite.html" class="menu-item">
+                    <span class="menu-icon">🥛</span>
+                    <span>Produção de Leite</span>
+                </a>
+            </div>
+            
+            <div class="menu-section">
+                <div class="menu-section-title">🌱 AGRICULTURA</div>
+                <a href="pastagens.html" class="menu-item">
+                    <span class="menu-icon">🌱</span>
+                    <span>Gestão de Pastagens</span>
+                </a>
+                <a href="adubacao.html" class="menu-item">
+                    <span class="menu-icon">🧪</span>
+                    <span>Adubação</span>
+                </a>
+                <a href="lavouras.html" class="menu-item">
+                    <span class="menu-icon">🌾</span>
+                    <span>Lavouras</span>
+                </a>
+            </div>
+            
+            <div class="menu-section">
+                <div class="menu-section-title">💼 GESTÃO</div>
+                <a href="contas.html" class="menu-item">
+                    <span class="menu-icon">💰</span>
+                    <span>Financeiro</span>
+                </a>
+                <a href="maquinas.html" class="menu-item">
+                    <span class="menu-icon">🚜</span>
+                    <span>Máquinas</span>
+                </a>
+                <a href="funcionarios.html" class="menu-item">
+                    <span class="menu-icon">👨‍🌾</span>
+                    <span>Funcionários</span>
+                </a>
+                <a href="agenda.html" class="menu-item">
+                    <span class="menu-icon">📅</span>
+                    <span>Agenda</span>
+                </a>
+                <a href="ferramentas.html" class="menu-item">
+                    <span class="menu-icon">🧮</span>
+                    <span>Ferramentas</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
     
-    <main class="container dashboard">
-        <!-- Mensagem de Boas-vindas -->
-        <section class="welcome-banner">
-            <div class="welcome-content">
-                <h2>👋 Bem-vindo, <span id="userName">Usuário</span>!</h2>
-                <p id="currentDate"></p>
-            </div>
-        </section>
-        
-        <!-- Cards de Resumo Principal -->
-        <section class="dashboard-cards">
-            <div class="dash-card card-animals">
-                <div class="card-icon">🐄</div>
-                <div class="card-content">
-                    <h3 id="totalAnimais">0</h3>
-                    <p>Animais Cadastrados</p>
-                    <small id="animaisPorTipo"></small>
+    <!-- OVERLAY DO MENU -->
+    <div id="menuOverlay" class="menu-overlay" onclick="toggleMenu()"></div>
+    
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+        <div class="container">
+            <!-- BOAS-VINDAS -->
+            <section class="welcome-banner">
+                <div class="welcome-content">
+                    <h2>👋 Bem-vindo ao Porteira Preta!</h2>
+                    <p id="currentDateTime"></p>
                 </div>
-                <button onclick="window.location.href='animais.html'" class="card-btn">Ver Detalhes →</button>
-            </div>
-            
-            <div class="dash-card card-finance">
-                <div class="card-icon">💰</div>
-                <div class="card-content">
-                    <h3 id="saldoAtualDash">R$ 0,00</h3>
-                    <p>Saldo Financeiro</p>
-                    <small id="receitaMes"></small>
+                <div class="welcome-actions">
+                    <button onclick="window.location.href='animais.html'" class="btn-welcome">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Cadastrar Animal
+                    </button>
+                    <button onclick="window.location.href='leite.html'" class="btn-welcome">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Registrar Leite
+                    </button>
                 </div>
-                <button onclick="window.location.href='contas.html'" class="card-btn">Ver Detalhes →</button>
-            </div>
+            </section>
             
-            <div class="dash-card card-milk">
-                <div class="card-icon">🥛</div>
-                <div class="card-content">
-                    <h3 id="leiteHoje">0 L</h3>
-                    <p>Leite Hoje</p>
-                    <small id="leite7dias"></small>
-                </div>
-                <button onclick="window.location.href='leite.html'" class="card-btn">Ver Detalhes →</button>
-            </div>
-            
-            <div class="dash-card card-tasks">
-                <div class="card-icon">📅</div>
-                <div class="card-content">
-                    <h3 id="tarefasHoje">0</h3>
-                    <p>Tarefas Pendentes</p>
-                    <small id="tarefasAtrasadas"></small>
-                </div>
-                <button onclick="window.location.href='agenda.html'" class="card-btn">Ver Detalhes →</button>
-            </div>
-            
-            <div class="dash-card card-reproduction">
-                <div class="card-icon">🐮</div>
-                <div class="card-content">
-                    <h3 id="inseminacoesAtivas">0</h3>
-                    <p>Gestações Ativas</p>
-                    <small id="partosProximos"></small>
-                </div>
-                <button onclick="window.location.href='inseminacao.html'" class="card-btn">Ver Detalhes →</button>
-            </div>
-            
-            <div class="dash-card card-health">
-                <div class="card-icon">💉</div>
-                <div class="card-content">
-                    <h3 id="acoesSanitarias">0</h3>
-                    <p>Ações Sanitárias (30d)</p>
-                    <small id="vacinasAno"></small>
-                </div>
-                <button onclick="window.location.href='sanitario.html'" class="card-btn">Ver Detalhes →</button>
-            </div>
-            
-            <div class="dash-card card-pasture">
-                <div class="card-icon">🌱</div>
-                <div class="card-content">
-                    <h3 id="piquetesTotal">0</h3>
-                    <p>Piquetes Cadastrados</p>
-                    <small id="piquetesOcupados"></small>
-                </div>
-                <button onclick="window.location.href='pastagens.html'" class="card-btn">Ver Detalhes →</button>
-            </div>
-            
-            <div class="dash-card card-birth">
-                <div class="card-icon">🍼</div>
-                <div class="card-content">
-                    <h3 id="nascimentosAno">0</h3>
-                    <p>Nascimentos Este Ano</p>
-                    <small id="taxaNatalidade"></small>
-                </div>
-                <button onclick="window.location.href='genealogia.html'" class="card-btn">Ver Detalhes →</button>
-            </div>
-        </section>
-        
-        <!-- Alertas Importantes -->
-        <section class="card alert-section">
-            <h2>🔔 Alertas e Notificações Importantes</h2>
-            <div id="alertasImportantes" class="alertas-importantes">
-                <p class="empty-state">Nenhum alerta no momento</p>
-            </div>
-        </section>
-        
-        <!-- Gráficos -->
-        <section class="dashboard-charts">
-            <div class="card chart-card">
-                <h2>📊 Finanças - Últimos 6 Meses</h2>
-                <canvas id="chartFinancas"></canvas>
-            </div>
-            
-            <div class="card chart-card">
-                <h2>🥛 Produção de Leite - Últimos 30 Dias</h2>
-                <canvas id="chartLeite"></canvas>
-            </div>
-        </section>
-        
-        <section class="dashboard-charts">
-            <div class="card chart-card">
-                <h2>🐄 Distribuição de Animais por Tipo</h2>
-                <canvas id="chartAnimais"></canvas>
-            </div>
-            
-            <div class="card chart-card">
-                <h2>🌱 Status dos Piquetes</h2>
-                <canvas id="chartPiquetes"></canvas>
-            </div>
-        </section>
-        
-        <!-- Resumo Detalhado -->
-        <section class="dashboard-summary">
-            <div class="card summary-card">
-                <h3>📈 Resumo Produtivo</h3>
-                <div class="summary-grid">
-                    <div class="summary-item">
-                        <span class="summary-icon">🐮</span>
-                        <div>
-                            <strong id="vacasProducao">0</strong>
-                            <p>Vacas em Produção</p>
-                        </div>
+            <!-- CARDS ESTATÍSTICOS -->
+            <section class="stats-grid">
+                <div class="stat-card card-green">
+                    <div class="stat-icon">🐄</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="totalAnimais">0</div>
+                        <div class="stat-label">Total de Animais</div>
+                        <div class="stat-detail" id="detailAnimais">Carregando...</div>
                     </div>
-                    <div class="summary-item">
-                        <span class="summary-icon">📊</span>
-                        <div>
-                            <strong id="mediaLeiteDia">0 L</strong>
-                            <p>Média Leite/Dia (30d)</p>
-                        </div>
+                </div>
+                
+                <div class="stat-card card-blue">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="saldoFinanceiro">R$ 0,00</div>
+                        <div class="stat-label">Saldo Financeiro</div>
+                        <div class="stat-detail" id="detailSaldo">Carregando...</div>
                     </div>
-                    <div class="summary-item">
-                        <span class="summary-icon">⚖️</span>
-                        <div>
-                            <strong id="pesoMedioRebanho">0 kg</strong>
-                            <p>Peso Médio do Rebanho</p>
-                        </div>
+                </div>
+                
+                <div class="stat-card card-cyan">
+                    <div class="stat-icon">🥛</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="leiteHoje">0 L</div>
+                        <div class="stat-label">Leite Hoje</div>
+                        <div class="stat-detail" id="detailLeite">Carregando...</div>
                     </div>
-                    <div class="summary-item">
-                        <span class="summary-icon">🌾</span>
-                        <div>
-                            <strong id="consumoRacaoDia">0 kg</strong>
-                            <p>Consumo Ração/Dia</p>
+                </div>
+                
+                <div class="stat-card card-orange">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="tarefasPendentes">0</div>
+                        <div class="stat-label">Tarefas Pendentes</div>
+                        <div class="stat-detail" id="detailTarefas">Carregando...</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card card-purple">
+                    <div class="stat-icon">🐮</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="gestacoesAtivas">0</div>
+                        <div class="stat-label">Gestações Ativas</div>
+                        <div class="stat-detail" id="detailGestacoes">Carregando...</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card card-red">
+                    <div class="stat-icon">💉</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="acoesSanitarias">0</div>
+                        <div class="stat-label">Ações Sanitárias (30d)</div>
+                        <div class="stat-detail" id="detailSanitario">Carregando...</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card card-teal">
+                    <div class="stat-icon">🌱</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="totalPiquetes">0</div>
+                        <div class="stat-label">Piquetes</div>
+                        <div class="stat-detail" id="detailPiquetes">Carregando...</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card card-pink">
+                    <div class="stat-icon">🍼</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="nascimentosAno">0</div>
+                        <div class="stat-label">Nascimentos Ano</div>
+                        <div class="stat-detail" id="detailNascimentos">Carregando...</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ALERTAS CRÍTICOS -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>🔔 Alertas e Notificações</h2>
+                </div>
+                <div class="card-body">
+                    <div id="alertasContainer" class="alertas-list">
+                        <div class="alert-item alert-info">
+                            <div class="alert-icon">ℹ️</div>
+                            <div class="alert-content">
+                                <strong>Sistema Carregado</strong>
+                                <p>Todos os módulos estão funcionando corretamente</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
             
-            <div class="card summary-card">
-                <h3>🚜 Resumo Operacional</h3>
-                <div class="summary-grid">
-                    <div class="summary-item">
-                        <span class="summary-icon">🧪</span>
-                        <div>
-                            <strong id="adubacoesAno">0</strong>
-                            <p>Adubações Este Ano</p>
-                        </div>
+            <!-- GRÁFICOS -->
+            <section class="charts-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>📊 Finanças - Últimos 6 Meses</h3>
                     </div>
-                    <div class="summary-item">
-                        <span class="summary-icon">🚜</span>
-                        <div>
-                            <strong id="maquinasAtivas">0</strong>
-                            <p>Máquinas Operacionais</p>
-                        </div>
-                    </div>
-                    <div class="summary-item">
-                        <span class="summary-icon">👨‍🌾</span>
-                        <div>
-                            <strong id="funcionariosAtivos">0</strong>
-                            <p>Funcionários Ativos</p>
-                        </div>
-                    </div>
-                    <div class="summary-item">
-                        <span class="summary-icon">📦</span>
-                        <div>
-                            <strong id="estoqueAlimentos">0</strong>
-                            <p>Itens em Estoque</p>
-                        </div>
+                    <div class="card-body">
+                        <canvas id="chartFinancas" height="100"></canvas>
                     </div>
                 </div>
-            </div>
-        </section>
-        
-        <!-- Próximas Ações -->
-        <section class="dashboard-info">
-            <div class="card info-card">
-                <h2>📅 Próximas Tarefas (7 dias)</h2>
-                <div id="proximasTarefas" class="tasks-list">
-                    <p class="empty-state">Nenhuma tarefa próxima</p>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>🥛 Produção de Leite - Últimos 30 Dias</h3>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="chartLeite" height="100"></canvas>
+                    </div>
                 </div>
-            </div>
+            </section>
             
-            <div class="card info-card">
-                <h2>🐮 Próximos Partos (30 dias)</h2>
-                <div id="proximosPartos" class="tasks-list">
-                    <p class="empty-state">Nenhum parto previsto</p>
+            <section class="charts-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>🐄 Distribuição de Animais</h3>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="chartAnimais" height="100"></canvas>
+                    </div>
                 </div>
-            </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>🌱 Status dos Piquetes</h3>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="chartPiquetes" height="100"></canvas>
+                    </div>
+                </div>
+            </section>
             
-            <div class="card info-card">
-                <h2>💉 Próximas Ações Sanitárias</h2>
-                <div id="proximasSanitarias" class="tasks-list">
-                    <p class="empty-state">Nenhuma ação programada</p>
+            <!-- KPIs -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>📊 Indicadores de Performance (KPIs)</h2>
                 </div>
-            </div>
-        </section>
-        
-        <!-- Indicadores de Performance -->
-        <section class="card kpi-section">
-            <h2>📊 Indicadores de Performance (KPIs)</h2>
-            <div class="kpi-grid">
-                <div class="kpi-item">
-                    <div class="kpi-value" id="kpiLotacao">0 UA/ha</div>
-                    <div class="kpi-label">Taxa de Lotação Média</div>
+                <div class="card-body">
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-value" id="kpiLotacao">0 UA/ha</div>
+                            <div class="kpi-label">Taxa de Lotação</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-value" id="kpiNatalidade">0%</div>
+                            <div class="kpi-label">Taxa de Natalidade</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-value" id="kpiProdLeite">0 L</div>
+                            <div class="kpi-label">Produtividade Leite</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-value" id="kpiMargem">0%</div>
+                            <div class="kpi-label">Margem Operacional</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="kpi-item">
-                    <div class="kpi-value" id="kpiNatalidade">0%</div>
-                    <div class="kpi-label">Taxa de Natalidade</div>
+            </section>
+            
+            <!-- PRÓXIMAS AÇÕES -->
+            <section class="proximas-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>📅 Próximas Tarefas</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="proximasTarefas" class="proximas-list"></div>
+                    </div>
                 </div>
-                <div class="kpi-item">
-                    <div class="kpi-value" id="kpiProdLeite">0 L/vaca/dia</div>
-                    <div class="kpi-label">Produtividade Leiteira</div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>🐮 Próximos Partos</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="proximosPartos" class="proximas-list"></div>
+                    </div>
                 </div>
-                <div class="kpi-item">
-                    <div class="kpi-value" id="kpiGanhoPeso">0 kg/dia</div>
-                    <div class="kpi-label">Ganho Médio de Peso</div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>💉 Ações Sanitárias</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="proximasSanitarias" class="proximas-list"></div>
+                    </div>
                 </div>
-                <div class="kpi-item">
-                    <div class="kpi-value" id="kpiCustoHA">R$ 0/ha</div>
-                    <div class="kpi-label">Custo Adubação/ha</div>
+            </section>
+            
+            <!-- AÇÕES RÁPIDAS -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>⚡ Ações Rápidas</h2>
                 </div>
-                <div class="kpi-item">
-                    <div class="kpi-value" id="kpiMargem">0%</div>
-                    <div class="kpi-label">Margem Operacional</div>
+                <div class="card-body">
+                    <div class="quick-actions-grid">
+                        <button onclick="window.location.href='animais.html'" class="quick-action-btn">
+                            <span class="qa-icon">🐄</span>
+                            <span class="qa-text">Cadastrar Animal</span>
+                        </button>
+                        <button onclick="window.location.href='leite.html'" class="quick-action-btn">
+                            <span class="qa-icon">🥛</span>
+                            <span class="qa-text">Registrar Leite</span>
+                        </button>
+                        <button onclick="window.location.href='contas.html'" class="quick-action-btn">
+                            <span class="qa-icon">💰</span>
+                            <span class="qa-text">Lançamento Financeiro</span>
+                        </button>
+                        <button onclick="window.location.href='sanitario.html'" class="quick-action-btn">
+                            <span class="qa-icon">💉</span>
+                            <span class="qa-text">Registrar Vacina</span>
+                        </button>
+                        <button onclick="window.location.href='alimentacao.html'" class="quick-action-btn">
+                            <span class="qa-icon">🌾</span>
+                            <span class="qa-text">Controlar Alimentação</span>
+                        </button>
+                        <button onclick="window.location.href='pastagens.html'" class="quick-action-btn">
+                            <span class="qa-icon">🌱</span>
+                            <span class="qa-text">Movimentar Lote</span>
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </section>
-        
-        <!-- Atalhos Rápidos -->
-        <section class="card quick-actions">
-            <h2>⚡ Ações Rápidas</h2>
-            <div class="quick-actions-grid">
-                <button onclick="window.location.href='animais.html'" class="quick-btn">
-                    <span class="quick-icon">🐄</span>
-                    Cadastrar Animal
-                </button>
-                <button onclick="window.location.href='leite.html'" class="quick-btn">
-                    <span class="quick-icon">🥛</span>
-                    Registrar Leite
-                </button>
-                <button onclick="window.location.href='contas.html'" class="quick-btn">
-                    <span class="quick-icon">💰</span>
-                    Lançar Despesa/Receita
-                </button>
-                <button onclick="window.location.href='sanitario.html'" class="quick-btn">
-                    <span class="quick-icon">💉</span>
-                    Registrar Vacina
-                </button>
-                <button onclick="window.location.href='alimentacao.html'" class="quick-btn">
-                    <span class="quick-icon">🌾</span>
-                    Controlar Alimentação
-                </button>
-                <button onclick="window.location.href='pastagens.html'" class="quick-btn">
-                    <span class="quick-icon">🌱</span>
-                    Movimentar Lote
-                </button>
-                <button onclick="window.location.href='funcionarios.html'" class="quick-btn">
-                    <span class="quick-icon">👨‍🌾</span>
-                    Marcar Presença
-                </button>
-                <button onclick="window.location.href='agenda.html'" class="quick-btn">
-                    <span class="quick-icon">📅</span>
-                    Criar Tarefa
-                </button>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
     
+    <!-- FOOTER -->
     <footer>
-        <p>© 2025 Porteira Preta — Sistema Profissional de Gestão Rural 🌾</p>
-        <p><small>Versão 2.0 | Desenvolvido com ❤️ para o campo brasileiro</small></p>
+        <div class="footer-content">
+            <p>© 2025 Porteira Preta - Sistema Profissional de Gestão Rural</p>
+            <p><small>Desenvolvido com ❤️ para o agronegócio brasileiro | Versão 2.0</small></p>
+        </div>
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

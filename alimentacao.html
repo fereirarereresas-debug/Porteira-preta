@@ -8,297 +8,347 @@
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>🌾 Porteira Preta — Sistema Rural</h1>
-            <nav>
-                <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">🏠 Dashboard</button>
-                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
-                <button onclick="logout()" class="btn btn-danger">Logout</button>
-            </nav>
+        <div class="header-container">
+            <div class="header-left">
+                <button class="menu-toggle" onclick="toggleMenu()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <h1 class="logo-header">🌾 Porteira Preta</h1>
+            </div>
+            <div class="header-right">
+                <button onclick="window.location.href='dashboard.html'" class="btn-header">Dashboard</button>
+                <button onclick="logout()" class="btn-header btn-danger">Sair</button>
+            </div>
         </div>
     </header>
     
-    <!-- Menu Lateral -->
-    <div id="sideMenu" class="side-menu">
+    <aside id="sideMenu" class="side-menu">
         <div class="menu-header">
             <h3>📋 Menu Principal</h3>
-            <button onclick="toggleMenu()" class="btn-close">✕</button>
+            <button onclick="toggleMenu()" class="btn-close">×</button>
         </div>
-        <ul class="menu-list">
-            <li><a href="dashboard.html">🏠 Dashboard</a></li>
-            <li><a href="animais.html">🐄 Animais</a></li>
-            <li><a href="genealogia.html">🧬 Genealogia</a></li>
-            <li><a href="inseminacao.html">🐮 Inseminação</a></li>
-            <li><a href="sanitario.html">💉 Controle Sanitário</a></li>
-            <li><a href="alimentacao.html" class="active">🌾 Alimentação</a></li>
-            <li><a href="pastagens.html">🌱 Pastagens</a></li>
-            <li><a href="leite.html">🥛 Produção de Leite</a></li>
-            <li><a href="adubacao.html">🧪 Adubação</a></li>
-            <li><a href="contas.html">💰 Finanças</a></li>
-            <li><a href="lavouras.html">🌱 Lavouras</a></li>
-            <li><a href="maquinas.html">🚜 Máquinas</a></li>
-            <li><a href="funcionarios.html">👨‍🌾 Funcionários</a></li>
-            <li><a href="agenda.html">📅 Agenda</a></li>
-            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
-        </ul>
-    </div>
+        <nav class="menu-nav">
+            <div class="menu-section">
+                <div class="menu-section-title">🏠 PAINEL</div>
+                <a href="dashboard.html" class="menu-item"><span class="menu-icon">📊</span><span>Dashboard</span></a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">🐄 ZOOTECNIA</div>
+                <a href="animais.html" class="menu-item"><span class="menu-icon">🐄</span><span>Gestão de Animais</span></a>
+                <a href="genealogia.html" class="menu-item"><span class="menu-icon">🧬</span><span>Genealogia e Crias</span></a>
+                <a href="inseminacao.html" class="menu-item"><span class="menu-icon">🐮</span><span>Inseminação</span></a>
+                <a href="sanitario.html" class="menu-item"><span class="menu-icon">💉</span><span>Controle Sanitário</span></a>
+                <a href="alimentacao.html" class="menu-item active"><span class="menu-icon">🌾</span><span>Alimentação</span></a>
+                <a href="leite.html" class="menu-item"><span class="menu-icon">🥛</span><span>Produção de Leite</span></a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">🌱 AGRICULTURA</div>
+                <a href="pastagens.html" class="menu-item"><span class="menu-icon">🌱</span><span>Gestão de Pastagens</span></a>
+                <a href="adubacao.html" class="menu-item"><span class="menu-icon">🧪</span><span>Adubação</span></a>
+                <a href="lavouras.html" class="menu-item"><span class="menu-icon">🌾</span><span>Lavouras</span></a>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">💼 GESTÃO</div>
+                <a href="contas.html" class="menu-item"><span class="menu-icon">💰</span><span>Financeiro</span></a>
+                <a href="maquinas.html" class="menu-item"><span class="menu-icon">🚜</span><span>Máquinas</span></a>
+                <a href="funcionarios.html" class="menu-item"><span class="menu-icon">👨‍🌾</span><span>Funcionários</span></a>
+                <a href="agenda.html" class="menu-item"><span class="menu-icon">📅</span><span>Agenda</span></a>
+                <a href="ferramentas.html" class="menu-item"><span class="menu-icon">🧮</span><span>Ferramentas</span></a>
+            </div>
+        </nav>
+    </aside>
     
-    <main class="container">
-        <!-- Configuração de Categorias -->
-        <section class="card">
-            <h2>⚙️ Configuração de Proporções de Alimentação</h2>
+    <div id="menuOverlay" class="menu-overlay" onclick="toggleMenu()"></div>
+    
+    <main class="main-content">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="dashboard.html">Dashboard</a>
+                <span>/</span>
+                <span>Controle de Alimentação</span>
+            </nav>
             
-            <div class="alert-info">
-                <strong>ℹ️ Sistema de Proporção:</strong>
-                Define quanto cada categoria de animal consome em relação a uma vaca adulta (1.0 = 100%)
+            <div class="page-header">
+                <h1>🌾 Controle de Alimentação</h1>
+                <p>Sistema de proporções por categoria: Bezerro Pequeno (0.25), Bezerro Maior (0.50), Novilha (0.75), Vaca (1.0)</p>
             </div>
             
-            <form id="proporcaoForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="propBezerroPequeno">🐮 Bezerro Pequeno (0-6 meses)</label>
-                        <input type="number" id="propBezerroPequeno" value="0.25" step="0.05" min="0" max="2" required>
-                        <small>Padrão: 0.25 (25% de uma vaca)</small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="propBezerroMaior">🐂 Bezerro Maior (6-12 meses)</label>
-                        <input type="number" id="propBezerroMaior" value="0.50" step="0.05" min="0" max="2" required>
-                        <small>Padrão: 0.50 (50% de uma vaca)</small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="propNovilha">🐄 Novilha (12-24 meses)</label>
-                        <input type="number" id="propNovilha" value="0.75" step="0.05" min="0" max="2" required>
-                        <small>Padrão: 0.75 (75% de uma vaca)</small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="propVaca">🐮 Vaca Adulta</label>
-                        <input type="number" id="propVaca" value="1.00" step="0.05" min="0" max="2" required>
-                        <small>Padrão: 1.00 (100% - referência)</small>
-                    </div>
+            <!-- CONFIGURAÇÃO DE PROPORÇÕES -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>⚙️ Configuração de Proporções de Alimentação</h2>
                 </div>
-                
-                <button type="submit" class="btn btn-primary">Salvar Configurações</button>
-            </form>
-            
-            <div id="messageProporcao" class="message" style="display: none;"></div>
-        </section>
-        
-        <!-- Calculadora de Alimentação -->
-        <section class="card">
-            <h2>🧮 Calculadora de Consumo Diário</h2>
-            
-            <div class="consumption-calculator">
-                <div class="calc-grid">
-                    <div class="calc-item">
-                        <label>Bezerros Pequenos</label>
-                        <input type="number" id="qtdBezerroPequeno" min="0" value="0" onchange="calcularConsumo()">
-                        <span class="calc-prop" id="propBezerPeqText">× 0.25</span>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        <strong>Sistema de Proporção:</strong> Define quanto cada categoria consome em relação a uma vaca adulta (1.0 = 100%)
                     </div>
                     
-                    <div class="calc-item">
-                        <label>Bezerros Maiores</label>
-                        <input type="number" id="qtdBezerroMaior" min="0" value="0" onchange="calcularConsumo()">
-                        <span class="calc-prop" id="propBezerMaiorText">× 0.50</span>
-                    </div>
-                    
-                    <div class="calc-item">
-                        <label>Novilhas</label>
-                        <input type="number" id="qtdNovilha" min="0" value="0" onchange="calcularConsumo()">
-                        <span class="calc-prop" id="propNovilhaText">× 0.75</span>
-                    </div>
-                    
-                    <div class="calc-item">
-                        <label>Vacas Adultas</label>
-                        <input type="number" id="qtdVaca" min="0" value="0" onchange="calcularConsumo()">
-                        <span class="calc-prop" id="propVacaText">× 1.00</span>
-                    </div>
-                </div>
-                
-                <div class="calc-result">
-                    <h3>📊 Resultado do Cálculo</h3>
-                    <div class="result-grid">
-                        <div class="result-item">
-                            <span class="result-label">Total de Animais:</span>
-                            <span class="result-value" id="totalAnimais">0</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="result-label">Unidades Animais (UA):</span>
-                            <span class="result-value" id="totalUA">0.00</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="result-label">Ração/Dia (kg):</span>
-                            <span class="result-value" id="racaoDia">0.00 kg</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="result-label">Sal Mineral/Dia (kg):</span>
-                            <span class="result-value" id="salDia">0.00 kg</span>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row" style="margin-top: 20px;">
-                        <div class="form-group">
-                            <label for="racaoPorUA">Ração por UA/dia (kg)</label>
-                            <input type="number" id="racaoPorUA" value="2.5" step="0.1" min="0" onchange="calcularConsumo()">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="salPorUA">Sal Mineral por UA/dia (g)</label>
-                            <input type="number" id="salPorUA" value="100" step="10" min="0" onchange="calcularConsumo()">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="diasProjecao">Projeção para (dias)</label>
-                            <input type="number" id="diasProjecao" value="30" min="1" onchange="calcularConsumo()">
-                        </div>
-                    </div>
-                    
-                    <div class="projection-result">
-                        <h4>📅 Projeção para <span id="diasProjecaoText">30</span> dias:</h4>
-                        <div class="result-grid">
-                            <div class="result-item highlight">
-                                <span class="result-label">Total Ração:</span>
-                                <span class="result-value" id="racaoTotal">0.00 kg</span>
-                            </div>
-                            <div class="result-item highlight">
-                                <span class="result-label">Total Sal Mineral:</span>
-                                <span class="result-value" id="salTotal">0.00 kg</span>
-                            </div>
-                            <div class="result-item highlight">
-                                <span class="result-label">Custo Estimado:</span>
-                                <span class="result-value" id="custoTotal">R$ 0,00</span>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row" style="margin-top: 15px;">
+                    <form id="proporcaoForm">
+                        <div class="form-row">
                             <div class="form-group">
-                                <label for="precoRacao">Preço Ração (R$/kg)</label>
-                                <input type="number" id="precoRacao" value="1.50" step="0.01" min="0" onchange="calcularConsumo()">
+                                <label for="propBezerroPequeno">🐮 Bezerro Pequeno (0-6 meses)</label>
+                                <input type="number" id="propBezerroPequeno" value="0.25" step="0.05" min="0" max="2" required>
+                                <small>Padrão: 0.25 (25% de uma vaca)</small>
                             </div>
                             
                             <div class="form-group">
-                                <label for="precoSal">Preço Sal Mineral (R$/kg)</label>
-                                <input type="number" id="precoSal" value="3.50" step="0.01" min="0" onchange="calcularConsumo()">
+                                <label for="propBezerroMaior">🐂 Bezerro Maior (6-12 meses)</label>
+                                <input type="number" id="propBezerroMaior" value="0.50" step="0.05" min="0" max="2" required>
+                                <small>Padrão: 0.50 (50% de uma vaca)</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="propNovilha">🐄 Novilha (12-24 meses)</label>
+                                <input type="number" id="propNovilha" value="0.75" step="0.05" min="0" max="2" required>
+                                <small>Padrão: 0.75 (75% de uma vaca)</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="propVaca">🐮 Vaca Adulta</label>
+                                <input type="number" id="propVaca" value="1.00" step="0.05" min="0" max="2" required>
+                                <small>Padrão: 1.00 (100% - referência)</small>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Salvar Configurações</button>
+                    </form>
+                    
+                    <div id="messageProporcao" class="message" style="display: none;"></div>
+                </div>
+            </section>
+            
+            <!-- CALCULADORA DE CONSUMO -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>🧮 Calculadora de Consumo Diário</h2>
+                </div>
+                <div class="card-body">
+                    <div class="consumption-calculator">
+                        <div class="calc-grid">
+                            <div class="calc-item">
+                                <label>Bezerros Pequenos</label>
+                                <input type="number" id="qtdBezerroPequeno" min="0" value="0" onchange="calcularConsumo()">
+                                <span class="calc-prop" id="propBezerPeqText">× 0.25</span>
+                            </div>
+                            
+                            <div class="calc-item">
+                                <label>Bezerros Maiores</label>
+                                <input type="number" id="qtdBezerroMaior" min="0" value="0" onchange="calcularConsumo()">
+                                <span class="calc-prop" id="propBezerMaiorText">× 0.50</span>
+                            </div>
+                            
+                            <div class="calc-item">
+                                <label>Novilhas</label>
+                                <input type="number" id="qtdNovilha" min="0" value="0" onchange="calcularConsumo()">
+                                <span class="calc-prop" id="propNovilhaText">× 0.75</span>
+                            </div>
+                            
+                            <div class="calc-item">
+                                <label>Vacas Adultas</label>
+                                <input type="number" id="qtdVaca" min="0" value="0" onchange="calcularConsumo()">
+                                <span class="calc-prop" id="propVacaText">× 1.00</span>
+                            </div>
+                        </div>
+                        
+                        <div class="calc-result">
+                            <h3>📊 Resultado do Cálculo</h3>
+                            <div class="result-grid">
+                                <div class="result-item">
+                                    <span class="result-label">Total de Animais:</span>
+                                    <span class="result-value" id="totalAnimais">0</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Unidades Animais (UA):</span>
+                                    <span class="result-value" id="totalUA">0.00</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Ração/Dia (kg):</span>
+                                    <span class="result-value" id="racaoDia">0.00 kg</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Sal Mineral/Dia (kg):</span>
+                                    <span class="result-value" id="salDia">0.00 kg</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row" style="margin-top: 20px;">
+                                <div class="form-group">
+                                    <label for="racaoPorUA">Ração por UA/dia (kg)</label>
+                                    <input type="number" id="racaoPorUA" value="2.5" step="0.1" min="0" onchange="calcularConsumo()">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="salPorUA">Sal Mineral por UA/dia (g)</label>
+                                    <input type="number" id="salPorUA" value="100" step="10" min="0" onchange="calcularConsumo()">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="diasProjecao">Projeção para (dias)</label>
+                                    <input type="number" id="diasProjecao" value="30" min="1" onchange="calcularConsumo()">
+                                </div>
+                            </div>
+                            
+                            <div class="projection-result">
+                                <h4>📅 Projeção para <span id="diasProjecaoText">30</span> dias:</h4>
+                                <div class="result-grid">
+                                    <div class="result-item highlight">
+                                        <span class="result-label">Total Ração:</span>
+                                        <span class="result-value" id="racaoTotal">0.00 kg</span>
+                                    </div>
+                                    <div class="result-item highlight">
+                                        <span class="result-label">Total Sal Mineral:</span>
+                                        <span class="result-value" id="salTotal">0.00 kg</span>
+                                    </div>
+                                    <div class="result-item highlight">
+                                        <span class="result-label">Custo Estimado:</span>
+                                        <span class="result-value" id="custoTotal">R$ 0,00</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row" style="margin-top: 15px;">
+                                    <div class="form-group">
+                                        <label for="precoRacao">Preço Ração (R$/kg)</label>
+                                        <input type="number" id="precoRacao" value="1.50" step="0.01" min="0" onchange="calcularConsumo()">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="precoSal">Preço Sal Mineral (R$/kg)</label>
+                                        <input type="number" id="precoSal" value="3.50" step="0.01" min="0" onchange="calcularConsumo()">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        
-        <!-- Estoque de Alimentos -->
-        <section class="card">
-            <h2>📦 Estoque de Alimentos e Suplementos</h2>
+            </section>
             
-            <form id="estoqueAlimentoForm">
-                <div class="form-row">
-                    <div class="form-group flex-2">
-                        <label for="nomeAlimento">Nome do Alimento</label>
-                        <select id="nomeAlimento" required>
-                            <option value="">Selecione</option>
-                            <option value="Ração Concentrada">Ração Concentrada</option>
-                            <option value="Sal Mineral">Sal Mineral</option>
-                            <option value="Sal Proteinado">Sal Proteinado</option>
-                            <option value="Milho Triturado">Milho Triturado</option>
-                            <option value="Farelo de Soja">Farelo de Soja</option>
-                            <option value="Silagem">Silagem</option>
-                            <option value="Feno">Feno</option>
-                            <option value="Outro">Outro</option>
-                        </select>
-                    </div>
+            <!-- ESTOQUE DE ALIMENTOS -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>📦 Estoque de Alimentos e Suplementos</h2>
+                </div>
+                <div class="card-body">
+                    <form id="estoqueAlimentoForm">
+                        <div class="form-row">
+                            <div class="form-group flex-2">
+                                <label for="nomeAlimento">Nome do Alimento</label>
+                                <select id="nomeAlimento" required>
+                                    <option value="">Selecione</option>
+                                    <option value="Ração Concentrada">Ração Concentrada</option>
+                                    <option value="Sal Mineral">Sal Mineral</option>
+                                    <option value="Sal Proteinado">Sal Proteinado</option>
+                                    <option value="Milho Triturado">Milho Triturado</option>
+                                    <option value="Farelo de Soja">Farelo de Soja</option>
+                                    <option value="Silagem">Silagem</option>
+                                    <option value="Feno">Feno</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="quantidadeEstoque">Quantidade (kg)</label>
+                                <input type="number" id="quantidadeEstoque" step="0.1" min="0" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="dataEntrada">Data de Entrada</label>
+                                <input type="date" id="dataEntrada" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="valorUnitario">Valor (R$/kg)</label>
+                                <input type="number" id="valorUnitario" step="0.01" min="0">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Adicionar ao Estoque</button>
+                    </form>
                     
-                    <div class="form-group">
-                        <label for="quantidadeEstoque">Quantidade (kg)</label>
-                        <input type="number" id="quantidadeEstoque" step="0.1" min="0" required>
-                    </div>
+                    <div id="messageEstoque" class="message" style="display: none;"></div>
                     
-                    <div class="form-group">
-                        <label for="dataEntrada">Data de Entrada</label>
-                        <input type="date" id="dataEntrada" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="valorUnitario">Valor (R$/kg)</label>
-                        <input type="number" id="valorUnitario" step="0.01" min="0">
+                    <div class="table-responsive" style="margin-top: 20px;">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Alimento</th>
+                                    <th>Quantidade</th>
+                                    <th>Data Entrada</th>
+                                    <th>Valor/kg</th>
+                                    <th>Valor Total</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="estoqueTableBody">
+                                <tr class="empty-state">
+                                    <td colspan="7">
+                                        <div class="empty-state-content">
+                                            <h3>Nenhum item em estoque</h3>
+                                            <p>Adicione o primeiro item ao estoque</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                
-                <button type="submit" class="btn btn-primary">Adicionar ao Estoque</button>
-            </form>
+            </section>
             
-            <div id="messageEstoque" class="message" style="display: none;"></div>
-            
-            <div class="table-responsive" style="margin-top: 20px;">
-                <table id="estoqueTable">
-                    <thead>
-                        <tr>
-                            <th>Alimento</th>
-                            <th>Quantidade</th>
-                            <th>Data Entrada</th>
-                            <th>Valor/kg</th>
-                            <th>Valor Total</th>
-                            <th>Status</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="estoqueTableBody">
-                        <tr class="empty-state">
-                            <td colspan="7">Nenhum item em estoque</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-        
-        <!-- Registro de Consumo Diário -->
-        <section class="card">
-            <h2>📝 Registrar Consumo Diário</h2>
-            
-            <form id="consumoForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="dataConsumo">Data</label>
-                        <input type="date" id="dataConsumo" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="alimentoConsumo">Alimento</label>
-                        <select id="alimentoConsumo" required>
-                            <option value="">Selecione</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="quantidadeConsumo">Quantidade Consumida (kg)</label>
-                        <input type="number" id="quantidadeConsumo" step="0.1" min="0" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="loteConsumo">Lote/Categoria</label>
-                        <input type="text" id="loteConsumo" placeholder="Ex: Bezerros Lote A">
-                    </div>
+            <!-- REGISTRO DE CONSUMO DIÁRIO -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>📝 Registrar Consumo Diário</h2>
                 </div>
-                
-                <button type="submit" class="btn btn-primary">Registrar Consumo</button>
-            </form>
-            
-            <div id="messageConsumo" class="message" style="display: none;"></div>
-        </section>
-        
-        <!-- Histórico de Consumo -->
-        <section class="card">
-            <h2>📊 Histórico de Consumo (Últimos 30 dias)</h2>
-            <canvas id="chartConsumo"></canvas>
-        </section>
+                <div class="card-body">
+                    <form id="consumoForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="dataConsumo">Data</label>
+                                <input type="date" id="dataConsumo" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="alimentoConsumo">Alimento</label>
+                                <select id="alimentoConsumo" required>
+                                    <option value="">Selecione</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="quantidadeConsumo">Quantidade Consumida (kg)</label>
+                                <input type="number" id="quantidadeConsumo" step="0.1" min="0" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="loteConsumo">Lote/Categoria</label>
+                                <input type="text" id="loteConsumo" placeholder="Ex: Bezerros Lote A">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Registrar Consumo</button>
+                    </form>
+                    
+                    <div id="messageConsumo" class="message" style="display: none;"></div>
+                </div>
+            </section>
+        </div>
     </main>
     
     <footer>
-        <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
+        <div class="footer-content">
+            <p>© 2025 Porteira Preta - Sistema Profissional de Gestão Rural</p>
+        </div>
     </footer>
     
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
