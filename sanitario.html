@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle Sanitário - Porteira Preta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🌾 Porteira Preta — Sistema Rural</h1>
+            <nav>
+                <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">🏠 Dashboard</button>
+                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
+                <button onclick="logout()" class="btn btn-danger">Logout</button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Menu Lateral -->
+    <div id="sideMenu" class="side-menu">
+        <div class="menu-header">
+            <h3>📋 Menu Principal</h3>
+            <button onclick="toggleMenu()" class="btn-close">✕</button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="dashboard.html">🏠 Dashboard</a></li>
+            <li><a href="animais.html">🐄 Animais</a></li>
+            <li><a href="genealogia.html">🧬 Genealogia</a></li>
+            <li><a href="inseminacao.html">🐮 Inseminação</a></li>
+            <li><a href="sanitario.html" class="active">💉 Controle Sanitário</a></li>
+            <li><a href="alimentacao.html">🌾 Alimentação</a></li>
+            <li><a href="pastagens.html">🌱 Pastagens</a></li>
+            <li><a href="leite.html">🥛 Produção de Leite</a></li>
+            <li><a href="adubacao.html">🧪 Adubação</a></li>
+            <li><a href="contas.html">💰 Finanças</a></li>
+            <li><a href="lavouras.html">🌱 Lavouras</a></li>
+            <li><a href="maquinas.html">🚜 Máquinas</a></li>
+            <li><a href="funcionarios.html">👨‍🌾 Funcionários</a></li>
+            <li><a href="agenda.html">📅 Agenda</a></li>
+            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
+        </ul>
+    </div>
+    
+    <main class="container">
+        <!-- Registro de Vacinas -->
+        <section class="card">
+            <h2>💉 Registro de Vacinação</h2>
+            
+            <form id="vacinaForm">
+                <div class="form-row">
+                    <div class="form-group flex-2">
+                        <label for="animalVacina">Animal(is)</label>
+                        <select id="animalVacina" multiple size="5" required>
+                            <option value="TODOS">TODOS OS ANIMAIS</option>
+                        </select>
+                        <small>Segure Ctrl para selecionar vários</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tipoVacina">Tipo de Vacina</label>
+                        <select id="tipoVacina" required>
+                            <option value="">Selecione</option>
+                            <option value="Aftosa">Febre Aftosa</option>
+                            <option value="Brucelose">Brucelose (B19)</option>
+                            <option value="Raiva">Raiva</option>
+                            <option value="Clostridiose">Clostridiose (8 vias)</option>
+                            <option value="Carbúnculo">Carbúnculo Sintomático</option>
+                            <option value="Leptospirose">Leptospirose</option>
+                            <option value="IBR/BVD">IBR/BVD</option>
+                            <option value="Botulismo">Botulismo</option>
+                            <option value="Pneumonia">Pneumonia</option>
+                            <option value="Outra">Outra</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dataVacina">Data da Aplicação</label>
+                        <input type="date" id="dataVacina" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="laboratorio">Laboratório/Marca</label>
+                        <input type="text" id="laboratorio" placeholder="Ex: Zoetis, MSD">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lote">Lote da Vacina</label>
+                        <input type="text" id="lote" placeholder="Nº do lote">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="validade">Validade</label>
+                        <input type="date" id="validade">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dose">Dose (ml)</label>
+                        <input type="number" id="dose" step="0.1" min="0" placeholder="Ex: 5">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="viaAplicacao">Via de Aplicação</label>
+                        <select id="viaAplicacao">
+                            <option value="Subcutânea">Subcutânea</option>
+                            <option value="Intramuscular">Intramuscular</option>
+                            <option value="Intravenosa">Intravenosa</option>
+                            <option value="Oral">Oral</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="responsavelVacina">Responsável</label>
+                        <input type="text" id="responsavelVacina" placeholder="Nome do aplicador">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="proximaDose">Próxima Dose (Reforço)</label>
+                        <input type="date" id="proximaDose">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="obsVacina">Observações</label>
+                    <textarea id="obsVacina" rows="2" placeholder="Reações, local da aplicação, etc."></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Registrar Vacinação</button>
+            </form>
+            
+            <div id="messageVacina" class="message" style="display: none;"></div>
+        </section>
+        
+        <!-- Registro de Vermifugação -->
+        <section class="card">
+            <h2>🪱 Registro de Vermifugação</h2>
+            
+            <form id="vermifugoForm">
+                <div class="form-row">
+                    <div class="form-group flex-2">
+                        <label for="animalVermifugo">Animal(is)</label>
+                        <select id="animalVermifugo" multiple size="5" required>
+                            <option value="TODOS">TODOS OS ANIMAIS</option>
+                        </select>
+                        <small>Segure Ctrl para selecionar vários</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tipoVermifugo">Tipo de Vermífugo</label>
+                        <select id="tipoVermifugo" required>
+                            <option value="">Selecione</option>
+                            <option value="Ivermectina">Ivermectina</option>
+                            <option value="Doramectina">Doramectina</option>
+                            <option value="Moxidectina">Moxidectina</option>
+                            <option value="Levamisol">Levamisol</option>
+                            <option value="Albendazol">Albendazol</option>
+                            <option value="Closantel">Closantel</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dataVermifugo">Data da Aplicação</label>
+                        <input type="date" id="dataVermifugo" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="produtoVermifugo">Produto/Marca</label>
+                        <input type="text" id="produtoVermifugo" placeholder="Nome comercial">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="doseVermifugo">Dose (ml ou g)</label>
+                        <input type="number" id="doseVermifugo" step="0.1" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="viaVermifugo">Via de Aplicação</label>
+                        <select id="viaVermifugo">
+                            <option value="Injetável">Injetável</option>
+                            <option value="Pour-on">Pour-on (dorso)</option>
+                            <option value="Oral">Oral</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="proximoVermifugo">Próxima Vermifugação</label>
+                        <input type="date" id="proximoVermifugo">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="obsVermifugo">Observações</label>
+                    <textarea id="obsVermifugo" rows="2"></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Registrar Vermifugação</button>
+            </form>
+            
+            <div id="messageVermifugo" class="message" style="display: none;"></div>
+        </section>
+        
+        <!-- Registro de Tratamentos -->
+        <section class="card">
+            <h2>🩺 Registro de Tratamentos Diversos</h2>
+            
+            <form id="tratamentoForm">
+                <div class="form-row">
+                    <div class="form-group flex-2">
+                        <label for="animalTratamento">Animal</label>
+                        <select id="animalTratamento" required>
+                            <option value="">Selecione o animal</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dataTratamento">Data do Tratamento</label>
+                        <input type="date" id="dataTratamento" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tipoTratamento">Tipo de Tratamento</label>
+                        <select id="tipoTratamento" required>
+                            <option value="">Selecione</option>
+                            <option value="Antibiótico">Antibiótico</option>
+                            <option value="Anti-inflamatório">Anti-inflamatório</option>
+                            <option value="Curativo">Curativo</option>
+                            <option value="Vitamina">Suplementação Vitamínica</option>
+                            <option value="Carrapaticida">Carrapaticida</option>
+                            <option value="Moscicida">Moscicida</option>
+                            <option value="Cirurgia">Cirurgia</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group flex-2">
+                        <label for="problemaIdentificado">Problema Identificado</label>
+                        <input type="text" id="problemaIdentificado" placeholder="Ex: Mastite, Pneumonia" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group flex-2">
+                        <label for="medicamento">Medicamento Utilizado</label>
+                        <input type="text" id="medicamento" placeholder="Nome do medicamento">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="doseMedicamento">Dose</label>
+                        <input type="text" id="doseMedicamento" placeholder="Ex: 10ml">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="frequencia">Frequência</label>
+                        <input type="text" id="frequencia" placeholder="Ex: 12/12h por 5 dias">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="veterinario">Veterinário Responsável</label>
+                        <input type="text" id="veterinario" placeholder="Nome do veterinário">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="carenciaLeite">Carência Leite (dias)</label>
+                        <input type="number" id="carenciaLeite" min="0" placeholder="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="carenciaCarne">Carência Carne (dias)</label>
+                        <input type="number" id="carenciaCarne" min="0" placeholder="0">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="diagnostico">Diagnóstico e Observações</label>
+                    <textarea id="diagnostico" rows="3" placeholder="Sintomas, diagnóstico, evolução do tratamento..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Registrar Tratamento</button>
+            </form>
+            
+            <div id="messageTratamento" class="message" style="display: none;"></div>
+        </section>
+        
+        <!-- Calendário Sanitário -->
+        <section class="card">
+            <h2>📅 Calendário Sanitário - Próximas Ações</h2>
+            
+            <div class="alert-info">
+                <strong>ℹ️ Lembretes Automáticos:</strong> Baseados nas datas de reforço e intervalos de aplicação
+            </div>
+            
+            <div id="proximasAcoes" class="proximas-acoes">
+                <p class="empty-state">Nenhuma ação sanitária programada</p>
+            </div>
+        </section>
+        
+        <!-- Histórico Sanitário -->
+        <section class="card">
+            <div class="section-header">
+                <h2>📋 Histórico Sanitário Completo</h2>
+            </div>
+            
+            <div class="filter-bar">
+                <select id="filterTipoSanitario" onchange="filterSanitario()">
+                    <option value="all">Todos os Tipos</option>
+                    <option value="vacina">Vacinas</option>
+                    <option value="vermifugo">Vermífugos</option>
+                    <option value="tratamento">Tratamentos</option>
+                </select>
+                
+                <select id="filterAnimalSanitario" onchange="filterSanitario()">
+                    <option value="all">Todos os Animais</option>
+                </select>
+                
+                <input type="month" id="filterMesSanitario" onchange="filterSanitario()">
+            </div>
+            
+            <div class="table-actions">
+                <button onclick="exportSanitarioCSV()" class="btn btn-info">📥 Exportar CSV</button>
+                <button onclick="gerarCarteiraSanitaria()" class="btn btn-info">📄 Carteira Sanitária</button>
+            </div>
+            
+            <div class="table-responsive">
+                <table id="sanitarioTable">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Tipo</th>
+                            <th>Animal</th>
+                            <th>Produto</th>
+                            <th>Dose</th>
+                            <th>Responsável</th>
+                            <th>Próxima Ação</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sanitarioTableBody">
+                        <tr class="empty-state">
+                            <td colspan="8">Nenhum registro sanitário</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Estatísticas Sanitárias -->
+        <section class="card">
+            <h2>📊 Estatísticas do Controle Sanitário</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">💉</div>
+                    <div class="stat-content">
+                        <h3 id="totalVacinas">0</h3>
+                        <p>Vacinações Este Ano</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">🪱</div>
+                    <div class="stat-content">
+                        <h3 id="totalVermifugos">0</h3>
+                        <p>Vermifugações Este Ano</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">🩺</div>
+                    <div class="stat-content">
+                        <h3 id="totalTratamentos">0</h3>
+                        <p>Tratamentos Realizados</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">🔔</div>
+                    <div class="stat-content">
+                        <h3 id="acoesProximas">0</h3>
+                        <p>Ações Próximas (30 dias)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
