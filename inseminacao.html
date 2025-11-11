@@ -9,14 +9,34 @@
 <body>
     <header>
         <div class="container">
-            <h1>🌾 Porteira Preta — Controle Rural</h1>
+            <h1>🌾 Porteira Preta — Sistema Rural</h1>
             <nav>
-                <button onclick="window.location.href='painel.html'" class="btn btn-secondary">🐄 Painel</button>
-                <button onclick="window.location.href='contas.html'" class="btn btn-secondary">💰 Contas</button>
+                <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">🏠 Dashboard</button>
+                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
                 <button onclick="logout()" class="btn btn-danger">Logout</button>
             </nav>
         </div>
     </header>
+    
+    <!-- Menu Lateral -->
+    <div id="sideMenu" class="side-menu">
+        <div class="menu-header">
+            <h3>📋 Menu Principal</h3>
+            <button onclick="toggleMenu()" class="btn-close">✕</button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="dashboard.html">🏠 Dashboard</a></li>
+            <li><a href="animais.html">🐄 Animais</a></li>
+            <li><a href="inseminacao.html" class="active">🐮 Inseminação</a></li>
+            <li><a href="leite.html">🥛 Produção de Leite</a></li>
+            <li><a href="contas.html">💰 Finanças</a></li>
+            <li><a href="lavouras.html">🌱 Lavouras</a></li>
+            <li><a href="maquinas.html">🚜 Máquinas</a></li>
+            <li><a href="funcionarios.html">👨‍🌾 Funcionários</a></li>
+            <li><a href="agenda.html">📅 Agenda</a></li>
+            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
+        </ul>
+    </div>
     
     <main class="container">
         <section class="card">
@@ -84,6 +104,7 @@
             </div>
             
             <div class="table-actions">
+                <button onclick="exportInseminacoesCSV()" class="btn btn-info">📥 Exportar CSV</button>
                 <button onclick="clearAllInseminacoes()" class="btn btn-danger-outline">🗑️ Limpar Tudo</button>
             </div>
             

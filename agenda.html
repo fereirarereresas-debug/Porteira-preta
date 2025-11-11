@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda e Lembretes - Porteira Preta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🌾 Porteira Preta — Sistema Rural</h1>
+            <nav>
+                <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">🏠 Dashboard</button>
+                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
+                <button onclick="logout()" class="btn btn-danger">Logout</button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Menu Lateral -->
+    <div id="sideMenu" class="side-menu">
+        <div class="menu-header">
+            <h3>📋 Menu Principal</h3>
+            <button onclick="toggleMenu()" class="btn-close">✕</button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="dashboard.html">🏠 Dashboard</a></li>
+            <li><a href="animais.html">🐄 Animais</a></li>
+            <li><a href="inseminacao.html">🐮 Inseminação</a></li>
+            <li><a href="leite.html">🥛 Produção de Leite</a></li>
+            <li><a href="contas.html">💰 Finanças</a></li>
+            <li><a href="lavouras.html">🌱 Lavouras</a></li>
+            <li><a href="maquinas.html">🚜 Máquinas</a></li>
+            <li><a href="funcionarios.html">👨‍🌾 Funcionários</a></li>
+            <li><a href="agenda.html" class="active">📅 Agenda</a></li>
+            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
+        </ul>
+    </div>
+    
+    <main class="container">
+        <!-- Tarefas do Dia -->
+        <section class="card">
+            <h2>📅 Agenda de Tarefas Rurais</h2>
+            
+            <form id="tarefaForm">
+                <div class="form-row">
+                    <div class="form-group flex-2">
+                        <label for="tarefaTitulo">Título da Tarefa</label>
+                        <input type="text" id="tarefaTitulo" placeholder="Ex: Vacinar bezerros" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tarefaData">Data</label>
+                        <input type="date" id="tarefaData" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tarefaPrioridade">Prioridade</label>
+                        <select id="tarefaPrioridade">
+                            <option value="Baixa">🟢 Baixa</option>
+                            <option value="Média">🟡 Média</option>
+                            <option value="Alta">🔴 Alta</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tarefaDescricao">Descrição</label>
+                    <textarea id="tarefaDescricao" placeholder="Detalhes da tarefa..." rows="3"></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Adicionar Tarefa</button>
+            </form>
+            
+            <div id="messageTarefa" class="message" style="display: none;"></div>
+        </section>
+        
+        <!-- Lista de Tarefas -->
+        <section class="card">
+            <div class="section-header">
+                <h2>📋 Tarefas Pendentes</h2>
+                <div class="counter">Total: <span id="tarefaCount">0</span> tarefas</div>
+            </div>
+            
+            <div class="filter-bar">
+                <select id="filterTarefaStatus" onchange="filterTarefas()">
+                    <option value="all">Todas</option>
+                    <option value="Pendente">Pendentes</option>
+                    <option value="Concluída">Concluídas</option>
+                </select>
+                
+                <select id="filterTarefaPrioridade" onchange="filterTarefas()">
+                    <option value="all">Todas Prioridades</option>
+                    <option value="Alta">🔴 Alta</option>
+                    <option value="Média">🟡 Média</option>
+                    <option value="Baixa">🟢 Baixa</option>
+                </select>
+                
+                <button onclick="clearAllTarefas()" class="btn btn-danger-outline">🗑️ Limpar Tudo</button>
+            </div>
+            
+            <div class="tasks-container" id="tasksContainer">
+                <p class="empty-state">Nenhuma tarefa cadastrada</p>
+            </div>
+        </section>
+        
+        <!-- Lembretes -->
+        <section class="card">
+            <h2>🔔 Lembretes Rápidos</h2>
+            
+            <form id="lembreteForm">
+                <div class="form-row">
+                    <div class="form-group flex-2">
+                        <label for="lembreteTexto">Lembrete</label>
+                        <input type="text" id="lembreteTexto" placeholder="Ex: Comprar ração para frangos" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lembreteCategoria">Categoria</label>
+                        <select id="lembreteCategoria">
+                            <option value="Compra">🛒 Compra</option>
+                            <option value="Vacina">💉 Vacina</option>
+                            <option value="Manutenção">🔧 Manutenção</option>
+                            <option value="Plantio">🌱 Plantio</option>
+                            <option value="Colheita">🌾 Colheita</option>
+                            <option value="Outro">📌 Outro</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Adicionar Lembrete</button>
+            </form>
+            
+            <div id="messageLembrete" class="message" style="display: none;"></div>
+            
+            <div class="lembretes-list" id="lembretesList" style="margin-top: 20px;">
+                <p class="empty-state">Nenhum lembrete cadastrado</p>
+            </div>
+        </section>
+        
+        <!-- Bloco de Anotações -->
+        <section class="card">
+            <h2>📝 Bloco de Anotações</h2>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">
+                Use este espaço para anotações gerais. Suas anotações são salvas automaticamente.
+            </p>
+            
+            <textarea id="blocoNotas" placeholder="Escreva suas anotações aqui..." rows="10" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 0.95rem;"></textarea>
+            
+            <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+                <small id="autoSaveIndicator" style="color: #999;">Salvamento automático ativo</small>
+                <button onclick="clearNotas()" class="btn btn-danger-outline">🗑️ Limpar Anotações</button>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -9,89 +9,76 @@
 <body>
     <header>
         <div class="container">
-            <h1>🌾 Porteira Preta — Controle Rural</h1>
+            <h1>🌾 Porteira Preta — Sistema Rural</h1>
             <nav>
-                <button onclick="window.location.href='painel.html'" class="btn btn-secondary">🐄 Painel</button>
-                <button onclick="window.location.href='inseminacao.html'" class="btn btn-info">🐮 Inseminação</button>
+                <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">🏠 Dashboard</button>
+                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
                 <button onclick="logout()" class="btn btn-danger">Logout</button>
             </nav>
         </div>
     </header>
     
+    <!-- Menu Lateral -->
+    <div id="sideMenu" class="side-menu">
+        <div class="menu-header">
+            <h3>📋 Menu Principal</h3>
+            <button onclick="toggleMenu()" class="btn-close">✕</button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="dashboard.html">🏠 Dashboard</a></li>
+            <li><a href="animais.html">🐄 Animais</a></li>
+            <li><a href="inseminacao.html">🐮 Inseminação</a></li>
+            <li><a href="leite.html">🥛 Produção de Leite</a></li>
+            <li><a href="contas.html" class="active">💰 Finanças</a></li>
+            <li><a href="lavouras.html">🌱 Lavouras</a></li>
+            <li><a href="maquinas.html">🚜 Máquinas</a></li>
+            <li><a href="funcionarios.html">👨‍🌾 Funcionários</a></li>
+            <li><a href="agenda.html">📅 Agenda</a></li>
+            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
+        </ul>
+    </div>
+    
     <main class="container">
-        <!-- SEÇÃO DE PRODUÇÃO DE LEITE -->
+        <!-- Controle Financeiro -->
         <section class="card">
-            <h2>🥛 Produção de Leite</h2>
-            
-            <form id="leiteForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="dataLeite">Data</label>
-                        <input type="date" id="dataLeite" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="litrosLeite">Litros Produzidos</label>
-                        <input type="number" id="litrosLeite" placeholder="0.0" step="0.1" min="0.1" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="precoLitro">Preço por Litro (R$)</label>
-                        <input type="number" id="precoLitro" placeholder="0.00" step="0.01" min="0.01">
-                        <small style="color: #999; font-size: 0.85rem;">Deixe vazio se ainda não vendeu</small>
-                    </div>
-                </div>
-                
-                <button type="submit" class="btn btn-primary">Registrar Produção</button>
-            </form>
-            
-            <div id="messageLeite" class="message" style="display: none;"></div>
-        </section>
-        
-        <!-- RESUMO DE LEITE -->
-        <section class="card">
-            <h3 style="color: #6b8e23; margin-bottom: 15px;">📈 Resumo da Produção de Leite</h3>
-            <div class="leite-summary">
-                <div class="leite-stat">
-                    <span class="stat-label">Últimos 7 dias</span>
-                    <span class="stat-value" id="leite7dias">0 L</span>
-                    <span class="stat-avg" id="media7dias">Média: 0 L/dia</span>
-                </div>
-                <div class="leite-stat">
-                    <span class="stat-label">Últimos 30 dias</span>
-                    <span class="stat-value" id="leite30dias">0 L</span>
-                    <span class="stat-avg" id="media30dias">Média: 0 L/dia</span>
-                </div>
-                <div class="leite-stat highlight">
-                    <span class="stat-label">Valor Recebido (30 dias)</span>
-                    <span class="stat-value" id="valor30dias">R$ 0,00</span>
-                    <span class="stat-avg" id="litrosVendidos30dias">0 L vendidos</span>
-                </div>
-            </div>
-        </section>
-        
-        <!-- CONTROLE FINANCEIRO -->
-        <section class="card">
-            <h2>💰 Controle Financeiro</h2>
+            <h2>💰 Registro de Receitas e Despesas</h2>
             
             <form id="contasForm">
                 <div class="form-row">
                     <div class="form-group flex-2">
                         <label for="contaDescricao">Descrição</label>
-                        <input type="text" id="contaDescricao" placeholder="Ex: Venda de leite" required>
+                        <input type="text" id="contaDescricao" placeholder="Ex: Venda de gado, Compra de ração" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="contaTipo">Tipo</label>
                         <select id="contaTipo" required>
                             <option value="">Selecione</option>
-                            <option value="receita">Receita</option>
-                            <option value="despesa">Despesa</option>
+                            <option value="receita">✅ Receita</option>
+                            <option value="despesa">❌ Despesa</option>
                         </select>
                     </div>
                 </div>
                 
                 <div class="form-row">
+                    <div class="form-group">
+                        <label for="contaCategoria">Categoria</label>
+                        <select id="contaCategoria">
+                            <option value="">Geral</option>
+                            <option value="Venda de Animais">Venda de Animais</option>
+                            <option value="Venda de Leite">Venda de Leite</option>
+                            <option value="Venda de Grãos">Venda de Grãos</option>
+                            <option value="Ração">Ração</option>
+                            <option value="Medicamentos">Medicamentos</option>
+                            <option value="Energia">Energia</option>
+                            <option value="Combustível">Combustível</option>
+                            <option value="Manutenção">Manutenção</option>
+                            <option value="Salários">Salários</option>
+                            <option value="Insumos">Insumos Agrícolas</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    
                     <div class="form-group">
                         <label for="contaValor">Valor (R$)</label>
                         <input type="number" id="contaValor" placeholder="0.00" step="0.01" min="0.01" required>
@@ -103,12 +90,13 @@
                     </div>
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Adicionar</button>
+                <button type="submit" class="btn btn-primary">Adicionar Registro</button>
             </form>
             
             <div id="messageContas" class="message" style="display: none;"></div>
         </section>
         
+        <!-- Resumo Financeiro -->
         <section class="card">
             <div class="financial-summary">
                 <div class="summary-item receita">
@@ -126,12 +114,43 @@
             </div>
         </section>
         
+        <!-- Gráfico Financeiro -->
+        <section class="card">
+            <h3>📊 Receitas vs Despesas - Últimos 6 Meses</h3>
+            <canvas id="chartFinancasPage"></canvas>
+        </section>
+        
+        <!-- Resumo por Categoria -->
+        <section class="card">
+            <h3>📋 Resumo por Categoria (Mês Atual)</h3>
+            <div id="resumoCategoria" class="resumo-categoria">
+                <p class="empty-state">Nenhum registro no mês atual</p>
+            </div>
+        </section>
+        
+        <!-- Tabela de Registros -->
         <section class="card">
             <div class="section-header">
                 <h2>📊 Registros Financeiros</h2>
             </div>
             
+            <div class="filter-bar">
+                <select id="filterTipo" onchange="filterContas()">
+                    <option value="all">Todos</option>
+                    <option value="receita">Receitas</option>
+                    <option value="despesa">Despesas</option>
+                </select>
+                
+                <select id="filterCategoria" onchange="filterContas()">
+                    <option value="all">Todas Categorias</option>
+                </select>
+                
+                <input type="month" id="filterMes" onchange="filterContas()">
+            </div>
+            
             <div class="table-actions">
+                <button onclick="exportContasCSV()" class="btn btn-info">📥 Exportar CSV</button>
+                <button onclick="gerarRelatorioPDF()" class="btn btn-info">📄 Gerar Relatório PDF</button>
                 <button onclick="clearAllContas()" class="btn btn-danger-outline">🗑️ Limpar Tudo</button>
             </div>
             
@@ -141,6 +160,7 @@
                         <tr>
                             <th>Data</th>
                             <th>Descrição</th>
+                            <th>Categoria</th>
                             <th>Tipo</th>
                             <th>Valor</th>
                             <th>Ações</th>
@@ -148,7 +168,7 @@
                     </thead>
                     <tbody id="contasTableBody">
                         <tr class="empty-state">
-                            <td colspan="5">Nenhum registro financeiro ainda</td>
+                            <td colspan="6">Nenhum registro financeiro ainda</td>
                         </tr>
                     </tbody>
                 </table>
@@ -160,6 +180,7 @@
         <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
     </footer>
     
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

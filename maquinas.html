@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Máquinas e Equipamentos - Porteira Preta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🌾 Porteira Preta — Sistema Rural</h1>
+            <nav>
+                <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">🏠 Dashboard</button>
+                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
+                <button onclick="logout()" class="btn btn-danger">Logout</button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Menu Lateral -->
+    <div id="sideMenu" class="side-menu">
+        <div class="menu-header">
+            <h3>📋 Menu Principal</h3>
+            <button onclick="toggleMenu()" class="btn-close">✕</button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="dashboard.html">🏠 Dashboard</a></li>
+            <li><a href="animais.html">🐄 Animais</a></li>
+            <li><a href="inseminacao.html">🐮 Inseminação</a></li>
+            <li><a href="leite.html">🥛 Produção de Leite</a></li>
+            <li><a href="contas.html">💰 Finanças</a></li>
+            <li><a href="lavouras.html">🌱 Lavouras</a></li>
+            <li><a href="maquinas.html" class="active">🚜 Máquinas</a></li>
+            <li><a href="funcionarios.html">👨‍🌾 Funcionários</a></li>
+            <li><a href="agenda.html">📅 Agenda</a></li>
+            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
+        </ul>
+    </div>
+    
+    <main class="container">
+        <section class="card">
+            <h2>🚜 Cadastro de Máquinas e Equipamentos</h2>
+            
+            <form id="maquinaForm">
+                <div class="form-row">
+                    <div class="form-group flex-2">
+                        <label for="maquinaNome">Nome/Identificação</label>
+                        <input type="text" id="maquinaNome" placeholder="Ex: Trator John Deere, Moto Honda" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="maquinaTipo">Tipo</label>
+                        <select id="maquinaTipo" required>
+                            <option value="">Selecione</option>
+                            <option value="Trator">Trator</option>
+                            <option value="Colheitadeira">Colheitadeira</option>
+                            <option value="Plantadeira">Plantadeira</option>
+                            <option value="Pulverizador">Pulverizador</option>
+                            <option value="Moto">Moto</option>
+                            <option value="Caminhão">Caminhão</option>
+                            <option value="Implemento">Implemento Agrícola</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="maquinaAno">Ano</label>
+                        <input type="number" id="maquinaAno" placeholder="2020" min="1900" max="2030">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="maquinaPlaca">Placa (se aplicável)</label>
+                        <input type="text" id="maquinaPlaca" placeholder="ABC-1234">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="maquinaHoras">Horas Trabalhadas</label>
+                        <input type="number" id="maquinaHoras" placeholder="0" min="0" step="0.1">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="maquinaUltimaManutencao">Última Manutenção</label>
+                        <input type="date" id="maquinaUltimaManutencao">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="maquinaProximaManutencao">Próxima Manutenção</label>
+                        <input type="date" id="maquinaProximaManutencao">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="maquinaStatus">Status Atual</label>
+                        <select id="maquinaStatus">
+                            <option value="Operacional">✅ Operacional</option>
+                            <option value="Manutenção">🔧 Em Manutenção</option>
+                            <option value="Parado">⛔ Parado</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="maquinaObs">Observações (peças trocadas, defeitos, etc.)</label>
+                    <textarea id="maquinaObs" placeholder="Anotações sobre a máquina..." rows="3"></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Cadastrar Máquina</button>
+            </form>
+            
+            <div id="messageMaquina" class="message" style="display: none;"></div>
+        </section>
+        
+        <section class="card">
+            <div class="section-header">
+                <h2>📋 Máquinas Cadastradas</h2>
+                <div class="counter">Total: <span id="maquinaCount">0</span> máquinas</div>
+            </div>
+            
+            <div class="table-actions">
+                <button onclick="exportMaquinasCSV()" class="btn btn-info">📥 Exportar CSV</button>
+                <button onclick="clearAllMaquinas()" class="btn btn-danger-outline">🗑️ Apagar Tudo</button>
+            </div>
+            
+            <div class="table-responsive">
+                <table id="maquinaTable">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Tipo</th>
+                            <th>Ano</th>
+                            <th>Horas Trabalhadas</th>
+                            <th>Status</th>
+                            <th>Próxima Manutenção</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="maquinaTableBody">
+                        <tr class="empty-state">
+                            <td colspan="7">Nenhuma máquina cadastrada ainda</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Registro de Manutenções -->
+        <section class="card">
+            <h2>🔧 Registro de Manutenções</h2>
+            
+            <form id="manutencaoForm">
+                <div class="form-row">
+                    <div class="form-group flex-2">
+                        <label for="manutencaoMaquina">Máquina</label>
+                        <select id="manutencaoMaquina" required>
+                            <option value="">Selecione uma máquina</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="manutencaoData">Data</label>
+                        <input type="date" id="manutencaoData" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="manutencaoCusto">Custo (R$)</label>
+                        <input type="number" id="manutencaoCusto" placeholder="0.00" step="0.01" min="0">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="manutencaoDescricao">Descrição do Serviço</label>
+                    <textarea id="manutencaoDescricao" placeholder="Ex: Troca de óleo, filtros..." rows="2" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Registrar Manutenção</button>
+            </form>
+            
+            <div id="messageManutencao" class="message" style="display: none;"></div>
+            
+            <div class="table-responsive" style="margin-top: 20px;">
+                <table id="manutencaoTable">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Máquina</th>
+                            <th>Serviço</th>
+                            <th>Custo</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="manutencaoTableBody">
+                        <tr class="empty-state">
+                            <td colspan="5">Nenhuma manutenção registrada</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>

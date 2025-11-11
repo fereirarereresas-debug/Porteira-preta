@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Animais - Porteira Preta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🌾 Porteira Preta — Sistema Rural</h1>
+            <nav>
+                <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">🏠 Dashboard</button>
+                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
+                <button onclick="logout()" class="btn btn-danger">Logout</button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Menu Lateral -->
+    <div id="sideMenu" class="side-menu">
+        <div class="menu-header">
+            <h3>📋 Menu Principal</h3>
+            <button onclick="toggleMenu()" class="btn-close">✕</button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="dashboard.html">🏠 Dashboard</a></li>
+            <li><a href="animais.html" class="active">🐄 Animais</a></li>
+            <li><a href="inseminacao.html">🐮 Inseminação</a></li>
+            <li><a href="leite.html">🥛 Produção de Leite</a></li>
+            <li><a href="contas.html">💰 Finanças</a></li>
+            <li><a href="lavouras.html">🌱 Lavouras</a></li>
+            <li><a href="maquinas.html">🚜 Máquinas</a></li>
+            <li><a href="funcionarios.html">👨‍🌾 Funcionários</a></li>
+            <li><a href="agenda.html">📅 Agenda</a></li>
+            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
+        </ul>
+    </div>
+    
+    <main class="container">
+        <section class="card">
+            <h2>🐄 Cadastro de Animais</h2>
+            
+            <form id="animalForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="animalName">Nome/Identificação</label>
+                        <input type="text" id="animalName" placeholder="Ex: Mimosa, Brinco 001" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="animalType">Tipo</label>
+                        <select id="animalType" required>
+                            <option value="">Selecione</option>
+                            <option value="Vaca">Vaca</option>
+                            <option value="Boi">Boi</option>
+                            <option value="Novilha">Novilha</option>
+                            <option value="Bezerro">Bezerro</option>
+                            <option value="Porco">Porco</option>
+                            <option value="Frango">Frango</option>
+                            <option value="Cavalo">Cavalo</option>
+                            <option value="Cabra">Cabra</option>
+                            <option value="Ovelha">Ovelha</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="animalRace">Raça</label>
+                        <input type="text" id="animalRace" placeholder="Ex: Nelore, Holandês">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="animalBirth">Data de Nascimento</label>
+                        <input type="date" id="animalBirth">
+                        <small>A idade será calculada automaticamente</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="animalWeight">Peso Atual (kg)</label>
+                        <input type="number" id="animalWeight" placeholder="Ex: 450" step="0.1" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="animalGender">Sexo</label>
+                        <select id="animalGender">
+                            <option value="">Não informado</option>
+                            <option value="Macho">Macho</option>
+                            <option value="Fêmea">Fêmea</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="animalPhoto">Foto do Animal (URL ou Base64)</label>
+                        <input type="text" id="animalPhoto" placeholder="Cole o link da imagem ou deixe vazio">
+                        <small>Você pode usar serviços como Imgur ou hospedar localmente</small>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="animalObs">Observações</label>
+                    <textarea id="animalObs" placeholder="Informações adicionais..." rows="3"></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Registrar Animal</button>
+            </form>
+            
+            <div id="message" class="message" style="display: none;"></div>
+        </section>
+        
+        <!-- Filtros -->
+        <section class="card">
+            <h3>🔍 Filtrar Animais</h3>
+            <div class="filter-bar">
+                <select id="filterType" onchange="filterAnimals()">
+                    <option value="">Todos os tipos</option>
+                    <option value="Vaca">Vacas</option>
+                    <option value="Boi">Bois</option>
+                    <option value="Novilha">Novilhas</option>
+                    <option value="Bezerro">Bezerros</option>
+                    <option value="Porco">Porcos</option>
+                    <option value="Frango">Frangos</option>
+                    <option value="Cavalo">Cavalos</option>
+                    <option value="Cabra">Cabras</option>
+                    <option value="Ovelha">Ovelhas</option>
+                </select>
+                
+                <input type="text" id="searchAnimal" placeholder="Buscar por nome..." onkeyup="filterAnimals()">
+                
+                <button onclick="resetFilters()" class="btn btn-secondary">Limpar Filtros</button>
+            </div>
+        </section>
+        
+        <section class="card">
+            <div class="section-header">
+                <h2>📋 Animais Registrados</h2>
+                <div class="counter">Total: <span id="animalCount">0</span> animais</div>
+            </div>
+            
+            <div class="table-actions">
+                <button onclick="exportAnimalsCSV()" class="btn btn-info">📥 Exportar CSV</button>
+                <button onclick="clearAllAnimals()" class="btn btn-danger-outline">🗑️ Apagar Tudo</button>
+            </div>
+            
+            <div class="table-responsive">
+                <table id="animalTable">
+                    <thead>
+                        <tr>
+                            <th>Foto</th>
+                            <th>Nome</th>
+                            <th>Tipo</th>
+                            <th>Raça</th>
+                            <th>Idade</th>
+                            <th>Peso</th>
+                            <th>Sexo</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="animalTableBody">
+                        <tr class="empty-state">
+                            <td colspan="8">Nenhum animal registrado ainda</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>

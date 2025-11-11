@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Lavouras - Porteira Preta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🌾 Porteira Preta — Sistema Rural</h1>
+            <nav>
+                <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">🏠 Dashboard</button>
+                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
+                <button onclick="logout()" class="btn btn-danger">Logout</button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Menu Lateral -->
+    <div id="sideMenu" class="side-menu">
+        <div class="menu-header">
+            <h3>📋 Menu Principal</h3>
+            <button onclick="toggleMenu()" class="btn-close">✕</button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="dashboard.html">🏠 Dashboard</a></li>
+            <li><a href="animais.html">🐄 Animais</a></li>
+            <li><a href="inseminacao.html">🐮 Inseminação</a></li>
+            <li><a href="leite.html">🥛 Produção de Leite</a></li>
+            <li><a href="contas.html">💰 Finanças</a></li>
+            <li><a href="lavouras.html" class="active">🌱 Lavouras</a></li>
+            <li><a href="maquinas.html">🚜 Máquinas</a></li>
+            <li><a href="funcionarios.html">👨‍🌾 Funcionários</a></li>
+            <li><a href="agenda.html">📅 Agenda</a></li>
+            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
+        </ul>
+    </div>
+    
+    <main class="container">
+        <section class="card">
+            <h2>🌱 Cadastro de Lavouras</h2>
+            
+            <form id="lavouraForm">
+                <div class="form-row">
+                    <div class="form-group flex-2">
+                        <label for="lavouraName">Nome/Identificação da Área</label>
+                        <input type="text" id="lavouraName" placeholder="Ex: Talhão A, Área Sul" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lavouraCultura">Cultura/Plantação</label>
+                        <select id="lavouraCultura" required>
+                            <option value="">Selecione</option>
+                            <option value="Milho">Milho</option>
+                            <option value="Soja">Soja</option>
+                            <option value="Capim">Capim/Pastagem</option>
+                            <option value="Cana">Cana-de-açúcar</option>
+                            <option value="Café">Café</option>
+                            <option value="Feijão">Feijão</option>
+                            <option value="Arroz">Arroz</option>
+                            <option value="Mandioca">Mandioca</option>
+                            <option value="Hortaliças">Hortaliças</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="lavouraArea">Área (hectares)</label>
+                        <input type="number" id="lavouraArea" placeholder="0.0" step="0.1" min="0.1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lavouraPlantio">Data de Plantio</label>
+                        <input type="date" id="lavouraPlantio" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lavouraColheita">Previsão de Colheita</label>
+                        <input type="date" id="lavouraColheita">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="lavouraIrrigacao">Sistema de Irrigação</label>
+                        <select id="lavouraIrrigacao">
+                            <option value="Não possui">Não possui</option>
+                            <option value="Aspersão">Aspersão</option>
+                            <option value="Gotejamento">Gotejamento</option>
+                            <option value="Pivô">Pivô Central</option>
+                            <option value="Sulcos">Sulcos</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lavouraUltimaRega">Última Irrigação</label>
+                        <input type="date" id="lavouraUltimaRega">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lavouraProximaRega">Próxima Irrigação</label>
+                        <input type="date" id="lavouraProximaRega">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lavouraObs">Observações (insumos utilizados, pragas, etc.)</label>
+                    <textarea id="lavouraObs" placeholder="Anotações sobre a lavoura..." rows="3"></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Cadastrar Lavoura</button>
+            </form>
+            
+            <div id="messageLavoura" class="message" style="display: none;"></div>
+        </section>
+        
+        <section class="card">
+            <div class="section-header">
+                <h2>📋 Lavouras Cadastradas</h2>
+                <div class="counter">Total: <span id="lavouraCount">0</span> áreas</div>
+            </div>
+            
+            <div class="table-actions">
+                <button onclick="exportLavourasCSV()" class="btn btn-info">📥 Exportar CSV</button>
+                <button onclick="clearAllLavouras()" class="btn btn-danger-outline">🗑️ Apagar Tudo</button>
+            </div>
+            
+            <div class="table-responsive">
+                <table id="lavouraTable">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cultura</th>
+                            <th>Área (ha)</th>
+                            <th>Plantio</th>
+                            <th>Previsão Colheita</th>
+                            <th>Status</th>
+                            <th>Próxima Rega</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lavouraTableBody">
+                        <tr class="empty-state">
+                            <td colspan="8">Nenhuma lavoura cadastrada ainda</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Estoque de Insumos -->
+        <section class="card">
+            <h2>📦 Estoque de Insumos Agrícolas</h2>
+            
+            <form id="insumoForm">
+                <div class="form-row">
+                    <div class="form-group flex-2">
+                        <label for="insumoNome">Nome do Insumo</label>
+                        <input type="text" id="insumoNome" placeholder="Ex: Adubo NPK, Sementes de Milho" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="insumoTipo">Tipo</label>
+                        <select id="insumoTipo" required>
+                            <option value="">Selecione</option>
+                            <option value="Semente">Semente</option>
+                            <option value="Adubo">Adubo/Fertilizante</option>
+                            <option value="Defensivo">Defensivo Agrícola</option>
+                            <option value="Herbicida">Herbicida</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="insumoQuantidade">Quantidade</label>
+                        <input type="number" id="insumoQuantidade" placeholder="0" step="0.1" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="insumoUnidade">Unidade</label>
+                        <select id="insumoUnidade" required>
+                            <option value="kg">kg</option>
+                            <option value="L">Litros</option>
+                            <option value="sc">Sacas</option>
+                            <option value="un">Unidades</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Adicionar ao Estoque</button>
+            </form>
+            
+            <div id="messageInsumo" class="message" style="display: none;"></div>
+            
+            <div class="table-responsive" style="margin-top: 20px;">
+                <table id="insumoTable">
+                    <thead>
+                        <tr>
+                            <th>Insumo</th>
+                            <th>Tipo</th>
+                            <th>Quantidade</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="insumoTableBody">
+                        <tr class="empty-state">
+                            <td colspan="4">Nenhum insumo cadastrado</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produção de Leite - Porteira Preta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🌾 Porteira Preta — Sistema Rural</h1>
+            <nav>
+                <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">🏠 Dashboard</button>
+                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
+                <button onclick="logout()" class="btn btn-danger">Logout</button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Menu Lateral -->
+    <div id="sideMenu" class="side-menu">
+        <div class="menu-header">
+            <h3>📋 Menu Principal</h3>
+            <button onclick="toggleMenu()" class="btn-close">✕</button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="dashboard.html">🏠 Dashboard</a></li>
+            <li><a href="animais.html">🐄 Animais</a></li>
+            <li><a href="inseminacao.html">🐮 Inseminação</a></li>
+            <li><a href="leite.html" class="active">🥛 Produção de Leite</a></li>
+            <li><a href="contas.html">💰 Finanças</a></li>
+            <li><a href="lavouras.html">🌱 Lavouras</a></li>
+            <li><a href="maquinas.html">🚜 Máquinas</a></li>
+            <li><a href="funcionarios.html">👨‍🌾 Funcionários</a></li>
+            <li><a href="agenda.html">📅 Agenda</a></li>
+            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
+        </ul>
+    </div>
+    
+    <main class="container">
+        <section class="card">
+            <h2>🥛 Registro de Produção de Leite</h2>
+            
+            <form id="leiteForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dataLeite">Data</label>
+                        <input type="date" id="dataLeite" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="litrosLeite">Litros Produzidos</label>
+                        <input type="number" id="litrosLeite" placeholder="0.0" step="0.1" min="0.1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="precoLitro">Preço por Litro (R$)</label>
+                        <input type="number" id="precoLitro" placeholder="0.00" step="0.01" min="0">
+                        <small>Deixe vazio ou zero se ainda não vendeu</small>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Registrar Produção</button>
+            </form>
+            
+            <div id="messageLeite" class="message" style="display: none;"></div>
+        </section>
+        
+        <!-- Resumo de Leite -->
+        <section class="card">
+            <h3>📈 Resumo da Produção de Leite</h3>
+            <div class="leite-summary">
+                <div class="leite-stat">
+                    <span class="stat-label">Últimos 7 dias</span>
+                    <span class="stat-value" id="leite7dias">0 L</span>
+                    <span class="stat-avg" id="media7dias">Média: 0 L/dia</span>
+                </div>
+                <div class="leite-stat">
+                    <span class="stat-label">Últimos 30 dias</span>
+                    <span class="stat-value" id="leite30dias">0 L</span>
+                    <span class="stat-avg" id="media30dias">Média: 0 L/dia</span>
+                </div>
+                <div class="leite-stat highlight">
+                    <span class="stat-label">Valor Recebido (30 dias)</span>
+                    <span class="stat-value" id="valor30dias">R$ 0,00</span>
+                    <span class="stat-avg" id="litrosVendidos30dias">0 L vendidos</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Gráfico de Produção -->
+        <section class="card">
+            <h3>📊 Gráfico de Produção - Últimos 30 Dias</h3>
+            <canvas id="chartProducaoLeite"></canvas>
+        </section>
+        
+        <!-- Tabela de Registros -->
+        <section class="card">
+            <div class="section-header">
+                <h2>📋 Registros de Produção</h2>
+            </div>
+            
+            <div class="table-actions">
+                <button onclick="exportLeiteCSV()" class="btn btn-info">📥 Exportar CSV</button>
+                <button onclick="clearAllLeite()" class="btn btn-danger-outline">🗑️ Limpar Tudo</button>
+            </div>
+            
+            <div class="table-responsive">
+                <table id="leiteTable">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Litros</th>
+                            <th>Preço/Litro</th>
+                            <th>Valor Total</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leiteTableBody">
+                        <tr class="empty-state">
+                            <td colspan="5">Nenhum registro de produção ainda</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

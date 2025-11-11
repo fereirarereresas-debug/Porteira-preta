@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Funcionários - Porteira Preta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🌾 Porteira Preta — Sistema Rural</h1>
+            <nav>
+                <button onclick="window.location.href='dashboard.html'" class="btn btn-secondary">🏠 Dashboard</button>
+                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
+                <button onclick="logout()" class="btn btn-danger">Logout</button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Menu Lateral -->
+    <div id="sideMenu" class="side-menu">
+        <div class="menu-header">
+            <h3>📋 Menu Principal</h3>
+            <button onclick="toggleMenu()" class="btn-close">✕</button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="dashboard.html">🏠 Dashboard</a></li>
+            <li><a href="animais.html">🐄 Animais</a></li>
+            <li><a href="inseminacao.html">🐮 Inseminação</a></li>
+            <li><a href="leite.html">🥛 Produção de Leite</a></li>
+            <li><a href="contas.html">💰 Finanças</a></li>
+            <li><a href="lavouras.html">🌱 Lavouras</a></li>
+            <li><a href="maquinas.html">🚜 Máquinas</a></li>
+            <li><a href="funcionarios.html" class="active">👨‍🌾 Funcionários</a></li>
+            <li><a href="agenda.html">📅 Agenda</a></li>
+            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
+        </ul>
+    </div>
+    
+    <main class="container">
+        <section class="card">
+            <h2>👨‍🌾 Cadastro de Funcionários</h2>
+            
+            <form id="funcionarioForm">
+                <div class="form-row">
+                    <div class="form-group flex-2">
+                        <label for="funcNome">Nome Completo</label>
+                        <input type="text" id="funcNome" placeholder="Ex: João da Silva" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="funcFuncao">Função</label>
+                        <select id="funcFuncao" required>
+                            <option value="">Selecione</option>
+                            <option value="Vaqueiro">Vaqueiro</option>
+                            <option value="Ordenhador">Ordenhador</option>
+                            <option value="Tratorista">Tratorista</option>
+                            <option value="Caseiro">Caseiro</option>
+                            <option value="Agricultor">Agricultor</option>
+                            <option value="Gerente">Gerente</option>
+                            <option value="Braçal">Braçal/Diarista</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="funcTelefone">Telefone</label>
+                        <input type="tel" id="funcTelefone" placeholder="(00) 00000-0000">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="funcTipoPagamento">Tipo de Pagamento</label>
+                        <select id="funcTipoPagamento" required>
+                            <option value="Diária">Por Diária</option>
+                            <option value="Semanal">Semanal</option>
+                            <option value="Quinzenal">Quinzenal</option>
+                            <option value="Mensal">Mensal</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="funcValor">Valor (R$)</label>
+                        <input type="number" id="funcValor" placeholder="0.00" step="0.01" min="0" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="funcDataAdmissao">Data de Admissão</label>
+                        <input type="date" id="funcDataAdmissao">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="funcStatus">Status</label>
+                        <select id="funcStatus">
+                            <option value="Ativo">✅ Ativo</option>
+                            <option value="Afastado">⏸️ Afastado</option>
+                            <option value="Demitido">❌ Demitido</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="funcObs">Observações</label>
+                    <textarea id="funcObs" placeholder="Informações adicionais..." rows="2"></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Cadastrar Funcionário</button>
+            </form>
+            
+            <div id="messageFuncionario" class="message" style="display: none;"></div>
+        </section>
+        
+        <section class="card">
+            <div class="section-header">
+                <h2>📋 Funcionários Cadastrados</h2>
+                <div class="counter">Total: <span id="funcionarioCount">0</span> funcionários</div>
+            </div>
+            
+            <div class="table-actions">
+                <button onclick="exportFuncionariosCSV()" class="btn btn-info">📥 Exportar CSV</button>
+                <button onclick="clearAllFuncionarios()" class="btn btn-danger-outline">🗑️ Apagar Tudo</button>
+            </div>
+            
+            <div class="table-responsive">
+                <table id="funcionarioTable">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Função</th>
+                            <th>Telefone</th>
+                            <th>Pagamento</th>
+                            <th>Valor</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="funcionarioTableBody">
+                        <tr class="empty-state">
+                            <td colspan="7">Nenhum funcionário cadastrado ainda</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Registro de Presença -->
+        <section class="card">
+            <h2>📅 Registro de Presença/Dias Trabalhados</h2>
+            
+            <form id="presencaForm">
+                <div class="form-row">
+                    <div class="form-group flex-2">
+                        <label for="presencaFuncionario">Funcionário</label>
+                        <select id="presencaFuncionario" required>
+                            <option value="">Selecione um funcionário</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="presencaData">Data</label>
+                        <input type="date" id="presencaData" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="presencaTipo">Tipo</label>
+                        <select id="presencaTipo" required>
+                            <option value="Presente">✅ Presente</option>
+                            <option value="Falta">❌ Falta</option>
+                            <option value="Folga">🏖️ Folga</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Registrar Presença</button>
+            </form>
+            
+            <div id="messagePresenca" class="message" style="display: none;"></div>
+            
+            <div class="table-responsive" style="margin-top: 20px;">
+                <h3>Últimos Registros</h3>
+                <table id="presencaTable">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Funcionário</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="presencaTableBody">
+                        <tr class="empty-state">
+                            <td colspan="4">Nenhum registro de presença</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>

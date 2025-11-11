@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Porteira Preta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🌾 Porteira Preta — Sistema Rural</h1>
+            <nav>
+                <button onclick="window.location.href='dashboard.html'" class="btn btn-active">🏠 Dashboard</button>
+                <button onclick="toggleMenu()" class="btn btn-menu">☰ Menu</button>
+                <button onclick="logout()" class="btn btn-danger">Logout</button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Menu Lateral -->
+    <div id="sideMenu" class="side-menu">
+        <div class="menu-header">
+            <h3>📋 Menu Principal</h3>
+            <button onclick="toggleMenu()" class="btn-close">✕</button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="dashboard.html">🏠 Dashboard</a></li>
+            <li><a href="animais.html">🐄 Animais</a></li>
+            <li><a href="inseminacao.html">🐮 Inseminação</a></li>
+            <li><a href="leite.html">🥛 Produção de Leite</a></li>
+            <li><a href="contas.html">💰 Finanças</a></li>
+            <li><a href="lavouras.html">🌱 Lavouras</a></li>
+            <li><a href="maquinas.html">🚜 Máquinas</a></li>
+            <li><a href="funcionarios.html">👨‍🌾 Funcionários</a></li>
+            <li><a href="agenda.html">📅 Agenda</a></li>
+            <li><a href="ferramentas.html">🧮 Ferramentas</a></li>
+        </ul>
+    </div>
+    
+    <main class="container dashboard">
+        <!-- Cards de Resumo -->
+        <section class="dashboard-cards">
+            <div class="dash-card card-animals">
+                <div class="card-icon">🐄</div>
+                <div class="card-content">
+                    <h3 id="totalAnimais">0</h3>
+                    <p>Animais Cadastrados</p>
+                </div>
+                <button onclick="window.location.href='animais.html'" class="card-btn">Ver Detalhes →</button>
+            </div>
+            
+            <div class="dash-card card-finance">
+                <div class="card-icon">💰</div>
+                <div class="card-content">
+                    <h3 id="saldoAtualDash">R$ 0,00</h3>
+                    <p>Saldo Atual</p>
+                </div>
+                <button onclick="window.location.href='contas.html'" class="card-btn">Ver Detalhes →</button>
+            </div>
+            
+            <div class="dash-card card-milk">
+                <div class="card-icon">🥛</div>
+                <div class="card-content">
+                    <h3 id="leiteHoje">0 L</h3>
+                    <p>Leite Hoje</p>
+                </div>
+                <button onclick="window.location.href='leite.html'" class="card-btn">Ver Detalhes →</button>
+            </div>
+            
+            <div class="dash-card card-tasks">
+                <div class="card-icon">📅</div>
+                <div class="card-content">
+                    <h3 id="tarefasHoje">0</h3>
+                    <p>Tarefas Hoje</p>
+                </div>
+                <button onclick="window.location.href='agenda.html'" class="card-btn">Ver Detalhes →</button>
+            </div>
+        </section>
+        
+        <!-- Gráficos -->
+        <section class="dashboard-charts">
+            <div class="card chart-card">
+                <h2>📊 Finanças - Últimos 6 Meses</h2>
+                <canvas id="chartFinancas"></canvas>
+            </div>
+            
+            <div class="card chart-card">
+                <h2>🥛 Produção de Leite - Últimos 7 Dias</h2>
+                <canvas id="chartLeite"></canvas>
+            </div>
+        </section>
+        
+        <!-- Próximas Tarefas e Alertas -->
+        <section class="dashboard-info">
+            <div class="card info-card">
+                <h2>🔔 Alertas e Lembretes</h2>
+                <div id="alertasList" class="alerts-list">
+                    <p class="empty-state">Nenhum alerta no momento</p>
+                </div>
+            </div>
+            
+            <div class="card info-card">
+                <h2>📋 Próximas Tarefas</h2>
+                <div id="tarefasList" class="tasks-list">
+                    <p class="empty-state">Nenhuma tarefa pendente</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
