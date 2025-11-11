@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contas - Porteira Preta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🌾 Porteira Preta — Controle Rural</h1>
+        <div class="header-buttons">
+            <button onclick="location.href='index.html'" class="btn btn-secondary">🐄 Voltar ao Painel</button>
+            <button onclick="logout()" class="btn btn-danger">🚪 Logout</button>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h2>💰 Controle de Contas</h2>
+        
+        <div class="card">
+            <h3>Adicionar Nova Conta</h3>
+            <form id="contaForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contaDescricao">Descrição</label>
+                        <input type="text" id="contaDescricao" placeholder="Ex: Compra de ração" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contaTipo">Tipo</label>
+                        <select id="contaTipo" required>
+                            <option value="">Selecione...</option>
+                            <option value="receita">💚 Receita</option>
+                            <option value="despesa">❌ Despesa</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contaValor">Valor (R$)</label>
+                        <input type="number" id="contaValor" placeholder="0.00" step="0.01" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contaData">Data</label>
+                        <input type="date" id="contaData" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">➕ Adicionar Conta</button>
+            </form>
+        </div>
+        
+        <div class="card">
+            <div class="resumo-financeiro">
+                <div class="resumo-item receita">
+                    <h4>💚 Total Receitas</h4>
+                    <p class="valor">R$ <span id="totalReceitas">0,00</span></p>
+                </div>
+                <div class="resumo-item despesa">
+                    <h4>❌ Total Despesas</h4>
+                    <p class="valor">R$ <span id="totalDespesas">0,00</span></p>
+                </div>
+                <div class="resumo-item saldo">
+                    <h4>💰 Saldo Atual</h4>
+                    <p class="valor">R$ <span id="saldoAtual">0,00</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h3>📊 Todas as Contas</h3>
+                <button onclick="limparTodasContas()" class="btn btn-danger">🗑️ Limpar Tudo</button>
+            </div>
+            
+            <div id="successMessageContas" class="success-message" style="display: none;"></div>
+            <div id="errorMessageContas" class="error-message" style="display: none;"></div>
+            
+            <div class="table-responsive">
+                <table id="contasTable">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Descrição</th>
+                            <th>Tipo</th>
+                            <th>Valor</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contasTableBody">
+                        <tr>
+                            <td colspan="5" class="empty-message">Nenhuma conta registrada ainda</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>

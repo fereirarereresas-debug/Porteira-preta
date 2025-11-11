@@ -3,101 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel - Porteira Preta</title>
+    <title>Painel de Animais - Porteira Preta</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Cabeçalho -->
     <header>
-        <div class="header-content">
-            <h1>🌾 Porteira Preta — Controle Rural</h1>
-            <div class="header-actions">
-                <button class="btn-icon" id="darkModeToggle" title="Alternar modo escuro">🌙</button>
-                <button class="btn btn-logout" id="logoutBtn">Sair</button>
-            </div>
+        <h1>🌾 Porteira Preta — Controle Rural</h1>
+        <div class="header-buttons">
+            <button onclick="location.href='contas.html'" class="btn btn-secondary">💰 Ir para Contas</button>
+            <button onclick="logout()" class="btn btn-danger">🚪 Logout</button>
         </div>
     </header>
-
-    <!-- Container Principal -->
+    
     <div class="container">
-        <!-- Informações do Painel -->
-        <div class="page-header">
-            <h2>Painel de Gerenciamento</h2>
-            <p class="date-display" id="currentDate"></p>
-        </div>
-
-        <!-- Estatísticas -->
-        <div class="stats">
-            <div class="stat-card">
-                <div class="stat-icon">🐄</div>
-                <div class="stat-info">
-                    <div class="stat-number" id="totalAnimals">0</div>
-                    <div class="stat-label">Animais Registrados</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mensagem de Sucesso -->
-        <div class="success-message" id="successMessage"></div>
-
-        <!-- Formulário de Registro -->
+        <h2>🐄 Painel de Animais</h2>
+        
         <div class="card">
-            <h3>🐄 Registrar Novo Animal</h3>
-            
+            <h3>Registrar Novo Animal</h3>
             <form id="animalForm">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="animalName">Nome do Animal *</label>
-                        <input type="text" id="animalName" placeholder="Ex: Mimosa" required>
+                        <label for="animalNome">Nome do Animal</label>
+                        <input type="text" id="animalNome" placeholder="Ex: Mimosa" required>
                     </div>
-
+                    
                     <div class="form-group">
-                        <label for="animalType">Espécie/Tipo *</label>
-                        <select id="animalType" required>
-                            <option value="">Selecione...</option>
-                            <option value="Vaca">Vaca</option>
-                            <option value="Boi">Boi</option>
-                            <option value="Cavalo">Cavalo</option>
-                            <option value="Porco">Porco</option>
-                            <option value="Frango">Frango</option>
-                            <option value="Galinha">Galinha</option>
-                            <option value="Cabra">Cabra</option>
-                            <option value="Ovelha">Ovelha</option>
-                            <option value="Outro">Outro</option>
-                        </select>
+                        <label for="animalTipo">Tipo</label>
+                        <input type="text" id="animalTipo" placeholder="Ex: vaca, porco, frango" required>
                     </div>
                 </div>
-
+                
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="animalAge">Idade (anos) *</label>
-                        <input type="number" id="animalAge" placeholder="Ex: 3" min="0" step="0.1" required>
+                        <label for="animalIdade">Idade</label>
+                        <input type="text" id="animalIdade" placeholder="Ex: 2 anos" required>
                     </div>
-
+                    
                     <div class="form-group">
-                        <label for="animalWeight">Peso (kg) *</label>
-                        <input type="number" id="animalWeight" placeholder="Ex: 450" min="0" step="0.1" required>
+                        <label for="animalPeso">Peso</label>
+                        <input type="text" id="animalPeso" placeholder="Ex: 450 kg" required>
                     </div>
                 </div>
-
+                
                 <div class="form-group">
-                    <label for="animalNotes">Observações</label>
-                    <textarea id="animalNotes" rows="3" placeholder="Informações adicionais (opcional)"></textarea>
+                    <label for="animalObs">Observações (opcional)</label>
+                    <textarea id="animalObs" rows="3" placeholder="Adicione observações..."></textarea>
                 </div>
-
-                <button type="submit" class="btn btn-primary">✓ Registrar Animal</button>
+                
+                <button type="submit" class="btn btn-primary">✅ Registrar Animal</button>
             </form>
         </div>
-
-        <!-- Lista de Animais -->
+        
         <div class="card">
             <div class="card-header">
-                <h3>📋 Animais Cadastrados</h3>
-                <button class="btn btn-danger" id="clearAllBtn" style="display: none;">🗑️ Apagar Tudo</button>
+                <h3>📋 Animais Registrados (<span id="totalAnimais">0</span>)</h3>
+                <button onclick="apagarTodosAnimais()" class="btn btn-danger">🗑️ Apagar Tudo</button>
             </div>
-
-            <div class="table-container">
-                <table id="animalsTable">
+            
+            <div id="successMessage" class="success-message" style="display: none;"></div>
+            <div id="errorMessageAnimais" class="error-message" style="display: none;"></div>
+            
+            <div class="table-responsive">
+                <table id="animaisTable">
                     <thead>
                         <tr>
                             <th>Nome</th>
@@ -108,26 +75,20 @@
                             <th>Ações</th>
                         </tr>
                     </thead>
-                    <tbody id="animalsTableBody">
-                        <!-- Animais serão inseridos aqui -->
+                    <tbody id="animaisTableBody">
+                        <tr>
+                            <td colspan="6" class="empty-message">Nenhum animal registrado ainda</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-
-            <!-- Estado Vazio -->
-            <div class="empty-state" id="emptyState">
-                <div class="empty-icon">🐄</div>
-                <p><strong>Nenhum animal registrado ainda</strong></p>
-                <p>Comece adicionando seu primeiro animal acima!</p>
-            </div>
         </div>
     </div>
-
-    <!-- Rodapé -->
+    
     <footer>
         <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
     </footer>
-
+    
     <script src="script.js"></script>
 </body>
 </html>

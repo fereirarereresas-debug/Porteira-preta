@@ -6,46 +6,38 @@
     <title>Login - Porteira Preta</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="login-page">
+<body>
     <div class="login-container">
-        <div class="login-header">
+        <div class="login-box">
             <h1>🌾 Porteira Preta</h1>
-            <p>Gerenciamento Rural Simplificado</p>
-        </div>
-
-        <!-- Aviso de Segurança -->
-        <div class="warning-box">
-            ⚠️ <strong>Atenção:</strong> Este login é apenas para demonstração. Não use em ambiente real.
-        </div>
-
-        <!-- Mensagem de Erro -->
-        <div class="error-message" id="loginError"></div>
-
-        <!-- Formulário de Login -->
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="username">👤 Usuário</label>
-                <input type="text" id="username" placeholder="Digite o usuário" required autocomplete="username">
-            </div>
-
-            <div class="form-group">
-                <label for="password">🔒 Senha</label>
-                <input type="password" id="password" placeholder="Digite a senha" required autocomplete="current-password">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Entrar</button>
-        </form>
-
-        <div class="login-footer">
-            <p>Credenciais de acesso:</p>
-            <p><strong>Usuário:</strong> Porteira Preta<br><strong>Senha:</strong> 26122008</p>
+            <p class="subtitle">Controle Rural</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Usuário</label>
+                    <input type="text" id="username" placeholder="Digite o usuário" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" placeholder="Digite a senha" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Entrar</button>
+                
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+                
+                <p class="warning-text">
+                    ⚠️ Este login é apenas para demonstração. Não use em ambiente real.
+                </p>
+            </form>
         </div>
     </div>
-
+    
     <footer>
         <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
     </footer>
-
+    
     <script src="script.js"></script>
 </body>
 </html>
