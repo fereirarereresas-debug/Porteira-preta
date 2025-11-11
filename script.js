@@ -15,12 +15,12 @@ function verificarAutenticacao() {
     
     // Se estiver em página protegida e não estiver logado, redirecionar
     if ((paginaAtual.includes('index.html') || paginaAtual.includes('contas.html')) && !estaLogado) {
-        window.location.href = 'login.html';
+        window.location.href = 'logina.html';
     }
     
     // Se estiver logado e tentar acessar o login, redirecionar para index
     if (paginaAtual.includes('login.html') && estaLogado) {
-        window.location.href = 'index.html';
+        window.location.href = 'logina.html';
     }
 }
 
@@ -28,7 +28,7 @@ function verificarAutenticacao() {
 function logout() {
     if (confirm('Deseja realmente sair do sistema?')) {
         sessionStorage.removeItem('logado');
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
     }
 }
 
@@ -48,7 +48,7 @@ if (document.getElementById('loginForm')) {
         // Validar credenciais
         if (usuario === CREDENCIAIS.usuario && senha === CREDENCIAIS.senha) {
             sessionStorage.setItem('logado', 'true');
-            window.location.href = 'index.html';
+            window.location.href = 'logina.html';
         } else {
             errorMessage.textContent = '❌ Usuário ou senha incorretos';
             errorMessage.style.display = 'block';
