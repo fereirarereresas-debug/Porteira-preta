@@ -131,6 +131,12 @@ main {
     gap: 8px;
 }
 
+.card h3 {
+    color: #6b8e23;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -147,6 +153,49 @@ main {
     border-radius: 20px;
     font-weight: 600;
     font-size: 0.9rem;
+}
+
+/* ========== RESUMO DE LEITE ========== */
+.leite-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.leite-stat {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid #ddd;
+}
+
+.leite-stat.highlight {
+    background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+    color: white;
+    border-color: #4caf50;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+.stat-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.stat-avg {
+    display: block;
+    font-size: 0.85rem;
+    opacity: 0.8;
 }
 
 /* ========== MENSAGENS ========== */
@@ -253,6 +302,15 @@ textarea {
     background: #6d5a42;
 }
 
+.btn-info {
+    background: #2196f3;
+    color: white;
+}
+
+.btn-info:hover {
+    background: #0b7dda;
+}
+
 .btn-danger {
     background: #c44536;
     color: white;
@@ -282,6 +340,30 @@ textarea {
 
 .btn-delete:hover {
     background: #cc0000;
+}
+
+/* ========== STATUS BADGES ========== */
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.status-aguardando {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-proximo {
+    background: #cfe2ff;
+    color: #084298;
+}
+
+.status-atrasado {
+    background: #f8d7da;
+    color: #842029;
 }
 
 /* ========== TABELAS ========== */
@@ -414,7 +496,7 @@ footer p {
         padding: 20px;
     }
     
-    .summary-value {
+    .summary-value, .stat-value {
         font-size: 1.4rem;
     }
     

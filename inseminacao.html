@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Inseminação - Porteira Preta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🌾 Porteira Preta — Controle Rural</h1>
+            <nav>
+                <button onclick="window.location.href='painel.html'" class="btn btn-secondary">🐄 Painel</button>
+                <button onclick="window.location.href='contas.html'" class="btn btn-secondary">💰 Contas</button>
+                <button onclick="logout()" class="btn btn-danger">Logout</button>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="card">
+            <h2>🐮 Registro de Inseminação</h2>
+            
+            <form id="inseminacaoForm">
+                <div class="form-row">
+                    <div class="form-group flex-2">
+                        <label for="vacaInseminacao">Vaca</label>
+                        <select id="vacaInseminacao" required>
+                            <option value="">Selecione uma vaca</option>
+                        </select>
+                        <small style="color: #999; font-size: 0.85rem;">Apenas vacas cadastradas aparecem aqui</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dataInseminacao">Data da Inseminação</label>
+                        <input type="date" id="dataInseminacao" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="boiInseminacao">Boi/Touro Utilizado</label>
+                        <input type="text" id="boiInseminacao" placeholder="Ex: Touro Nelore" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="racaBoi">Raça</label>
+                        <input type="text" id="racaBoi" placeholder="Ex: Nelore, Angus">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tipoInseminacao">Tipo de Inseminação</label>
+                        <select id="tipoInseminacao" required>
+                            <option value="Artificial">Inseminação Artificial</option>
+                            <option value="Natural">Monta Natural</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="previsaoParto">Previsão de Parto</label>
+                        <input type="date" id="previsaoParto">
+                        <small style="color: #999; font-size: 0.85rem;">Aprox. 285 dias após inseminação</small>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="obsInseminacao">Observações</label>
+                    <textarea id="obsInseminacao" placeholder="Informações adicionais sobre a inseminação..." rows="3"></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Registrar Inseminação</button>
+            </form>
+            
+            <div id="messageInseminacao" class="message" style="display: none;"></div>
+        </section>
+        
+        <section class="card">
+            <div class="section-header">
+                <h2>📊 Inseminações Registradas</h2>
+                <div class="counter">Total: <span id="inseminacaoCount">0</span> registros</div>
+            </div>
+            
+            <div class="table-actions">
+                <button onclick="clearAllInseminacoes()" class="btn btn-danger-outline">🗑️ Limpar Tudo</button>
+            </div>
+            
+            <div class="table-responsive">
+                <table id="inseminacaoTable">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Vaca</th>
+                            <th>Boi/Touro</th>
+                            <th>Raça</th>
+                            <th>Tipo</th>
+                            <th>Previsão Parto</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inseminacaoTableBody">
+                        <tr class="empty-state">
+                            <td colspan="8">Nenhuma inseminação registrada ainda</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>

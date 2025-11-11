@@ -11,7 +11,8 @@
         <div class="container">
             <h1>🌾 Porteira Preta — Controle Rural</h1>
             <nav>
-                <button onclick="window.location.href='contas.html'" class="btn btn-secondary">💰 Ir para Contas</button>
+                <button onclick="window.location.href='inseminacao.html'" class="btn btn-info">🐮 Inseminação</button>
+                <button onclick="window.location.href='contas.html'" class="btn btn-secondary">💰 Contas</button>
                 <button onclick="logout()" class="btn btn-danger">Logout</button>
             </nav>
         </div>
@@ -30,7 +31,16 @@
                     
                     <div class="form-group">
                         <label for="animalType">Tipo</label>
-                        <input type="text" id="animalType" placeholder="Ex: Vaca, Porco, Frango" required>
+                        <select id="animalType" required>
+                            <option value="">Selecione</option>
+                            <option value="Vaca">Vaca</option>
+                            <option value="Boi">Boi</option>
+                            <option value="Novilha">Novilha</option>
+                            <option value="Bezerro">Bezerro</option>
+                            <option value="Porco">Porco</option>
+                            <option value="Frango">Frango</option>
+                            <option value="Outro">Outro</option>
+                        </select>
                     </div>
                 </div>
                 
