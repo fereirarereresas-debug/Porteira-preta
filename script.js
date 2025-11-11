@@ -1,56 +1,46 @@
-// ===============================================
-// SISTEMA DE AUTENTICAÇÃO
-// ===============================================
-
-// Credenciais fixas
-const CREDENCIAIS = {
-    usuario: "Porteira Preta",
-    senha: "26122008"
+// ========== CONFIGURAÇÕES GLOBAIS ==========
+const CREDENTIALS = {
+    username: 'Porteira Preta',
+    password: '26122008'
 };
 
-// Verificar se o usuário está logado ao carregar páginas protegidas
-function verificarAutenticacao() {
-    const paginaAtual = window.location.pathname;
-    const estaLogado = sessionStorage.getItem('logado') === 'true';
+// ========== VERIFICAÇÃO DE AUTENTICAÇÃO ==========
+function checkAuth() {
+    const currentPage = window.location.pathname.split('/').pop();
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
     
-    // Se estiver em página protegida e não estiver logado, redirecionar
-    if ((paginaAtual.includes('index.html') || paginaAtual.includes('contas.html')) && !estaLogado) {
-        window.location.href = 'logina.html';
-    }
-    
-    // Se estiver logado e tentar acessar o login, redirecionar para index
-    if (paginaAtual.includes('login.html') && estaLogado) {
-        window.location.href = 'logina.html';
-    }
-}
-
-// Função de logout
-function logout() {
-    if (confirm('Deseja realmente sair do sistema?')) {
-        sessionStorage.removeItem('logado');
+    // Se não estiver logado e não estiver na página de login
+    if (!isLoggedIn && currentPage !== 'index.html' && currentPage !== '') {
         window.location.href = 'index.html';
     }
+    
+    // Se estiver logado e tentar acessar o login
+    if (isLoggedIn && (currentPage === 'index.html' || currentPage === '')) {
+        window.location.href = 'painel.html';
+    }
 }
 
-// ===============================================
-// PÁGINA DE LOGIN
-// ===============================================
+// ========== FUNÇÃO DE LOGOUT ==========
+function logout() {
+    sessionStorage.removeItem('isLoggedIn');
+    window.location.href = 'index.html';
+}
 
-// Processar login
-if (document.getElementById('loginForm')) {
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
+// ========== PÁGINA DE LOGIN ==========
+const loginForm = document.getElementById('loginForm');
+if (loginForm) {
+    loginForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        const usuario = document.getElementById('username').value;
-        const senha = document.getElementById('password').value;
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
         const errorMessage = document.getElementById('errorMessage');
         
-        // Validar credenciais
-        if (usuario === CREDENCIAIS.usuario && senha === CREDENCIAIS.senha) {
-            sessionStorage.setItem('logado', 'true');
-            window.location.href = 'logina.html';
+        if (username === CREDENTIALS.username && password === CREDENTIALS.password) {
+            sessionStorage.setItem('isLoggedIn', 'true');
+            window.location.href = 'painel.html';
         } else {
-            errorMessage.textContent = '❌ Usuário ou senha incorretos';
+            errorMessage.textContent = 'Usuário ou senha incorretos';
             errorMessage.style.display = 'block';
             
             // Limpar mensagem após 3 segundos
@@ -61,161 +51,126 @@ if (document.getElementById('loginForm')) {
     });
 }
 
-// ===============================================
-// PAINEL DE ANIMAIS (index.html)
-// ===============================================
-
-// Carregar animais do localStorage
-function carregarAnimais() {
-    const animais = JSON.parse(localStorage.getItem('animais')) || [];
-    const tbody = document.getElementById('animaisTableBody');
-    const totalAnimais = document.getElementById('totalAnimais');
+// ========== PÁGINA DE ANIMAIS (painel.html) ==========
+const animalForm = document.getElementById('animalForm');
+if (animalForm) {
+    // Carregar animais ao iniciar a página
+    loadAnimals();
     
-    if (!tbody) return;
-    
-    // Atualizar contador
-    totalAnimais.textContent = animais.length;
-    
-    // Limpar tabela
-    tbody.innerHTML = '';
-    
-    // Se não houver animais
-    if (animais.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" class="empty-message">Nenhum animal registrado ainda</td></tr>';
-        return;
-    }
-    
-    // Adicionar cada animal na tabela
-    animais.forEach((animal, index) => {
-        const row = tbody.insertRow();
-        row.innerHTML = `
-            <td>${animal.nome}</td>
-            <td>${animal.tipo}</td>
-            <td>${animal.idade}</td>
-            <td>${animal.peso}</td>
-            <td>${animal.observacoes || '-'}</td>
-            <td>
-                <button onclick="excluirAnimal(${index})" class="btn btn-danger btn-small">🗑️ Excluir</button>
-            </td>
-        `;
-    });
-}
-
-// Adicionar novo animal
-if (document.getElementById('animalForm')) {
-    document.getElementById('animalForm').addEventListener('submit', function(e) {
+    animalForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
         const animal = {
-            nome: document.getElementById('animalNome').value.trim(),
-            tipo: document.getElementById('animalTipo').value.trim(),
-            idade: document.getElementById('animalIdade').value.trim(),
-            peso: document.getElementById('animalPeso').value.trim(),
-            observacoes: document.getElementById('animalObs').value.trim()
+            id: Date.now(),
+            name: document.getElementById('animalName').value.trim(),
+            type: document.getElementById('animalType').value.trim(),
+            age: document.getElementById('animalAge').value.trim(),
+            weight: document.getElementById('animalWeight').value.trim(),
+            obs: document.getElementById('animalObs').value.trim()
         };
         
         // Validação
-        if (!animal.nome || !animal.tipo || !animal.idade || !animal.peso) {
-            mostrarMensagem('errorMessageAnimais', '❌ Por favor, preencha todos os campos obrigatórios', 'error');
+        if (!animal.name || !animal.type || !animal.age || !animal.weight) {
+            showMessage('Preencha todos os campos obrigatórios!', 'error');
             return;
         }
         
-        // Obter animais existentes
-        const animais = JSON.parse(localStorage.getItem('animais')) || [];
-        
-        // Adicionar novo animal
-        animais.push(animal);
-        
         // Salvar no localStorage
-        localStorage.setItem('animais', JSON.stringify(animais));
+        let animals = JSON.parse(localStorage.getItem('animals')) || [];
+        animals.push(animal);
+        localStorage.setItem('animals', JSON.stringify(animals));
         
         // Limpar formulário
-        document.getElementById('animalForm').reset();
+        animalForm.reset();
         
-        // Recarregar lista
-        carregarAnimais();
+        // Recarregar tabela
+        loadAnimals();
         
         // Mostrar mensagem de sucesso
-        mostrarMensagem('successMessage', `✅ Animal "${animal.nome}" registrado com sucesso!`, 'success');
+        showMessage('Animal registrado com sucesso! 🐄', 'success');
     });
 }
 
-// Excluir um animal
-function excluirAnimal(index) {
-    if (confirm('Deseja realmente excluir este animal?')) {
-        const animais = JSON.parse(localStorage.getItem('animais')) || [];
-        const animalRemovido = animais[index];
-        
-        animais.splice(index, 1);
-        localStorage.setItem('animais', JSON.stringify(animais));
-        
-        carregarAnimais();
-        mostrarMensagem('successMessage', `✅ Animal "${animalRemovido.nome}" excluído com sucesso!`, 'success');
-    }
-}
-
-// Apagar todos os animais
-function apagarTodosAnimais() {
-    if (confirm('⚠️ ATENÇÃO: Deseja realmente apagar TODOS os animais? Esta ação não pode ser desfeita!')) {
-        localStorage.removeItem('animais');
-        carregarAnimais();
-        mostrarMensagem('successMessage', '✅ Todos os animais foram removidos!', 'success');
-    }
-}
-
-// ===============================================
-// CONTROLE DE CONTAS (contas.html)
-// ===============================================
-
-// Carregar contas do localStorage
-function carregarContas() {
-    const contas = JSON.parse(localStorage.getItem('contas')) || [];
-    const tbody = document.getElementById('contasTableBody');
+function loadAnimals() {
+    const animals = JSON.parse(localStorage.getItem('animals')) || [];
+    const tbody = document.getElementById('animalTableBody');
+    const count = document.getElementById('animalCount');
     
     if (!tbody) return;
     
-    // Limpar tabela
     tbody.innerHTML = '';
     
-    // Se não houver contas
-    if (contas.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" class="empty-message">Nenhuma conta registrada ainda</td></tr>';
-        atualizarResumoFinanceiro();
+    if (animals.length === 0) {
+        tbody.innerHTML = '<tr class="empty-state"><td colspan="6">Nenhum animal registrado ainda</td></tr>';
+        if (count) count.textContent = '0';
         return;
     }
     
-    // Adicionar cada conta na tabela
-    contas.forEach((conta, index) => {
-        const row = tbody.insertRow();
-        const tipoEmoji = conta.tipo === 'receita' ? '💚' : '❌';
-        const tipoTexto = conta.tipo === 'receita' ? 'Receita' : 'Despesa';
-        const valorFormatado = parseFloat(conta.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-        
+    animals.forEach(animal => {
+        const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${formatarData(conta.data)}</td>
-            <td>${conta.descricao}</td>
-            <td>${tipoEmoji} ${tipoTexto}</td>
-            <td>R$ ${valorFormatado}</td>
+            <td>${animal.name}</td>
+            <td>${animal.type}</td>
+            <td>${animal.age}</td>
+            <td>${animal.weight}</td>
+            <td>${animal.obs || '-'}</td>
             <td>
-                <button onclick="excluirConta(${index})" class="btn btn-danger btn-small">🗑️ Excluir</button>
+                <button onclick="deleteAnimal(${animal.id})" class="btn btn-delete">Excluir</button>
             </td>
         `;
+        tbody.appendChild(row);
     });
     
-    // Atualizar resumo financeiro
-    atualizarResumoFinanceiro();
+    if (count) count.textContent = animals.length;
 }
 
-// Adicionar nova conta
-if (document.getElementById('contaForm')) {
+function deleteAnimal(id) {
+    if (!confirm('Tem certeza que deseja excluir este animal?')) return;
+    
+    let animals = JSON.parse(localStorage.getItem('animals')) || [];
+    animals = animals.filter(animal => animal.id !== id);
+    localStorage.setItem('animals', JSON.stringify(animals));
+    
+    loadAnimals();
+    showMessage('Animal excluído com sucesso!', 'success');
+}
+
+function clearAllAnimals() {
+    if (!confirm('Tem certeza que deseja apagar TODOS os animais registrados? Esta ação não pode ser desfeita!')) return;
+    
+    localStorage.removeItem('animals');
+    loadAnimals();
+    showMessage('Todos os animais foram removidos!', 'success');
+}
+
+function showMessage(text, type) {
+    const message = document.getElementById('message');
+    if (!message) return;
+    
+    message.textContent = text;
+    message.className = `message ${type}`;
+    message.style.display = 'block';
+    
+    setTimeout(() => {
+        message.style.display = 'none';
+    }, 3000);
+}
+
+// ========== PÁGINA DE CONTAS (contas.html) ==========
+const contasForm = document.getElementById('contasForm');
+if (contasForm) {
+    // Carregar contas ao iniciar
+    loadContas();
+    
     // Definir data atual como padrão
     const hoje = new Date().toISOString().split('T')[0];
     document.getElementById('contaData').value = hoje;
     
-    document.getElementById('contaForm').addEventListener('submit', function(e) {
+    contasForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
         const conta = {
+            id: Date.now(),
             descricao: document.getElementById('contaDescricao').value.trim(),
             tipo: document.getElementById('contaTipo').value,
             valor: parseFloat(document.getElementById('contaValor').value),
@@ -224,137 +179,123 @@ if (document.getElementById('contaForm')) {
         
         // Validação
         if (!conta.descricao || !conta.tipo || !conta.valor || !conta.data) {
-            mostrarMensagem('errorMessageContas', '❌ Por favor, preencha todos os campos', 'error');
+            showMessageContas('Preencha todos os campos!', 'error');
             return;
         }
         
         if (conta.valor <= 0) {
-            mostrarMensagem('errorMessageContas', '❌ O valor deve ser maior que zero', 'error');
+            showMessageContas('O valor deve ser maior que zero!', 'error');
             return;
         }
         
-        // Obter contas existentes
-        const contas = JSON.parse(localStorage.getItem('contas')) || [];
-        
-        // Adicionar nova conta
-        contas.push(conta);
-        
         // Salvar no localStorage
+        let contas = JSON.parse(localStorage.getItem('contas')) || [];
+        contas.push(conta);
         localStorage.setItem('contas', JSON.stringify(contas));
         
         // Limpar formulário
-        document.getElementById('contaForm').reset();
+        contasForm.reset();
         document.getElementById('contaData').value = hoje;
         
-        // Recarregar lista
-        carregarContas();
+        // Recarregar tabela
+        loadContas();
         
         // Mostrar mensagem de sucesso
-        const tipoTexto = conta.tipo === 'receita' ? 'Receita' : 'Despesa';
-        mostrarMensagem('successMessageContas', `✅ ${tipoTexto} adicionada com sucesso!`, 'success');
+        showMessageContas('Registro adicionado com sucesso! 💰', 'success');
     });
 }
 
-// Excluir uma conta
-function excluirConta(index) {
-    if (confirm('Deseja realmente excluir esta conta?')) {
-        const contas = JSON.parse(localStorage.getItem('contas')) || [];
-        
-        contas.splice(index, 1);
-        localStorage.setItem('contas', JSON.stringify(contas));
-        
-        carregarContas();
-        mostrarMensagem('successMessageContas', '✅ Conta excluída com sucesso!', 'success');
-    }
-}
-
-// Limpar todas as contas
-function limparTodasContas() {
-    if (confirm('⚠️ ATENÇÃO: Deseja realmente limpar TODAS as contas? Esta ação não pode ser desfeita!')) {
-        localStorage.removeItem('contas');
-        carregarContas();
-        mostrarMensagem('successMessageContas', '✅ Todas as contas foram removidas!', 'success');
-    }
-}
-
-// Atualizar resumo financeiro
-function atualizarResumoFinanceiro() {
+function loadContas() {
     const contas = JSON.parse(localStorage.getItem('contas')) || [];
+    const tbody = document.getElementById('contasTableBody');
+    
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    if (contas.length === 0) {
+        tbody.innerHTML = '<tr class="empty-state"><td colspan="5">Nenhum registro financeiro ainda</td></tr>';
+        updateTotals(0, 0);
+        return;
+    }
+    
+    // Ordenar por data (mais recente primeiro)
+    contas.sort((a, b) => new Date(b.data) - new Date(a.data));
     
     let totalReceitas = 0;
     let totalDespesas = 0;
     
     contas.forEach(conta => {
         if (conta.tipo === 'receita') {
-            totalReceitas += parseFloat(conta.valor);
+            totalReceitas += conta.valor;
         } else {
-            totalDespesas += parseFloat(conta.valor);
+            totalDespesas += conta.valor;
         }
+        
+        const row = document.createElement('tr');
+        const dataFormatada = new Date(conta.data + 'T00:00:00').toLocaleDateString('pt-BR');
+        const valorFormatado = conta.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        const tipoClass = conta.tipo === 'receita' ? 'style="color: #4caf50; font-weight: 600;"' : 'style="color: #f44336; font-weight: 600;"';
+        const tipoTexto = conta.tipo === 'receita' ? '✅ Receita' : '❌ Despesa';
+        
+        row.innerHTML = `
+            <td>${dataFormatada}</td>
+            <td>${conta.descricao}</td>
+            <td ${tipoClass}>${tipoTexto}</td>
+            <td style="font-weight: 600;">${valorFormatado}</td>
+            <td>
+                <button onclick="deleteConta(${conta.id})" class="btn btn-delete">Excluir</button>
+            </td>
+        `;
+        tbody.appendChild(row);
     });
     
-    const saldo = totalReceitas - totalDespesas;
-    
-    // Atualizar elementos na página
-    const elementoReceitas = document.getElementById('totalReceitas');
-    const elementoDespesas = document.getElementById('totalDespesas');
-    const elementoSaldo = document.getElementById('saldoAtual');
-    
-    if (elementoReceitas) {
-        elementoReceitas.textContent = totalReceitas.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-    }
-    
-    if (elementoDespesas) {
-        elementoDespesas.textContent = totalDespesas.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-    }
-    
-    if (elementoSaldo) {
-        elementoSaldo.textContent = saldo.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-    }
+    updateTotals(totalReceitas, totalDespesas);
 }
 
-// ===============================================
-// FUNÇÕES AUXILIARES
-// ===============================================
+function updateTotals(receitas, despesas) {
+    const saldo = receitas - despesas;
+    
+    const totalReceitasEl = document.getElementById('totalReceitas');
+    const totalDespesasEl = document.getElementById('totalDespesas');
+    const saldoAtualEl = document.getElementById('saldoAtual');
+    
+    if (totalReceitasEl) totalReceitasEl.textContent = receitas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    if (totalDespesasEl) totalDespesasEl.textContent = despesas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    if (saldoAtualEl) saldoAtualEl.textContent = saldo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
 
-// Mostrar mensagem (sucesso ou erro)
-function mostrarMensagem(elementoId, mensagem, tipo) {
-    const elemento = document.getElementById(elementoId);
+function deleteConta(id) {
+    if (!confirm('Tem certeza que deseja excluir este registro?')) return;
     
-    if (!elemento) return;
+    let contas = JSON.parse(localStorage.getItem('contas')) || [];
+    contas = contas.filter(conta => conta.id !== id);
+    localStorage.setItem('contas', JSON.stringify(contas));
     
-    elemento.textContent = mensagem;
-    elemento.style.display = 'block';
+    loadContas();
+    showMessageContas('Registro excluído com sucesso!', 'success');
+}
+
+function clearAllContas() {
+    if (!confirm('Tem certeza que deseja apagar TODOS os registros financeiros? Esta ação não pode ser desfeita!')) return;
     
-    // Rolar para a mensagem
-    elemento.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    localStorage.removeItem('contas');
+    loadContas();
+    showMessageContas('Todos os registros foram removidos!', 'success');
+}
+
+function showMessageContas(text, type) {
+    const message = document.getElementById('messageContas');
+    if (!message) return;
     
-    // Esconder após 5 segundos
+    message.textContent = text;
+    message.className = `message ${type}`;
+    message.style.display = 'block';
+    
     setTimeout(() => {
-        elemento.style.display = 'none';
-    }, 5000);
+        message.style.display = 'none';
+    }, 3000);
 }
 
-// Formatar data para padrão brasileiro
-function formatarData(data) {
-    const partes = data.split('-');
-    return `${partes[2]}/${partes[1]}/${partes[0]}`;
-}
-
-// ===============================================
-// INICIALIZAÇÃO
-// ===============================================
-
-// Executar ao carregar a página
-document.addEventListener('DOMContentLoaded', function() {
-    // Verificar autenticação
-    verificarAutenticacao();
-    
-    // Carregar dados conforme a página
-    if (document.getElementById('animaisTableBody')) {
-        carregarAnimais();
-    }
-    
-    if (document.getElementById('contasTableBody')) {
-        carregarContas();
-    }
-});
+// ========== VERIFICAR AUTENTICAÇÃO AO CARREGAR QUALQUER PÁGINA ==========
+checkAuth();

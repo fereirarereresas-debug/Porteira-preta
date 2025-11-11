@@ -3,36 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contas - Porteira Preta</title>
+    <title>Controle Financeiro - Porteira Preta</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>🌾 Porteira Preta — Controle Rural</h1>
-        <div class="header-buttons">
-            <button onclick="location.href='index.html'" class="btn btn-secondary">🐄 Voltar ao Painel</button>
-            <button onclick="logout()" class="btn btn-danger">🚪 Logout</button>
+        <div class="container">
+            <h1>🌾 Porteira Preta — Controle Rural</h1>
+            <nav>
+                <button onclick="window.location.href='painel.html'" class="btn btn-secondary">🐄 Voltar ao Painel</button>
+                <button onclick="logout()" class="btn btn-danger">Logout</button>
+            </nav>
         </div>
     </header>
     
-    <div class="container">
-        <h2>💰 Controle de Contas</h2>
-        
-        <div class="card">
-            <h3>Adicionar Nova Conta</h3>
-            <form id="contaForm">
+    <main class="container">
+        <section class="card">
+            <h2>💰 Controle Financeiro</h2>
+            
+            <form id="contasForm">
                 <div class="form-row">
-                    <div class="form-group">
+                    <div class="form-group flex-2">
                         <label for="contaDescricao">Descrição</label>
-                        <input type="text" id="contaDescricao" placeholder="Ex: Compra de ração" required>
+                        <input type="text" id="contaDescricao" placeholder="Ex: Venda de leite" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="contaTipo">Tipo</label>
                         <select id="contaTipo" required>
-                            <option value="">Selecione...</option>
-                            <option value="receita">💚 Receita</option>
-                            <option value="despesa">❌ Despesa</option>
+                            <option value="">Selecione</option>
+                            <option value="receita">Receita</option>
+                            <option value="despesa">Despesa</option>
                         </select>
                     </div>
                 </div>
@@ -40,7 +41,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="contaValor">Valor (R$)</label>
-                        <input type="number" id="contaValor" placeholder="0.00" step="0.01" min="0" required>
+                        <input type="number" id="contaValor" placeholder="0.00" step="0.01" min="0.01" required>
                     </div>
                     
                     <div class="form-group">
@@ -49,35 +50,37 @@
                     </div>
                 </div>
                 
-                <button type="submit" class="btn btn-primary">➕ Adicionar Conta</button>
+                <button type="submit" class="btn btn-primary">Adicionar</button>
             </form>
-        </div>
+            
+            <div id="messageContas" class="message" style="display: none;"></div>
+        </section>
         
-        <div class="card">
-            <div class="resumo-financeiro">
-                <div class="resumo-item receita">
-                    <h4>💚 Total Receitas</h4>
-                    <p class="valor">R$ <span id="totalReceitas">0,00</span></p>
+        <section class="card">
+            <div class="financial-summary">
+                <div class="summary-item receita">
+                    <span class="summary-label">Total Receitas</span>
+                    <span class="summary-value" id="totalReceitas">R$ 0,00</span>
                 </div>
-                <div class="resumo-item despesa">
-                    <h4>❌ Total Despesas</h4>
-                    <p class="valor">R$ <span id="totalDespesas">0,00</span></p>
+                <div class="summary-item despesa">
+                    <span class="summary-label">Total Despesas</span>
+                    <span class="summary-value" id="totalDespesas">R$ 0,00</span>
                 </div>
-                <div class="resumo-item saldo">
-                    <h4>💰 Saldo Atual</h4>
-                    <p class="valor">R$ <span id="saldoAtual">0,00</span></p>
+                <div class="summary-item saldo">
+                    <span class="summary-label">Saldo Atual</span>
+                    <span class="summary-value" id="saldoAtual">R$ 0,00</span>
                 </div>
             </div>
-        </div>
+        </section>
         
-        <div class="card">
-            <div class="card-header">
-                <h3>📊 Todas as Contas</h3>
-                <button onclick="limparTodasContas()" class="btn btn-danger">🗑️ Limpar Tudo</button>
+        <section class="card">
+            <div class="section-header">
+                <h2>📊 Registros Financeiros</h2>
             </div>
             
-            <div id="successMessageContas" class="success-message" style="display: none;"></div>
-            <div id="errorMessageContas" class="error-message" style="display: none;"></div>
+            <div class="table-actions">
+                <button onclick="clearAllContas()" class="btn btn-danger-outline">🗑️ Limpar Tudo</button>
+            </div>
             
             <div class="table-responsive">
                 <table id="contasTable">
@@ -91,14 +94,14 @@
                         </tr>
                     </thead>
                     <tbody id="contasTableBody">
-                        <tr>
-                            <td colspan="5" class="empty-message">Nenhuma conta registrada ainda</td>
+                        <tr class="empty-state">
+                            <td colspan="5">Nenhum registro financeiro ainda</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
     
     <footer>
         <p>© 2025 Porteira Preta — Orgulho do Campo Brasileiro 🌾</p>
