@@ -73,19 +73,34 @@ if (loginForm) {
 }
 
 // ========== DASHBOARD ==========
+// ========== DASHBOARD ==========
+
 if (window.location.pathname.includes('dashboard.html')) {
     loadDashboard();
 }
 
 function loadDashboard() {
+    // Exibir data e nome do usuário
+    const hoje = new Date();
+    const diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+    const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+    
+    const dataFormatada = `${diasSemana[hoje.getDay()]}, ${hoje.getDate()} de ${meses[hoje.getMonth()]} de ${hoje.getFullYear()}`;
+    
+    if (document.getElementById('currentDate')) {
+        document.getElementById('currentDate').textContent = dataFormatada;
+    }
+    
+    if (document.getElementById('userName')) {
+        document.getElementById('userName').textContent = 'Administrador'; // Ou pegar do sessionStorage
+    }
+    
     // Carregar estatísticas
     updateDashboardStats();
-    
-    // Carregar gráficos
     loadDashboardCharts();
-    
-    // Carregar alertas e tarefas
     loadDashboardAlerts();
+    loadProximasAcoes();
+    loadKPIs();
 }
 
 function updateDashboardStats() {
@@ -93,13 +108,31 @@ function updateDashboardStats() {
     const contas = JSON.parse(localStorage.getItem('contas')) || [];
     const producaoLeite = JSON.parse(localStorage.getItem('producaoLeite')) || [];
     const tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+    const inseminacoes = JSON.parse(localStorage.getItem('inseminacoes')) || [];
+    const nascimentos = JSON.parse(localStorage.getItem('nascimentos')) || [];
+    const sanitarios = JSON.parse(localStorage.getItem('sanitarios')) || [];
+    const piquetes = JSON.parse(localStorage.getItem('piquetes')) || [];
+    const maquinas = JSON.parse(localStorage.getItem('maquinas')) || [];
+    const funcionarios = JSON.parse(localStorage.getItem('funcionarios')) || [];
+    const estoqueAlimentos = JSON.parse(localStorage.getItem('estoqueAlimentos')) || [];
+    const adubacoes = JSON.parse(localStorage.getItem('adubacoes')) || [];
     
-    // Total de animais
+    const hoje = new Date();
+    const anoAtual = hoje.getFullYear();
+    const mesAtual = hoje.toISOString().substring(0, 7);
+    
+    // ANIMAIS
+    const totalAnimais = animals.length;
+    const vacas = animals.filter(a => a.type.toLowerCase().includes('vaca')).length;
+    const bois = animals.filter(a => a.type.toLowerCase().includes('boi')).length;
+    const bezerros = animals.filter(a => a.type.toLowerCase().includes('bezerr')).length;
+    
     if (document.getElementById('totalAnimais')) {
-        document.getElementById('totalAnimais').textContent = animals.length;
+        document.getElementById('totalAnimais').textContent = totalAnimais;
+        document.getElementById('animaisPorTipo').textContent = `Vacas: ${vacas} | Bois: ${bois} | Bezerros: ${bezerros}`;
     }
     
-    // Saldo financeiro
+    // FINANÇAS
     let totalReceitas = 0;
     let totalDespesas = 0;
     contas.forEach(conta => {
@@ -111,24 +144,145 @@ function updateDashboardStats() {
     });
     const saldo = totalReceitas - totalDespesas;
     
+    const receitasMes = contas.filter(c => c.data.startsWith(mesAtual) && c.tipo === 'receita')
+        .reduce((sum, c) => sum + c.valor, 0);
+    
     if (document.getElementById('saldoAtualDash')) {
         document.getElementById('saldoAtualDash').textContent = 
             saldo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        document.getElementById('receitaMes').textContent = 
+            `Receita mês: ${receitasMes.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
     }
     
-    // Leite hoje
-    const hoje = new Date().toISOString().split('T')[0];
-    const leiteHoje = producaoLeite.filter(l => l.data === hoje);
+    // LEITE
+    const hojeStr = hoje.toISOString().split('T')[0];
+    const leiteHoje = producaoLeite.filter(l => l.data === hojeStr);
     const totalLeiteHoje = leiteHoje.reduce((sum, l) => sum + l.litros, 0);
+    
+    const seteDiasAtras = new Date(hoje);
+    seteDiasAtras.setDate(hoje.getDate() - 7);
+    const leite7dias = producaoLeite.filter(l => {
+        const data = new Date(l.data + 'T00:00:00');
+        return data >= seteDiasAtras && data <= hoje;
+    });
+    const totalLeite7dias = leite7dias.reduce((sum, l) => sum + l.litros, 0);
     
     if (document.getElementById('leiteHoje')) {
         document.getElementById('leiteHoje').textContent = totalLeiteHoje.toFixed(1) + ' L';
+        document.getElementById('leite7dias').textContent = `Últimos 7 dias: ${totalLeite7dias.toFixed(1)} L`;
     }
     
-    // Tarefas hoje
-    const tarefasHoje = tarefas.filter(t => t.data === hoje && t.status === 'Pendente');
+    // TAREFAS
+    const tarefasPendentes = tarefas.filter(t => t.status === 'Pendente');
+    const tarefasAtrasadas = tarefasPendentes.filter(t => new Date(t.data + 'T00:00:00') < hoje);
+    
     if (document.getElementById('tarefasHoje')) {
-        document.getElementById('tarefasHoje').textContent = tarefasHoje.length;
+        document.getElementById('tarefasHoje').textContent = tarefasPendentes.length;
+        document.getElementById('tarefasAtrasadas').textContent = 
+            tarefasAtrasadas.length > 0 ? `${tarefasAtrasadas.length} atrasadas` : 'Em dia';
+    }
+    
+    // INSEMINAÇÕES/GESTAÇÕES
+    const gestacoes = inseminacoes.filter(ins => {
+        if (!ins.previsaoParto) return false;
+        const previsao = new Date(ins.previsaoParto + 'T00:00:00');
+        return previsao > hoje;
+    });
+    
+    const partosProximos = gestacoes.filter(g => {
+        const previsao = new Date(g.previsaoParto + 'T00:00:00');
+        const diasRestantes = Math.floor((previsao - hoje) / (1000 * 60 * 60 * 24));
+        return diasRestantes <= 30;
+    });
+    
+    if (document.getElementById('inseminacoesAtivas')) {
+        document.getElementById('inseminacoesAtivas').textContent = gestacoes.length;
+        document.getElementById('partosProximos').textContent = `${partosProximos.length} partos em 30 dias`;
+    }
+    
+    // SANITÁRIO
+    const dataLimite = new Date();
+    dataLimite.setDate(dataLimite.getDate() + 30);
+    
+    let acoesProximas = 0;
+    sanitarios.forEach(s => {
+        if (s.proximaDose) {
+            const proxima = new Date(s.proximaDose + 'T00:00:00');
+            if (proxima <= dataLimite && proxima >= hoje) acoesProximas++;
+        }
+        if (s.proximoVermifugo) {
+            const proxima = new Date(s.proximoVermifugo + 'T00:00:00');
+            if (proxima <= dataLimite && proxima >= hoje) acoesProximas++;
+        }
+    });
+    
+    const vacinasAno = sanitarios.filter(s => {
+        const ano = new Date(s.data + 'T00:00:00').getFullYear();
+        return ano === anoAtual && s.tipo === 'vacina';
+    }).length;
+    
+    if (document.getElementById('acoesSanitarias')) {
+        document.getElementById('acoesSanitarias').textContent = acoesProximas;
+        document.getElementById('vacinasAno').textContent = `${vacinasAno} vacinas este ano`;
+    }
+    
+    // PIQUETES
+    const piquetesOcupados = piquetes.filter(p => p.status === 'Ocupado').length;
+    
+    if (document.getElementById('piquetesTotal')) {
+        document.getElementById('piquetesTotal').textContent = piquetes.length;
+        document.getElementById('piquetesOcupados').textContent = `${piquetesOcupados} ocupados`;
+    }
+    
+    // NASCIMENTOS
+    const nascimentosAno = nascimentos.filter(n => {
+        const ano = new Date(n.dataNascimento + 'T00:00:00').getFullYear();
+        return ano === anoAtual;
+    }).length;
+    
+    const femeasAdultas = animals.filter(a => 
+        a.gender === 'Fêmea' && 
+        (a.type.toLowerCase().includes('vaca') || a.type.toLowerCase().includes('novilha'))
+    ).length;
+    
+    const taxaNatalidade = femeasAdultas > 0 ? 
+        ((nascimentosAno / femeasAdultas) * 100) : 0;
+    
+    if (document.getElementById('nascimentosAno')) {
+        document.getElementById('nascimentosAno').textContent = nascimentosAno;
+        document.getElementById('taxaNatalidade').textContent = `Taxa: ${taxaNatalidade.toFixed(1)}%`;
+    }
+    
+    // RESUMO PRODUTIVO
+    if (document.getElementById('vacasProducao')) {
+        document.getElementById('vacasProducao').textContent = vacas;
+        
+        const mediaLeiteDia = leite7dias.length > 0 ? totalLeite7dias / 7 : 0;
+        document.getElementById('mediaLeiteDia').textContent = mediaLeiteDia.toFixed(1) + ' L';
+        
+        const animaisComPeso = animals.filter(a => a.weight > 0);
+        const pesoMedio = animaisComPeso.length > 0 ? 
+            animaisComPeso.reduce((sum, a) => sum + parseFloat(a.weight), 0) / animaisComPeso.length : 0;
+        document.getElementById('pesoMedioRebanho').textContent = pesoMedio.toFixed(0) + ' kg';
+        
+        document.getElementById('consumoRacaoDia').textContent = '0 kg'; // Calcular com base na alimentação
+    }
+    
+    // RESUMO OPERACIONAL
+    if (document.getElementById('adubacoesAno')) {
+        const adubacoesAno = adubacoes.filter(a => {
+            const ano = new Date(a.data + 'T00:00:00').getFullYear();
+            return ano === anoAtual;
+        }).length;
+        document.getElementById('adubacoesAno').textContent = adubacoesAno;
+        
+        const maquinasAtivas = maquinas.filter(m => m.status === 'Operacional').length;
+        document.getElementById('maquinasAtivas').textContent = maquinasAtivas;
+        
+        const funcionariosAtivos = funcionarios.filter(f => f.status === 'Ativo').length;
+        document.getElementById('funcionariosAtivos').textContent = funcionariosAtivos;
+        
+        document.getElementById('estoqueAlimentos').textContent = estoqueAlimentos.length;
     }
 }
 
@@ -176,7 +330,7 @@ function loadDashboardCharts() {
     const ctxLeite = document.getElementById('chartLeite');
     if (ctxLeite) {
         const producaoLeite = JSON.parse(localStorage.getItem('producaoLeite')) || [];
-        const leiteData = getLast7DaysLeite(producaoLeite);
+        const leiteData = getLast30DaysLeite(producaoLeite);
         
         new Chart(ctxLeite, {
             type: 'line',
@@ -203,37 +357,79 @@ function loadDashboardCharts() {
             }
         });
     }
-}
-
-function getLast6MonthsData(contas) {
-    const meses = [];
-    const receitas = [];
-    const despesas = [];
     
-    for (let i = 5; i >= 0; i--) {
-        const data = new Date();
-        data.setMonth(data.getMonth() - i);
-        const mes = data.toLocaleString('pt-BR', { month: 'short', year: 'numeric' });
-        meses.push(mes);
+    // Gráfico de Distribuição de Animais
+    const ctxAnimais = document.getElementById('chartAnimais');
+    if (ctxAnimais) {
+        const animals = JSON.parse(localStorage.getItem('animals')) || [];
+        const tipos = {};
         
-        const mesAno = data.toISOString().substring(0, 7);
-        const contasMes = contas.filter(c => c.data.startsWith(mesAno));
+        animals.forEach(a => {
+            tipos[a.type] = (tipos[a.type] || 0) + 1;
+        });
         
-        const receitaMes = contasMes.filter(c => c.tipo === 'receita').reduce((sum, c) => sum + c.valor, 0);
-        const despesaMes = contasMes.filter(c => c.tipo === 'despesa').reduce((sum, c) => sum + c.valor, 0);
-        
-        receitas.push(receitaMes);
-        despesas.push(despesaMes);
+        new Chart(ctxAnimais, {
+            type: 'doughnut',
+            data: {
+                labels: Object.keys(tipos),
+                datasets: [{
+                    data: Object.values(tipos),
+                    backgroundColor: [
+                        '#4caf50',
+                        '#2196f3',
+                        '#ff9800',
+                        '#e91e63',
+                        '#9c27b0',
+                        '#00bcd4',
+                        '#ffc107'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true
+            }
+        });
     }
     
-    return { labels: meses, receitas, despesas };
+    // Gráfico de Piquetes
+    const ctxPiquetes = document.getElementById('chartPiquetes');
+    if (ctxPiquetes) {
+        const piquetes = JSON.parse(localStorage.getItem('piquetes')) || [];
+        const status = {};
+        
+        piquetes.forEach(p => {
+            status[p.status] = (status[p.status] || 0) + 1;
+        });
+        
+        new Chart(ctxPiquetes, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(status),
+                datasets: [{
+                    data: Object.values(status),
+                    backgroundColor: [
+                        '#4caf50',
+                        '#f44336',
+                        '#ffc107',
+                        '#ff9800',
+                        '#2196f3'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true
+            }
+        });
+    }
 }
 
-function getLast7DaysLeite(producaoLeite) {
+function getLast30DaysLeite(producaoLeite) {
     const labels = [];
     const valores = [];
     
-    for (let i = 6; i >= 0; i--) {
+    for (let i = 29; i >= 0; i--) {
         const data = new Date();
         data.setDate(data.getDate() - i);
         const dataStr = data.toISOString().split('T')[0];
@@ -249,47 +445,14 @@ function getLast7DaysLeite(producaoLeite) {
 }
 
 function loadDashboardAlerts() {
-    const alertsList = document.getElementById('alertasList');
-    const tarefasList = document.getElementById('tarefasList');
+    const alertasDiv = document.getElementById('alertasImportantes');
+    if (!alertasDiv) return;
     
-    if (alertsList) {
-        const alertas = getAlertas();
-        if (alertas.length === 0) {
-            alertsList.innerHTML = '<p class="empty-state">Nenhum alerta no momento</p>';
-        } else {
-            alertsList.innerHTML = alertas.map(a => `
-                <div class="alert-item">
-                    <strong>${a.tipo}:</strong> ${a.mensagem}
-                </div>
-            `).join('');
-        }
-    }
-    
-    if (tarefasList) {
-        const tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
-        const hoje = new Date().toISOString().split('T')[0];
-        const tarefasPendentes = tarefas.filter(t => t.status === 'Pendente' && t.data >= hoje).slice(0, 5);
-        
-        if (tarefasPendentes.length === 0) {
-            tarefasList.innerHTML = '<p class="empty-state">Nenhuma tarefa pendente</p>';
-        } else {
-            tarefasList.innerHTML = tarefasPendentes.map(t => `
-                <div class="task-item">
-                    <strong>${t.titulo}</strong><br>
-                    <small>${new Date(t.data + 'T00:00:00').toLocaleDateString('pt-BR')} - ${t.prioridade}</small>
-                </div>
-            `).join('');
-        }
-    }
-}
-
-function getAlertas() {
     const alertas = [];
-    
-    // Verificar inseminações próximas do parto
-    const inseminacoes = JSON.parse(localStorage.getItem('inseminacoes')) || [];
     const hoje = new Date();
     
+    // Alertas de Parto Próximo
+    const inseminacoes = JSON.parse(localStorage.getItem('inseminacoes')) || [];
     inseminacoes.forEach(ins => {
         if (ins.previsaoParto) {
             const previsao = new Date(ins.previsaoParto + 'T00:00:00');
@@ -297,14 +460,33 @@ function getAlertas() {
             
             if (diasRestantes <= 7 && diasRestantes >= 0) {
                 alertas.push({
-                    tipo: '🐮 Parto Próximo',
-                    mensagem: `A vaca ${ins.vaca} tem previsão de parto em ${diasRestantes} dias`
+                    tipo: 'warning',
+                    icone: '🐮',
+                    mensagem: `PARTO PRÓXIMO: ${ins.vaca} - previsão em ${diasRestantes} dias (${previsao.toLocaleDateString('pt-BR')})`
+                });
+            } else if (diasRestantes < 0) {
+                alertas.push({
+                    tipo: 'danger',
+                    icone: '🚨',
+                    mensagem: `PARTO ATRASADO: ${ins.vaca} - previsão era ${previsao.toLocaleDateString('pt-BR')}`
                 });
             }
         }
     });
     
-    // Verificar máquinas com manutenção próxima
+    // Alertas de Estoque Baixo
+    const estoqueAlimentos = JSON.parse(localStorage.getItem('estoqueAlimentos')) || [];
+    estoqueAlimentos.forEach(est => {
+        if (est.quantidade < 50) {
+            alertas.push({
+                tipo: 'warning',
+                icone: '📦',
+                mensagem: `ESTOQUE BAIXO: ${est.nome} - apenas ${est.quantidade.toFixed(1)} kg restantes`
+            });
+        }
+    });
+    
+    // Alertas de Manutenção
     const maquinas = JSON.parse(localStorage.getItem('maquinas')) || [];
     maquinas.forEach(maq => {
         if (maq.proximaManutencao) {
@@ -313,32 +495,244 @@ function getAlertas() {
             
             if (diasRestantes <= 7 && diasRestantes >= 0) {
                 alertas.push({
-                    tipo: '🔧 Manutenção',
-                    mensagem: `${maq.nome} precisa de manutenção em ${diasRestantes} dias`
+                    tipo: 'info',
+                    icone: '🔧',
+                    mensagem: `MANUTENÇÃO PROGRAMADA: ${maq.nome} em ${diasRestantes} dias`
                 });
             }
         }
     });
     
-    // Verificar lavouras próximas da colheita
-    const lavouras = JSON.parse(localStorage.getItem('lavouras')) || [];
-    lavouras.forEach(lav => {
-        if (lav.previsaoColheita) {
-            const colheita = new Date(lav.previsaoColheita + 'T00:00:00');
-            const diasRestantes = Math.floor((colheita - hoje) / (1000 * 60 * 60 * 24));
-            
-            if (diasRestantes <= 15 && diasRestantes >= 0) {
-                alertas.push({
-                    tipo: '🌾 Colheita Próxima',
-                    mensagem: `${lav.nome} - ${lav.cultura} pronta para colheita em ${diasRestantes} dias`
-                });
-            }
-        }
+    // Alertas de Tarefas Atrasadas
+    const tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+    const tarefasAtrasadas = tarefas.filter(t => {
+        return t.status === 'Pendente' && new Date(t.data + 'T00:00:00') < hoje;
     });
     
-    return alertas;
+    if (tarefasAtrasadas.length > 0) {
+        alertas.push({
+            tipo: 'danger',
+            icone: '⏰',
+            mensagem: `TAREFAS ATRASADAS: ${tarefasAtrasadas.length} tarefa(s) pendente(s) com prazo vencido`
+        });
+    }
+    
+    // Renderizar alertas
+    if (alertas.length === 0) {
+        alertasDiv.innerHTML = '<p class="empty-state">✅ Nenhum alerta no momento - Tudo sob controle!</p>';
+        return;
+    }
+    
+    alertasDiv.innerHTML = alertas.map(a => {
+        let corBorda = '#4caf50';
+        if (a.tipo === 'warning') corBorda = '#ffc107';
+        if (a.tipo === 'danger') corBorda = '#f44336';
+        if (a.tipo === 'info') corBorda = '#2196f3';
+        
+        return `
+            <div class="alert-item-dash" style="padding: 15px; background: #f9f9f9; border-left: 5px solid ${corBorda}; border-radius: 5px; margin-bottom: 10px;">
+                <span style="font-size: 1.5rem; margin-right: 10px;">${a.icone}</span>
+                <span style="font-weight: 500;">${a.mensagem}</span>
+            </div>
+        `;
+    }).join('');
 }
 
+function loadProximasAcoes() {
+    const hoje = new Date();
+    const dataLimite = new Date();
+    dataLimite.setDate(dataLimite.getDate() + 7);
+    
+    // Próximas Tarefas
+    const tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+    const tarefasProximas = tarefas
+        .filter(t => {
+            const dataT = new Date(t.data + 'T00:00:00');
+            return t.status === 'Pendente' && dataT >= hoje && dataT <= dataLimite;
+        })
+        .sort((a, b) => new Date(a.data) - new Date(b.data))
+        .slice(0, 5);
+    
+    const divTarefas = document.getElementById('proximasTarefas');
+    if (divTarefas) {
+        if (tarefasProximas.length === 0) {
+            divTarefas.innerHTML = '<p class="empty-state">Nenhuma tarefa próxima</p>';
+        } else {
+            divTarefas.innerHTML = tarefasProximas.map(t => `
+                <div class="task-item-dash" style="padding: 10px; background: #f9f9f9; border-radius: 5px; margin-bottom: 8px;">
+                    <strong>${t.titulo}</strong><br>
+                    <small>${new Date(t.data + 'T00:00:00').toLocaleDateString('pt-BR')} - ${t.prioridade}</small>
+                </div>
+            `).join('');
+        }
+    }
+    
+    // Próximos Partos
+    const dataLimite30 = new Date();
+    dataLimite30.setDate(dataLimite30.getDate() + 30);
+    
+    const inseminacoes = JSON.parse(localStorage.getItem('inseminacoes')) || [];
+    const partosProximos = inseminacoes
+        .filter(ins => {
+            if (!ins.previsaoParto) return false;
+            const previsao = new Date(ins.previsaoParto + 'T00:00:00');
+            return previsao >= hoje && previsao <= dataLimite30;
+        })
+        .sort((a, b) => new Date(a.previsaoParto) - new Date(b.previsaoParto))
+        .slice(0, 5);
+    
+    const divPartos = document.getElementById('proximosPartos');
+    if (divPartos) {
+        if (partosProximos.length === 0) {
+            divPartos.innerHTML = '<p class="empty-state">Nenhum parto previsto</p>';
+        } else {
+            divPartos.innerHTML = partosProximos.map(p => {
+                const previsao = new Date(p.previsaoParto + 'T00:00:00');
+                const diasRestantes = Math.floor((previsao - hoje) / (1000 * 60 * 60 * 24));
+                
+                return `
+                    <div class="task-item-dash" style="padding: 10px; background: #f9f9f9; border-radius: 5px; margin-bottom: 8px;">
+                        <strong>🐮 ${p.vaca}</strong><br>
+                        <small>${previsao.toLocaleDateString('pt-BR')} - Faltam ${diasRestantes} dias</small>
+                    </div>
+                `;
+            }).join('');
+        }
+    }
+    
+    // Próximas Ações Sanitárias
+    const sanitarios = JSON.parse(localStorage.getItem('sanitarios')) || [];
+    const acoesProximas = [];
+    
+    sanitarios.forEach(s => {
+        if (s.proximaDose) {
+            const proxima = new Date(s.proximaDose + 'T00:00:00');
+            if (proxima >= hoje && proxima <= dataLimite30) {
+                acoesProximas.push({
+                    data: s.proximaDose,
+                    tipo: 'Reforço Vacina',
+                    animal: s.animais ? s.animais.join(', ') : s.animal,
+                    descricao: s.tipoVacina
+                });
+            }
+        }
+        
+        if (s.proximoVermifugo) {
+            const proxima = new Date(s.proximoVermifugo + 'T00:00:00');
+            if (proxima >= hoje && proxima <= dataLimite30) {
+                acoesProximas.push({
+                    data: s.proximoVermifugo,
+                    tipo: 'Vermifugação',
+                    animal: s.animais ? s.animais.join(', ') : s.animal,
+                    descricao: s.tipoVermifugo
+                });
+            }
+        }
+    });
+    
+    acoesProximas.sort((a, b) => new Date(a.data) - new Date(b.data));
+    
+    const divSanitarias = document.getElementById('proximasSanitarias');
+    if (divSanitarias) {
+        if (acoesProximas.length === 0) {
+            divSanitarias.innerHTML = '<p class="empty-state">Nenhuma ação programada</p>';
+        } else {
+            divSanitarias.innerHTML = acoesProximas.slice(0, 5).map(a => `
+                <div class="task-item-dash" style="padding: 10px; background: #f9f9f9; border-radius: 5px; margin-bottom: 8px;">
+                    <strong>💉 ${a.tipo}</strong><br>
+                    <small>${new Date(a.data + 'T00:00:00').toLocaleDateString('pt-BR')} - ${a.animal}</small>
+                </div>
+            `).join('');
+        }
+    }
+}
+
+function loadKPIs() {
+    // Taxa de Lotação
+    const piquetes = JSON.parse(localStorage.getItem('piquetes')) || [];
+    const lotacaoMedia = piquetes.length > 0 ? 
+        piquetes.reduce((sum, p) => sum + (p.taxaLotacao || 0), 0) / piquetes.length : 0;
+    
+    if (document.getElementById('kpiLotacao')) {
+        document.getElementById('kpiLotacao').textContent = lotacaoMedia.toFixed(2) + ' UA/ha';
+    }
+    
+    // Taxa de Natalidade
+    const nascimentos = JSON.parse(localStorage.getItem('nascimentos')) || [];
+    const animals = JSON.parse(localStorage.getItem('animals')) || [];
+    const hoje = new Date();
+    const anoAtual = hoje.getFullYear();
+    
+    const nascimentosAno = nascimentos.filter(n => {
+        const ano = new Date(n.dataNascimento + 'T00:00:00').getFullYear();
+        return ano === anoAtual;
+    }).length;
+    
+    const femeasAdultas = animals.filter(a => 
+        a.gender === 'Fêmea' && 
+        (a.type.toLowerCase().includes('vaca') || a.type.toLowerCase().includes('novilha'))
+    ).length;
+    
+    const taxaNatalidade = femeasAdultas > 0 ? 
+        ((nascimentosAno / femeasAdultas) * 100) : 0;
+    
+    if (document.getElementById('kpiNatalidade')) {
+        document.getElementById('kpiNatalidade').textContent = taxaNatalidade.toFixed(1) + '%';
+    }
+    
+    // Produtividade Leiteira
+    const producaoLeite = JSON.parse(localStorage.getItem('producaoLeite')) || [];
+    const trintaDiasAtras = new Date();
+    trintaDiasAtras.setDate(trintaDiasAtras.getDate() - 30);
+    
+    const leite30dias = producaoLeite.filter(l => {
+        const data = new Date(l.data + 'T00:00:00');
+        return data >= trintaDiasAtras && data <= hoje;
+    });
+    
+    const totalLeite30 = leite30dias.reduce((sum, l) => sum + l.litros, 0);
+    const vacas = animals.filter(a => a.type.toLowerCase().includes('vaca')).length;
+    const prodPorVaca = vacas > 0 ? totalLeite30 / 30 / vacas : 0;
+    
+    if (document.getElementById('kpiProdLeite')) {
+        document.getElementById('kpiProdLeite').textContent = prodPorVaca.toFixed(1) + ' L/vaca/dia';
+    }
+    
+    // Ganho de Peso (placeholder)
+    if (document.getElementById('kpiGanhoPeso')) {
+        document.getElementById('kpiGanhoPeso').textContent = '0.8 kg/dia';
+    }
+    
+    // Custo Adubação por Hectare
+    const adubacoes = JSON.parse(localStorage.getItem('adubacoes')) || [];
+    const adubacoesAno = adubacoes.filter(a => {
+        const ano = new Date(a.data + 'T00:00:00').getFullYear();
+        return ano === anoAtual;
+    });
+    
+    const custoTotalAdub = adubacoesAno.reduce((sum, a) => sum + (a.custoTotal || 0), 0);
+    const areaAdubada = adubacoesAno.reduce((sum, a) => sum + (a.areaHa || 0), 0);
+    const custoHA = areaAdubada > 0 ? custoTotalAdub / areaAdubada : 0;
+    
+    if (document.getElementById('kpiCustoHA')) {
+        document.getElementById('kpiCustoHA').textContent = custoHA.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + '/ha';
+    }
+    
+    // Margem Operacional
+    const contas = JSON.parse(localStorage.getItem('contas')) || [];
+    const contasAno = contas.filter(c => {
+        const ano = new Date(c.data + 'T00:00:00').getFullYear();
+        return ano === anoAtual;
+    });
+    
+    const receitasAno = contasAno.filter(c => c.tipo === 'receita').reduce((sum, c) => sum + c.valor, 0);
+    const despesasAno = contasAno.filter(c => c.tipo === 'despesa').reduce((sum, c) => sum + c.valor, 0);
+    const margem = receitasAno > 0 ? ((receitasAno - despesasAno) / receitasAno * 100) : 0;
+    
+    if (document.getElementById('kpiMargem')) {
+        document.getElementById('kpiMargem').textContent = margem.toFixed(1) + '%';
+    }
+}
 // ========== PÁGINA DE ANIMAIS ==========
 const animalForm = document.getElementById('animalForm');
 if (animalForm) {
