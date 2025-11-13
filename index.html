@@ -16,7 +16,7 @@
             <form id="loginForm">
                 <div class="form-group">
                     <label for="username">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
@@ -27,7 +27,7 @@
                 
                 <div class="form-group">
                     <label for="password">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                         </svg>
@@ -43,19 +43,61 @@
                 <div id="errorMessage" class="error-message" style="display: none;"></div>
                 
                 <div class="login-info">
-                    <p><strong>💡 Credenciais Padrão:</strong></p>
-                    <p>Usuário: <code>Porteira Preta</code></p>
-                    <p>Senha: <code>26122008</code></p>
+                    <p><strong>💡 Não tem conta?</strong></p>
+                    <p style="margin-top: 10px;">
+                        <a href="register.html" style="color: #2d5016; font-weight: 600; text-decoration: none;">
+                            Cadastre-se gratuitamente →
+                        </a>
+                    </p>
+                </div>
+                
+                <div style="margin-top: 20px; text-align: center; padding-top: 20px; border-top: 1px solid #e0e0e0;">
+                    <p style="font-size: 0.9rem; color: #666;">
+                        <a href="landing.html" style="color: #666; text-decoration: none;">
+                            ← Voltar para página inicial
+                        </a>
+                    </p>
                 </div>
             </form>
-            
-            <div class="login-footer">
-                <p>© 2025 Porteira Preta - Sistema de Gestão Rural</p>
-                <p><small>Desenvolvido com ❤️ para o agronegócio brasileiro</small></p>
-            </div>
         </div>
     </div>
     
-    <script src="script.js"></script>
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            
+            // Buscar usuário no localStorage
+            const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+            const usuario = usuarios.find(u => u.username === username && u.password === password);
+            
+            if (usuario) {
+                // Atualizar último acesso
+                usuario.ultimoAcesso = new Date().toISOString();
+                localStorage.setItem('usuarios', JSON.stringify(usuarios));
+                
+                // Fazer login
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('userId', usuario.id);
+                sessionStorage.setItem('username', usuario.username);
+                sessionStorage.setItem('propriedade', usuario.propriedade);
+                sessionStorage.setItem('nomeCompleto', usuario.nome);
+                
+                window.location.href = 'dashboard.html';
+            } else {
+                errorMessage.textContent = '❌ Usuário ou senha incorretos!';
+                errorMessage.style.display = 'block';
+                
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porteira Preta - Sistema Gratuito de Gestão Rural</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos específicos da Landing Page */
+        .landing-page {
+            background: linear-gradient(135deg, #2d5016 0%, #1a3010 100%);
+            min-height: 100vh;
+        }
+        
+        .landing-header {
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .landing-nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .landing-logo {
+            font-size: 2rem;
+            color: white;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .landing-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .hero-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-hero {
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-hero-primary {
+            background: #d4af37;
+            color: #1a3010;
+        }
+        
+        .btn-hero-primary:hover {
+            background: #f0c74a;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        }
+        
+        .btn-hero-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-hero-secondary:hover {
+            background: white;
+            color: #1a3010;
+            transform: translateY(-3px);
+        }
+        
+        .features-section {
+            background: white;
+            padding: 80px 20px;
+        }
+        
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #2d5016;
+            margin-bottom: 60px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: #2d5016;
+        }
+        
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d5016;
+            margin-bottom: 15px;
+        }
+        
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .stats-section {
+            background: linear-gradient(135deg, #2d5016 0%, #1a3010 100%);
+            padding: 60px 20px;
+            color: white;
+        }
+        
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-section {
+            background: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #2d5016;
+            margin-bottom: 20px;
+        }
+        
+        .cta-text {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        
+        .landing-footer {
+            background: #1a3010;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-hero {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body class="landing-page">
+    <!-- HEADER -->
+    <header class="landing-header">
+        <nav class="landing-nav">
+            <div class="landing-logo">
+                🌾 Porteira Preta
+            </div>
+            <div class="landing-buttons">
+                <a href="index.html" class="btn btn-secondary">Entrar</a>
+                <a href="register.html" class="btn btn-primary">Cadastrar Grátis</a>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <h1 class="hero-title">
+            Sistema Completo de<br>Gestão Rural 100% Gratuito
+        </h1>
+        <p class="hero-subtitle">
+            Gerencie sua propriedade rural de forma profissional com o Porteira Preta.<br>
+            Controle animais, finanças, plantações e muito mais!
+        </p>
+        <div class="hero-cta">
+            <a href="register.html" class="btn-hero btn-hero-primary">
+                🚀 Começar Agora - É Grátis!
+            </a>
+            <a href="#features" class="btn-hero btn-hero-secondary">
+                📋 Ver Funcionalidades
+            </a>
+        </div>
+    </section>
+    
+    <!-- FEATURES SECTION -->
+    <section id="features" class="features-section">
+        <div class="features-container">
+            <h2 class="section-title">✨ Funcionalidades Completas</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🐄</div>
+                    <h3 class="feature-title">Gestão de Animais</h3>
+                    <p class="feature-description">
+                        Cadastre e acompanhe todo o rebanho, com controle de genealogia, peso, idade e histórico completo.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">Controle Financeiro</h3>
+                    <p class="feature-description">
+                        Gerencie receitas e despesas, acompanhe fluxo de caixa e tenha visão completa da saúde financeira.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🥛</div>
+                    <h3 class="feature-title">Produção de Leite</h3>
+                    <p class="feature-description">
+                        Registre a produção diária, calcule médias por vaca e acompanhe a evolução com gráficos.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🐮</div>
+                    <h3 class="feature-title">Inseminação</h3>
+                    <p class="feature-description">
+                        Controle inseminações, previsão de partos e gestação do rebanho de forma organizada.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💉</div>
+                    <h3 class="feature-title">Controle Sanitário</h3>
+                    <p class="feature-description">
+                        Gerencie vacinas, vermífugos e tratamentos com alertas automáticos de próximas ações.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌾</div>
+                    <h3 class="feature-title">Alimentação</h3>
+                    <p class="feature-description">
+                        Calcule consumo de ração por categoria com sistema de proporções inteligente.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <h3 class="feature-title">Gestão de Pastagens</h3>
+                    <p class="feature-description">
+                        Controle piquetes, rotação de pastagem e lotação de forma eficiente.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🧪</div>
+                    <h3 class="feature-title">Adubação</h3>
+                    <p class="feature-description">
+                        Planeje adubações, calcule quantidades e custos automaticamente.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚜</div>
+                    <h3 class="feature-title">Máquinas</h3>
+                    <p class="feature-description">
+                        Cadastre equipamentos, controle manutenções e horímetro.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍🌾</div>
+                    <h3 class="feature-title">Funcionários</h3>
+                    <p class="feature-description">
+                        Gerencie equipe, controle ponto e folha de pagamento.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3 class="feature-title">Agenda</h3>
+                    <p class="feature-description">
+                        Organize tarefas, lembretes e compromissos da propriedade.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Relatórios</h3>
+                    <p class="feature-description">
+                        Exporte dados em CSV e acompanhe KPIs em tempo real.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- STATS SECTION -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Gratuito para Sempre</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">16+</div>
+                <div class="stat-label">Módulos Completos</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Taxas ou Mensalidades</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Registros Ilimitados</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title">Pronto para Revolucionar sua Gestão Rural?</h2>
+            <p class="cta-text">
+                Cadastre-se gratuitamente e comece a usar todas as funcionalidades agora mesmo.<br>
+                Sem cartão de crédito. Sem pegadinhas. 100% gratuito!
+            </p>
+            <a href="register.html" class="btn-hero btn-hero-primary" style="font-size: 1.3rem; padding: 20px 50px;">
+                🚀 Criar Conta Grátis Agora
+            </a>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer class="landing-footer">
+        <div class="footer-content">
+            <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 10px;">
+                🌾 Porteira Preta - Sistema Profissional de Gestão Rural
+            </p>
+            <p style="opacity: 0.8;">
+                © 2025 Porteira Preta. Todos os direitos reservados.<br>
+                Desenvolvido com ❤️ para o agronegócio brasileiro
+            </p>
+            <p style="margin-top: 20px; opacity: 0.7; font-size: 0.9rem;">
+                <a href="index.html" style="color: white; text-decoration: none; margin: 0 10px;">Entrar</a> |
+                <a href="register.html" style="color: white; text-decoration: none; margin: 0 10px;">Cadastrar</a> |
+                <a href="mailto:contato@porteirapreta.com" style="color: white; text-decoration: none; margin: 0 10px;">Contato</a>
+            </p>
+        </div>
+    </footer>
+    
+    <script>
+        // Scroll suave para âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
